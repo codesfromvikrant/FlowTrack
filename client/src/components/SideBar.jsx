@@ -51,7 +51,7 @@ const SideBar = () => {
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
               <img src={exploreIcon} className="w-7" />
-              <p className="font-medium text-base tracking-wide">Explore</p>
+              <p className="font-medium text-base tracking-wide">Dashboard</p>
             </NavLink>
 
             <NavLink
@@ -85,7 +85,7 @@ const SideBar = () => {
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
               <img src={notesIcon} className="w-7" />
-              <p className="font-medium tracking-wide">Notes & Docs</p>
+              <p className="font-medium tracking-wide">Documents</p>
             </NavLink>
 
             <NavLink

@@ -7,10 +7,12 @@ const notesRoutes = require('./routes/notesRoutes');
 
 app.use(express.json());
 
+app.use(cors());
+
 // Routes
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tags', tagsRouter);
 app.use('/api/v1/notes', notesRoutes);
 
-app.use(cors());
+
 module.exports = app;
