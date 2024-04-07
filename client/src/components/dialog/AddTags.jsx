@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { addInTagsAvailable } from "../../features/notesSlice";
+import { addInTagsAvailable } from "../../features/documentsSlice";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -9,20 +9,7 @@ const AddTags = ({ tagsSelected, addTagsSelected }) => {
   const [value, setValue] = useState("");
   const [mssg, setMssg] = useState("");
   const uid = useSelector((state) => state.auth.uid);
-  const tagsAvailable = useSelector((state) => state.notes.filtered_tags);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!uid) return;
-    async function getTagsAvailable() {
-      const docRef = doc(db, "users", uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.data().tags_available) {
-        dispatch(setFilteredTags(docSnap.data().tags_available));
-      }
-    }
-    getTagsAvailable();
-  }, [uid]);
 
   const addInTags = async () => {
     if (!uid) return;

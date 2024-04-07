@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/icons/workflow.png";
 import { BsGithub } from "react-icons/bs";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { useOutletContext } from "react-router";
-import LoginforTest from "../components/LoginforTest";
+import Signin from "../components/Signin";
+import { useSelector } from "react-redux";
+import Signup from "src/components/Signup";
+import { useNavigate } from "react-router";
 
 export default function Home() {
   const [googleAuth, gitAuth, emailAuth] = useOutletContext();
+  const signupVisible = useSelector((state) => state.auth.signupVisible);
+  const loggedIn = useSelector((state) => state.auth.logged_in);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/user");
+    }
+  }, [loggedIn]);
 
   const style = {
     background: "linear-gradient(45deg, #19181b 40%, #101011 60%)",
@@ -39,7 +51,7 @@ export default function Home() {
         </div>
 
         <div className="lg:w-1/3 md:w-1/2 sm:w-2/3 w-full flex justify-center items-center gap-2  flex-col">
-          <LoginforTest emailAuth={emailAuth} />
+          {signupVisible ? <Signup /> : <Signin />}
           <p className="text-gray-200 text-4xl font-extrabold text-center">
             or
           </p>

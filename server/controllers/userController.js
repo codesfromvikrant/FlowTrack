@@ -47,7 +47,6 @@ exports.signin = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     next(new AppError('Incorrect email or password', 401));
   }
-
   createToken(user, 200, res);
 })
 
