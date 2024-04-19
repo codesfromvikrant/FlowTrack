@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import projectIcon from "../assets/icons/project_lab.png";
 import NotesIcon from "../assets/icons/notes.png";
 import galleryIcon from "../assets/icons/gallery.png";
 import { useNavigate } from "react-router";
-
-import ProjectBanner from "../components/explore/ProjectBanner";
+import ProjectBanner from "../components/explore/ProjectBanner.tsx";
 
 const Explore = () => {
   const navigate = useNavigate();

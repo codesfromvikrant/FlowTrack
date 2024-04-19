@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,10 +9,10 @@ import { FaTrash } from "react-icons/fa";
 import { MdPublish } from "react-icons/md";
 import { FaShare } from "react-icons/fa";
 import { IoCloudDownloadSharp } from "react-icons/io5";
-import ConfirmaModal from "src/components/ConfirmaModal";
+import ConfirmaModal from "src/components/ConfirmaModal.tsx";
 import { setConfirmModal } from "src/features/globalSlice";
 import { toast } from "react-toastify";
-import axios from "axios";
+
 import {
   createDocument,
   deleteDocument,

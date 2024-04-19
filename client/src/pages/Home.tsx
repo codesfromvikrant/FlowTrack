@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Logo from "../assets/icons/workflow.png";
 import { BsGithub } from "react-icons/bs";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { useOutletContext } from "react-router";
-import Signin from "../components/Signin";
+import Signin from "src/components/Signin.tsx";
 import { useSelector } from "react-redux";
-import Signup from "src/components/Signup";
+import Signup from "src/components/Signup.tsx";
 import { useNavigate } from "react-router";
 
 export default function Home() {

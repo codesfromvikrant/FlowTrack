@@ -1,4 +1,3 @@
-import React from "react";
 import { setConfirmModal } from "src/features/globalSlice";
 import { useDispatch } from "react-redux";
 

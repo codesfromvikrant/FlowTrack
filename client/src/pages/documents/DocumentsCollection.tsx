@@ -1,9 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
-import Menu from "../../components/Menu";
-import Header from "src/components/documents/Header";
+import Menu from "src/components/Menu.tsx";
+import Header from "src/components/documents/Header.tsx";
 import useDocsFilter from "src/hooks/useDocsFilter";
 import FilteredTagsList from "src/components/documents/documentTags/FilteredTagsList";
 
@@ -44,20 +43,12 @@ const Collection = () => {
   return (
     <div className="py-5 sm:px-6 px-4 max-w-6xl mx-auto">
       <Header selectedTags={selectedTags} handleTags={handleTags} />
-      {/* {tags_selected.length > 0 && (
-        <div className="flex justify-start items-center gap-2 mb-4">
-          <span className="text-gray-200 font-medium">Filtered By : </span>
-          {tagsSelectedList}
-          <button className="bg-glassyred border-2 border-red-600 text-gray-200 text-xs tracking-wide px-2 py-1 rounded font-semibold">
-            Close All
-          </button>
-        </div>
-      )} */}
 
       <FilteredTagsList
         selectedFilterTags={selectedTags}
         handleTags={handleTags}
       />
+
       <div className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-3 mt-3">
         {documentItems}
       </div>
