@@ -72,7 +72,7 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/user/notes"
+              to="/user/documents"
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#2564eb68" : "",

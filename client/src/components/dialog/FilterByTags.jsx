@@ -1,5 +1,5 @@
 import React from "react";
-import Filtering from "../notes/Filtering";
+import Filtering from "../documents/Filtering";
 
 const FilterByTags = () => {
   return (

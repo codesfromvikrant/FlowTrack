@@ -1,21 +1,33 @@
 import React, { useEffect } from "react";
-import Header from "../../components/notes/Header";
-import Collection from "../../components/notes/Collection";
 import { useDispatch } from "react-redux";
+import { Outlet } from "react-router";
+import { getAllDocuments } from "src/features/documentsSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DocumentsRoot = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    document.title = "Notes & Docs | WorkFlow";
+    document.title = "Documents | WorkFlow";
+    dispatch(getAllDocuments());
   }, []);
 
   return (
     <main className="w-full h-[100vh] overflow-y-auto">
-      <div className="py-5 sm:px-6 px-4 max-w-6xl mx-auto ">
-        <Header />
-        <Collection />
-      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <Outlet />
     </main>
   );
 };
