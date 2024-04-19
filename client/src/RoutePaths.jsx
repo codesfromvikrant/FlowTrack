@@ -6,12 +6,13 @@ import Protected from "src/Protected";
 import Gallery from "src/pages/Gallery";
 import Layout from "src/pages/Layout";
 import DocumentsRoot from "src/pages/documents/DocumentsRoot";
-import NotesCRUD from "src/pages/NotesCRUD";
 import Explore from "src/pages/Explore";
 import ProjectHome from "src/components/projects/ProjectHome";
 import NoPage from "src/pages/NoPage";
 import TaskManager from "src/components/projects/TaskManager";
 import ProjectsLab from "src/pages/ProjectsLab";
+import DocumentsEditor from "./pages/documents/DocumentsEditor";
+import DocumentsCollection from "./pages/documents/DocumentsCollection";
 
 const RoutePaths = () => {
   return (
@@ -33,8 +34,11 @@ const RoutePaths = () => {
             <Route path="tasks" element={<TaskManager />} />
           </Route>
           <Route path="gallery" element={<Gallery />} />
-          <Route path="notes" element={<DocumentsRoot />} />
-          <Route path="notes/:nid" element={<NotesCRUD />} />
+          {/* Documents */}
+          <Route path="documents" element={<DocumentsRoot />}>
+            <Route index element={<DocumentsCollection />} />
+            <Route path="editor" element={<DocumentsEditor />} />
+          </Route>
         </Route>
       </Route>
       <Route path="*" element={<NoPage />} />

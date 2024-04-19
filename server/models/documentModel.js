@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.Schema({
+const documentSchema = new mongoose.Schema({
   title: {
     type: String
   },
@@ -11,10 +11,6 @@ const noteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
   }],
-  public: {
-    type: Boolean,
-    default: false
-  },
   pinned: {
     type: Boolean,
     default: false
@@ -33,5 +29,5 @@ const noteSchema = new mongoose.Schema({
   }
 });
 
-const Note = mongoose.model('Note', noteSchema);
-module.exports = Note;
+const Document = mongoose.model('Note', documentSchema);
+module.exports = Document;

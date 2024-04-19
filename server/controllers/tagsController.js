@@ -17,7 +17,15 @@ exports.getAllTags = catchAsync(async (req, res, next) => {
 });
 
 exports.createTag = catchAsync(async (req, res, next) => {
-  const tag = await Tag.create(req.body);
+  const { name } = req.body;
+  let tag = await Tag.findOne({ name });
+  if (tag) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Tag already exists'
+    });
+  }
+  tag = await Tag.create(req.body);
   res.status(201).json({
     status: 'success',
     data: {
