@@ -1,15 +1,13 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "src/pages/Home";
 import UserPortal from "src/pages/UserPortal";
 import Protected from "src/Protected";
-import Gallery from "src/pages/Gallery";
 import Layout from "src/pages/Layout";
 import DocumentsRoot from "src/pages/documents/DocumentsRoot";
 import Explore from "src/pages/Explore";
 import ProjectHome from "src/components/projects/ProjectHome";
 import NoPage from "src/pages/NoPage";
-import TaskManager from "src/components/projects/TaskManager";
+import TaskManager from "src/components/projects/TaskManager.tsx";
 import ProjectsLab from "src/pages/ProjectsLab";
 import DocumentsEditor from "./pages/documents/DocumentsEditor";
 import DocumentsCollection from "./pages/documents/DocumentsCollection";
@@ -33,7 +31,7 @@ const RoutePaths = () => {
             <Route index element={<ProjectHome />} />
             <Route path="tasks" element={<TaskManager />} />
           </Route>
-          <Route path="gallery" element={<Gallery />} />
+
           {/* Documents */}
           <Route path="documents" element={<DocumentsRoot />}>
             <Route index element={<DocumentsCollection />} />

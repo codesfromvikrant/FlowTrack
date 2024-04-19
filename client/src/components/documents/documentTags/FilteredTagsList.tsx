@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { IoCloseCircleSharp } from "react-icons/io5";
 
@@ -7,7 +6,7 @@ const FilteredTagsList = ({ selectedFilterTags, handleTags }) => {
   const tags_selected = documentTags.filter((tag) =>
     selectedFilterTags.includes(tag._id)
   );
-  console.log(tags_selected);
+
   const tagsSelectedList =
     tags_selected &&
     Object.entries(tags_selected).map(([key, value]) => {

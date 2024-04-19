@@ -1,6 +1,5 @@
-import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import RoutePaths from "src/RoutePaths";
+import RoutePaths from "../src/RoutePaths";
 
 const App = () => {
   return (
