@@ -10,7 +10,7 @@ import NoPage from "src/pages/NoPage";
 import TaskManager from "src/components/projects/TaskManager.tsx";
 import ProjectsLab from "src/pages/ProjectsLab";
 import DocumentsEditor from "./pages/documents/DocumentsEditor";
-import DocumentsCollection from "./pages/documents/DocumentsCollection";
+import DocumentsLayout from "./pages/documents/DocumentsLayout";
 
 const RoutePaths = () => {
   return (
@@ -34,7 +34,7 @@ const RoutePaths = () => {
 
           {/* Documents */}
           <Route path="documents" element={<DocumentsRoot />}>
-            <Route index element={<DocumentsCollection />} />
+            <Route index element={<DocumentsLayout />} />
             <Route path="editor" element={<DocumentsEditor />} />
           </Route>
         </Route>

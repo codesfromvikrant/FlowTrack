@@ -9,7 +9,7 @@ const initialState = {
   tags: {
     data: [],
     error: "",
-  }
+  },
 };
 
 export const documentsSlice = createSlice({
@@ -54,11 +54,11 @@ export const {
 
 const catchAsync = (fn) => {
   return (dispatch, getState) => {
-    fn(dispatch, getState).catch(error => console.error(error));
+    fn(dispatch, getState).catch((error) => console.error(error));
   };
 };
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const headersTypeJson = {
   headers: {
@@ -66,68 +66,100 @@ const headersTypeJson = {
   },
 };
 
-export const getAllDocuments = (filterTags = []) => catchAsync(async (dispatch, getState) => {
-  let queryString = '';
-  filterTags.forEach((tagId) => {
-    queryString += `tags[]=${tagId}&`;
+export const getAllDocuments = (
+  page: number = 1,
+  limit: number = 10,
+  filterTags: string[] = [],
+  searchTerm: string = ""
+) =>
+  catchAsync(async (dispatch, getState) => {
+    let queryString = "";
+    filterTags.forEach((tagId) => {
+      queryString += `tags[]=${tagId}&`;
+    });
+
+    const response = await axios.get(
+      `${apiBaseUrl}documents?page=${page}&limit=${limit}&search=${searchTerm}&${queryString}`
+    );
+    const { data } = await response.data;
+    const { documents } = data;
+    dispatch(setAllData({ key: "documents", value: documents }));
   });
-  console.log(`${apiBaseUrl}documents?${queryString}`);
-  const response = await axios.get(`${apiBaseUrl}documents?${queryString}`);
-  const { data } = await response.data;
-  const { documents } = data;
-  dispatch(setAllData({ key: 'documents', value: documents }));
-})
 
-export const getDocument = (id) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.get(`${apiBaseUrl}documents/${id}`);
-  const { data } = await response.data;
-  const { document } = data;
-  dispatch(setCurrentData({ key: 'documents', value: document }));
-})
+export const getDocument = (id) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.get(`${apiBaseUrl}documents/${id}`);
+    const { data } = await response.data;
+    const { document } = data;
+    dispatch(setCurrentData({ key: "documents", value: document }));
+  });
 
-export const updateDocument = (id, updatedDocument) => catchAsync(async (dispatch, getState) => {
-  await axios.patch(`${apiBaseUrl}documents/${id}`, updatedDocument, headersTypeJson);
-  dispatch(updateData({ key: 'documents', value: { id, data: updatedDocument } }));
-})
+export const updateDocument = (id, updatedDocument) =>
+  catchAsync(async (dispatch, getState) => {
+    await axios.patch(
+      `${apiBaseUrl}documents/${id}`,
+      updatedDocument,
+      headersTypeJson
+    );
+    dispatch(
+      updateData({ key: "documents", value: { id, data: updatedDocument } })
+    );
+  });
 
-export const createDocument = (newDocument, setSearchParams) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.post(`${apiBaseUrl}documents`, newDocument, headersTypeJson);
-  const { data } = await response.data;
-  const { document } = data;
-  dispatch(addData({ key: 'documents', value: document }));
-  const documentId = document._id;
-  setSearchParams({ documentId });
-})
+export const createDocument = (newDocument, setSearchParams) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.post(
+      `${apiBaseUrl}documents`,
+      newDocument,
+      headersTypeJson
+    );
+    const { data } = await response.data;
+    const { document } = data;
+    dispatch(addData({ key: "documents", value: document }));
+    const documentId = document._id;
+    setSearchParams({ documentId });
+  });
 
-export const deleteDocument = (id) => catchAsync(async (dispatch, getState) => {
-  await axios.delete(`${apiBaseUrl}documents/${id}`);
-  dispatch(deleteData({ key: 'documents', value: { id } }));
-})
+export const deleteDocument = (id) =>
+  catchAsync(async (dispatch, getState) => {
+    await axios.delete(`${apiBaseUrl}documents/${id}`);
+    dispatch(deleteData({ key: "documents", value: { id } }));
+  });
 
 // Tags
-export const getAllTags = () => catchAsync(async (dispatch, getState) => {
-  const response = await axios.get(`${apiBaseUrl}tags?category=documents`);
-  const { data } = await response.data;
-  const { tags } = data;
-  dispatch(setAllData({ key: 'tags', value: tags }));
-})
+export const getAllTags = () =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.get(`${apiBaseUrl}tags?category=documents`);
+    const { data } = await response.data;
+    const { tags } = data;
+    dispatch(setAllData({ key: "tags", value: tags }));
+  });
 
-export const createNewTag = (newTag) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.post(`${apiBaseUrl}tags`, newTag, headersTypeJson);
-  const { status } = response.data;
-  if (status === 'fail') {
-    dispatch(setTagError(response.data.message));
-    return;
-  }
-  dispatch(addData({ key: 'tags', value: newTag }));
-})
+export const createNewTag = (newTag) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.post(
+      `${apiBaseUrl}tags`,
+      newTag,
+      headersTypeJson
+    );
+    const { status } = response.data;
+    if (status === "fail") {
+      dispatch(setTagError(response.data.message));
+      return;
+    }
+    dispatch(addData({ key: "tags", value: newTag }));
+  });
 
-export const updateDocumentTags = (id, tagId) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.post(`${apiBaseUrl}documents/tags/${id}`, { tagId }, headersTypeJson);
-  const { data } = response.data;
-  const { document } = data;
-  dispatch(updateData({ key: 'documents', value: { id, data: document } }));
-})
-
+export const updateDocumentTags = (id, tagId) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.post(
+      `${apiBaseUrl}documents/tags/${id}`,
+      { tagId },
+      headersTypeJson
+    );
+    const { data } = response.data;
+    const { document } = data;
+    dispatch(updateData({ key: "documents", value: { id, data: document } }));
+  });
 
 export default documentsSlice.reducer;

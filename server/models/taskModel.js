@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-
-const documentSchema = new mongoose.Schema({
-  title: {
-    type: String
-  },
-  content: {
+const taskSchema = new mongoose.Schema({
+  name: {
     type: String,
+    required: [true, 'Please provide a name for the project'],
+  },
+  description: {
+    type: String,
+    required: [true, 'Please provide a description for the project'],
   },
   tags: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -27,11 +28,5 @@ const documentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  lastUpdatedAt: {
-    type: Date,
-    default: Date.now
-  }
 });
-
-const Document = mongoose.model('Note', documentSchema);
-module.exports = Document;
+module.exports = mongoose.model('Task', taskSchema)

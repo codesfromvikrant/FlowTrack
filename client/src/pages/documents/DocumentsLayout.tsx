@@ -5,12 +5,14 @@ import Menu from "src/components/Menu.tsx";
 import Header from "src/components/documents/Header.tsx";
 import useDocsFilter from "src/hooks/useDocsFilter";
 import FilteredTagsList from "src/components/documents/documentTags/FilteredTagsList";
+import Pagination from "src/components/Pagination";
 
-const Collection = () => {
-  const documents = useSelector((state) => state.documents.documents);
+const DocumentsLayout = () => {
+  const documents = useSelector((state: any) => state.documents.documents);
   const allDocumentsData = documents.data;
 
-  const { selectedTags, handleTags } = useDocsFilter();
+  const { selectedTags, docsPerPage, searchTerm, handleTags, handleSearch } =
+    useDocsFilter();
 
   const documentItems = allDocumentsData?.map((obj) => {
     const title =
@@ -42,18 +44,30 @@ const Collection = () => {
 
   return (
     <div className="py-5 sm:px-6 px-4 max-w-6xl mx-auto">
-      <Header selectedTags={selectedTags} handleTags={handleTags} />
+      <Header
+        selectedTags={selectedTags}
+        handleTags={handleTags}
+        searchTerm={searchTerm}
+        handleSearch={handleSearch}
+      />
 
       <FilteredTagsList
         selectedFilterTags={selectedTags}
         handleTags={handleTags}
       />
 
-      <div className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-3 mt-3">
+      <p className="text-slate-200 text-lg font-semibold tracking-wide">
+        {searchTerm
+          ? `Searched Documents (${allDocumentsData.length})`
+          : `All Documents (${allDocumentsData.length})`}
+      </p>
+      <div className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-3 my-2">
         {documentItems}
       </div>
+
+      <Pagination totalCount={2000} docsPerPage={docsPerPage} />
     </div>
   );
 };
 
-export default Collection;
+export default DocumentsLayout;

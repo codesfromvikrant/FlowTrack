@@ -3,15 +3,31 @@ const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllDocuments = catchAsync(async (req, res, next) => {
-  const tags = req.query.tags;
+  const { tags, page, limit, search } = req.query;
 
-  let documents;
-  if (tags) {
-    documents = await Document.find({ tags: { $in: tags } });
-  } else {
-    documents = await Document.find();
+  let query = {};
+
+  if (search) {
+    query = {
+      $or: [
+        { title: { $regex: search, $options: 'i' } },
+        { content: { $regex: search, $options: 'i' } }
+      ]
+    };
   }
 
+  if (tags) {
+    query.tags = { $in: tags };
+  }
+
+  let documents = [];
+  if (Object.keys(query).length === 0) {
+    documents = await Document.find().limit(limit).skip((page - 1) * limit);
+  } else {
+    documents = await Document.find(query).limit(limit).skip((page - 1) * limit);
+  }
+
+  if (!documents) return next(new AppError('No documents found', 404));
   res.status(200).json({
     status: 'success',
     results: documents.length,
