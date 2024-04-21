@@ -1,59 +1,66 @@
-import React, { useState } from "react";
 import { BiSolidAddToQueue } from "react-icons/bi";
 import { HiDocument } from "react-icons/hi";
 import { FaTrash } from "react-icons/fa";
 import { ImPriceTags } from "react-icons/im";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import FilterTags from "./documentTags/FilterTags";
+import IconButton from "../IconButton";
+import SearchBar from "../SearchBar";
 
-const Header = ({ selectedTags, handleTags }) => {
+interface HeaderProps {
+  selectedTags: string[];
+  handleTags: () => void;
+  searchTerm: string;
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  selectedTags,
+  handleTags,
+  searchTerm,
+  handleSearch,
+}) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState("");
-
-  const archive = searchParams.get("archive") === "true" ? true : false;
+  const Pinned = searchParams.get("pinned") === "true" ? true : false;
 
   return (
     <div className="flex justify-start items-center md:flex-nowrap flex-wrap gap-3 text-slate-400">
-      <button
+      <IconButton
         onClick={() => navigate("./editor?documentId=")}
-        className="flex justify-start items-center gap-2 shadow-md bg-primary border-[1px] border-gray-800 hover:bg-blue-700 transition-all duration-500 py-3 px-5 rounded-lg w-max text-gray-200"
-      >
-        <span className="w-max tracking-wide text-sm font-medium">
-          Add New Note
-        </span>
-        <BiSolidAddToQueue className="text-xl" />
-      </button>
+        label="New"
+        icon={<BiSolidAddToQueue className="text-xl" />}
+        active={false}
+      />
 
-      <button className="flex justify-start items-center gap-1 bg-primary border-[1px] border-gray-800 hover:bg-blue-700 hover:text-white transition-all duration-500 text-sm py-3 px-5 shadow-md rounded-lg font-medium">
-        <span className="tracking-wide">All</span>
-        <HiDocument className="text-xl" />
-      </button>
+      <IconButton
+        onClick={() => setSearchParams("")}
+        label="All"
+        icon={<HiDocument className="text-xl" />}
+        active={false}
+      />
 
-      <button
-        className={`${
-          archive
-            ? "bg-glassyblue border-2 border-blue-600"
-            : "bg-primary border-[1px] border-gray-800"
-        } flex justify-start items-center gap-2 hover:bg-blue-700 hover:text-white transition-all duration-500 text-sm py-3 px-5 shadow-md rounded-lg font-medium`}
-      >
-        <span className="tracking-wide">Archive</span>
-        <FaTrash className="text-base" />
-      </button>
+      <IconButton
+        onClick={() => setSearchParams({ pinned: !Pinned })}
+        label="Pinned"
+        icon={<FaTrash className="text-base" />}
+        active={false}
+      />
 
       <div className="relative">
-        <button className="flex justify-start items-center gap-2 bg-primary border-[1px] border-gray-800 hover:bg-blue-700 hover:text-white transition-all duration-500 text-sm py-3 px-5 shadow-md w-max rounded-lg font-medium">
-          <span className="tracking-wide w-max">Filter By Tags</span>
-          <ImPriceTags className="text-xl " />
-        </button>
+        <IconButton
+          onClick={handleTags}
+          label="Filter By Tags"
+          icon={<ImPriceTags className="text-xl" />}
+          active={false}
+        />
         <FilterTags selectedTags={selectedTags} handleTags={handleTags} />
       </div>
 
-      <input
-        type="text"
-        value={value}
-        placeholder="Search For Notes..."
-        className="p-3 rounded-lg text-sm font-medium bg-primary border-[1px] border-gray-800 w-full"
+      <SearchBar
+        searchTerm={searchTerm}
+        handleSearch={handleSearch}
+        placeholder="Search For Documents..."
       />
     </div>
   );

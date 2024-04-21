@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../assets/icons/workflow.png";
 import UserIntro from "./UserIntro";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,6 @@ import exploreIcon from "../assets/icons/explore.png";
 import projectIcon from "../assets/icons/project_lab.png";
 import notesIcon from "../assets/icons/notes.png";
 import galleryIcon from "../assets/icons/gallery.png";
-import supportIcon from "../assets/icons/support.png";
 import logoutIcon from "../assets/icons/log_out.png";
 import settingIcon from "../assets/icons/settings.png";
 import LinkedinIcon from "../assets/icons/linkedin.png";
@@ -16,12 +14,23 @@ import { setLoggedIn } from "../features/authSlice";
 const SideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const activeStyle = (isActive: boolean) => {
+    return {
+      backgroundColor: isActive ? "#2564eb68" : "",
+      color: isActive ? "#fff" : "",
+      border: isActive ? "2px solid #2563eb" : "",
+      padding: isActive ? "0.5rem" : "",
+      margin: isActive ? "0.3rem 0" : "",
+    };
+  };
   const signOut = () => {
     sessionStorage.removeItem("user_data");
     dispatch(setLoggedIn(false));
     navigate("/");
   };
-  const sidebar = useSelector((state) => state.auth.show_sidebar);
+
+  const sidebar = useSelector((state: any) => state.auth.show_sidebar);
   return (
     <div
       className={`${
@@ -35,18 +44,13 @@ const SideBar = () => {
             WorkFLow
           </p>
         </div>
+
         <nav className="w-full">
           <ul className="w-full">
             <NavLink
               to="/user/explore"
               style={({ isActive }) => {
-                return {
-                  backgroundColor: isActive ? "#2564eb68" : "",
-                  color: isActive ? "#fff" : "",
-                  border: isActive ? "2px solid #2563eb" : "",
-                  padding: isActive ? "0.5rem" : "",
-                  margin: isActive ? "0.3rem 0" : "",
-                };
+                return activeStyle(isActive);
               }}
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
@@ -57,30 +61,29 @@ const SideBar = () => {
             <NavLink
               to="/user/projects"
               style={({ isActive }) => {
-                return {
-                  backgroundColor: isActive ? "#2564eb68" : "",
-                  color: isActive ? "#fff" : "",
-                  border: isActive ? "2px solid #2563eb" : "",
-                  padding: isActive ? "0.5rem" : "",
-                  margin: isActive ? "0.3rem 0" : "",
-                };
+                return activeStyle(isActive);
               }}
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
               <img src={projectIcon} className="w-7" />
-              <p className="font-medium tracking-wide">Projects Lab</p>
+              <p className="font-medium tracking-wide">Workspaces</p>
+            </NavLink>
+
+            <NavLink
+              to="/user/gallery"
+              style={({ isActive }) => {
+                return activeStyle(isActive);
+              }}
+              className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
+            >
+              <img src={galleryIcon} className="w-7" />
+              <p className="font-medium tracking-wide">Tasks</p>
             </NavLink>
 
             <NavLink
               to="/user/documents"
               style={({ isActive }) => {
-                return {
-                  backgroundColor: isActive ? "#2564eb68" : "",
-                  color: isActive ? "#fff" : "",
-                  border: isActive ? "2px solid #2563eb" : "",
-                  padding: isActive ? "0.5rem" : "",
-                  margin: isActive ? "0.3rem 0" : "",
-                };
+                return activeStyle(isActive);
               }}
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
@@ -89,32 +92,9 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/user/gallery"
-              style={({ isActive }) => {
-                return {
-                  backgroundColor: isActive ? "#2564eb68" : "",
-                  color: isActive ? "#fff" : "",
-                  border: isActive ? "2px solid #2563eb" : "",
-                  padding: isActive ? "0.5rem" : "",
-                  margin: isActive ? "0.3rem 0" : "",
-                };
-              }}
-              className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
-            >
-              <img src={galleryIcon} className="w-7" />
-              <p className="font-medium tracking-wide">My Gallery</p>
-            </NavLink>
-
-            <NavLink
               to="/user/settings"
               style={({ isActive }) => {
-                return {
-                  backgroundColor: isActive ? "#2564eb68" : "",
-                  color: isActive ? "#fff" : "",
-                  border: isActive ? "2px solid #2563eb" : "",
-                  padding: isActive ? "0.5rem" : "",
-                  margin: isActive ? "0.3rem 0" : "",
-                };
+                return activeStyle(isActive);
               }}
               className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
             >
