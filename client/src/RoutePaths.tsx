@@ -11,6 +11,7 @@ import TaskManager from "src/components/projects/TaskManager.tsx";
 import ProjectsLab from "src/pages/ProjectsLab";
 import DocumentsEditor from "./pages/documents/DocumentsEditor";
 import DocumentsLayout from "./pages/documents/DocumentsLayout";
+import Workspace from "./pages/Workspace";
 
 const RoutePaths = () => {
   return (
@@ -27,6 +28,11 @@ const RoutePaths = () => {
         >
           <Route index element={<Explore />} />
           <Route path="*" element={<NoPage />} />
+
+          {/* Workspaces */}
+          <Route path="workspaces" element={<Workspace />} />
+
+          {/* Projects */}
           <Route path="projects" element={<ProjectsLab />}>
             <Route index element={<ProjectHome />} />
             <Route path="tasks" element={<TaskManager />} />

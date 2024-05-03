@@ -59,7 +59,7 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/user/projects"
+              to="/user/workspaces"
               style={({ isActive }) => {
                 return activeStyle(isActive);
               }}
@@ -67,6 +67,17 @@ const SideBar = () => {
             >
               <img src={projectIcon} className="w-7" />
               <p className="font-medium tracking-wide">Workspaces</p>
+            </NavLink>
+
+            <NavLink
+              to="/user/projects"
+              style={({ isActive }) => {
+                return activeStyle(isActive);
+              }}
+              className="flex justify-start items-center gap-2 text-slate-400 hover:text-gray-200 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
+            >
+              <img src={projectIcon} className="w-7" />
+              <p className="font-medium tracking-wide">Projects</p>
             </NavLink>
 
             <NavLink

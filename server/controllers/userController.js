@@ -31,9 +31,28 @@ const createToken = (user, statusCode, res) => {
   });
 }
 
+function containsSpecialCharOrSpace(text) {
+  const regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  return regex.test(text) || text.includes(' ');
+}
+
+// Usage
+console.log(containsSpecialCharOrSpace("Hello, World!")); // true
+console.log(containsSpecialCharOrSpace("Hello World")); // true
+console.log(containsSpecialCharOrSpace("HelloWorld")); // false
+
 exports.signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, passwordConfirm } = req.body;
-  const newUser = await User.create({ name, email, password, passwordConfirm });
+  const { username, email, password, passwordConfirm } = req.body;
+
+  if (containsSpecialCharOrSpace(username)) {
+    return next(new AppError('Please provide a valid username', 400));
+  }
+  const uniqueUsername = await User.findOne({ username });
+  if (uniqueUsername) {
+    return next(new AppError('Username already exists', 400));
+  }
+
+  const newUser = await User.create({ username, email, password, passwordConfirm });
 
   createToken(newUser, 201, res);
 })
@@ -78,4 +97,17 @@ exports.authorizeToken = catchAsync(async (req, res, next) => {
   // }
   req.user = currentUser;
   next();
+})
+
+exports.getUserByUsername = catchAsync(async (req, res, next) => {
+  const { searchterm } = req.params;
+  const user = await User.findOne({ username: new RegExp(searchterm, 'i') }).limit(10);
+  if (!user) return next(new AppError('No user found with that username', 404));
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user
+    }
+  });
 })
