@@ -1,20 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  confirmModal: false
+  modal: true,
 };
 
 export const globalSlice = createSlice({
-  name: 'global',
+  name: "global",
   initialState,
   reducers: {
-    setConfirmModal: (state, action) => {
-      state.confirmModal = action.payload;
+    toggleModalVisibility: (state, action) => {
+      state.modal = action.payload;
     },
   },
 });
 
-export const {
-  setConfirmModal
-} = globalSlice.actions;
+export const { toggleModalVisibility } = globalSlice.actions;
 export default globalSlice.reducer;

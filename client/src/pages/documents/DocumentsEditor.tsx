@@ -9,8 +9,7 @@ import { FaTrash } from "react-icons/fa";
 import { MdPublish } from "react-icons/md";
 import { FaShare } from "react-icons/fa";
 import { IoCloudDownloadSharp } from "react-icons/io5";
-import ConfirmaModal from "src/components/ConfirmaModal.tsx";
-import { setConfirmModal } from "src/features/globalSlice";
+import { toggleModalVisibility } from "src/features/globalSlice";
 import { toast } from "react-toastify";
 
 import {
@@ -21,6 +20,7 @@ import {
   updateDocumentTags,
 } from "src/features/documentsSlice";
 import TagsEditor from "src/components/documents/documentTags/TagsEditor";
+import ConfirmModal from "src/components/Modal/ConfirmModal";
 
 const modules = {
   toolbar: [
@@ -125,7 +125,7 @@ const Editor = () => {
     dispatch(deleteDocument(documentId));
     toast.info("Deleted Document Successfully!");
     navigate("../");
-    dispatch(setConfirmModal(false));
+    dispatch(toggleModalVisibility(false));
   };
 
   const handleBack = () => {
@@ -135,11 +135,11 @@ const Editor = () => {
   return (
     <div className="w-full h-[100vh] overflow-y-auto">
       {confirmModalView && (
-        <ConfirmaModal handleOk={handleDelete}>
+        <ConfirmModal handleOk={handleDelete}>
           <h1 className="text-xl font-normal text-gray-200">
             Are you sure you want to delete this document?
           </h1>
-        </ConfirmaModal>
+        </ConfirmModal>
       )}
 
       <div className="max-w-4xl mx-auto bg-secondary py-4 sm:px-6 px-3 rounded-lg shadow-md mt-4 ">
