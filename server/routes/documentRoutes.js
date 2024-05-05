@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const documentController = require('../controllers/documentController');
+const { authorizeToken } = require('../controllers/userController');
 
+router.use(authorizeToken);
 router.route('/')
   .get(documentController.getAllDocuments)
   .post(documentController.createDocument);

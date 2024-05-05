@@ -36,11 +36,6 @@ function containsSpecialCharOrSpace(text) {
   return regex.test(text) || text.includes(' ');
 }
 
-// Usage
-console.log(containsSpecialCharOrSpace("Hello, World!")); // true
-console.log(containsSpecialCharOrSpace("Hello World")); // true
-console.log(containsSpecialCharOrSpace("HelloWorld")); // false
-
 exports.signup = catchAsync(async (req, res, next) => {
   const { username, email, password, passwordConfirm } = req.body;
 
