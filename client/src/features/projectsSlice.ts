@@ -1,76 +1,114 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-  ongoing: [],
-  filter_ongoing: [],
-  completed: [],
-  filter_completed: [],
-  archived: [],
-  filter_archived: [],
-  editproject_id: null,
-  project_editor: false,
+  projects: {
+    data: [],
+    currentId: "",
+    currentData: {},
+  },
+  activeCreateProject: false,
+  tags: {
+    data: [],
+    error: "",
+  },
 };
 
 export const projectsSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
-    setOngoing: (state, action) => {
-      state.ongoing = action.payload;
-      state.filter_ongoing = action.payload;
+    setAllData: (state, action) => {
+      const { key, value } = action.payload;
+      state[key].data = value;
     },
-    addInOngoing: (state, action) => {
-      state.ongoing.push(action.payload);
-      state.filter_ongoing.push(action.payload);
+    addData: (state, action) => {
+      const { key, value } = action.payload;
+      state[key].data.push(value);
     },
-    setCompleted: (state, action) => {
-      state.completed = action.payload;
-      state.filter_completed = action.payload;
+    updateData: (state, action) => {
+      const { key, value } = action.payload;
+      const index = state[key].data.findIndex((item) => item._id === value.id);
+      state[key].data[index] = value.data;
     },
-    addInCompleted: (state, action) => {
-      state.completed.push(action.payload);
-      state.filter_completed.push(action.payload);
+    deleteData: (state, action) => {
+      const { key, value } = action.payload;
+      state[key].data = state[key].data.filter((item) => item._id !== value.id);
     },
-    setArchived: (state, action) => {
-      state.archived = action.payload;
-      state.filter_archived = action.payload;
+    setTagError: (state, action) => {
+      state.tags.error = action.payload;
     },
-    addInArchived: (state, action) => {
-      state.archived.push(action.payload);
-      state.filter_archived.push(action.payload);
+    setCurrentData: (state, action) => {
+      const { key, value } = action.payload;
+      state[key].currentData = value;
     },
-    editProjectId: (state, action) => {
-      state.editproject_id = action.payload;
+    toggleActiveCreateProject: (state) => {
+      state.activeCreateProject = !state.activeCreateProject;
     },
-    projectEditor: (state, action) => {
-      state.project_editor = action.payload;
+    setProjectId: (state, action) => {
+      state.projects.currentId = action.payload;
     },
-
-    filterOngoing: (state, action) => {
-      state.filter_ongoing = action.payload;
-    },
-    filterCompleted: (state, action) => {
-      state.filter_completed = action.payload;
-    },
-    filterArchived: (state, action) => {
-      state.filter_archived = action.payload;
-    },
-
   },
 });
 
 export const {
-  setOngoing,
-  addInOngoing,
-  setCompleted,
-  addInCompleted,
-  setArchived,
-  addInArchived,
-  editProjectId,
-  projectEditor,
-
-  filterOngoing,
-  filterCompleted,
-  filterArchived,
+  setAllData,
+  addData,
+  updateData,
+  deleteData,
+  setTagError,
+  setCurrentData,
+  toggleActiveCreateProject,
+  setProjectId,
 } = projectsSlice.actions;
+
+const catchAsync = (fn) => {
+  return (dispatch, getState) => {
+    fn(dispatch, getState).catch((error) => console.error(error));
+  };
+};
+
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+const headersTypeJson = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+};
+
+export const getWorkspaceProjects = (id) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.get(
+      `${apiBaseUrl}projects?workspaceId=${id}`,
+      headersTypeJson
+    );
+    const { data } = await response.data;
+    const { projects } = data;
+    dispatch(setAllData({ key: "projects", value: projects }));
+  });
+
+export const getCurrentProjectData = (id) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.get(
+      `${apiBaseUrl}projects/${id}`,
+      headersTypeJson
+    );
+    const { data } = await response.data;
+    const { project } = data;
+    dispatch(setCurrentData({ key: "projects", value: project }));
+  });
+
+export const createProject = (formdata) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.post(
+      `${apiBaseUrl}projects`,
+      formdata,
+      headersTypeJson
+    );
+    const { data } = await response.data;
+    const { project } = data;
+    dispatch(addData({ key: "projects", value: project }));
+  });
+
 export default projectsSlice.reducer;

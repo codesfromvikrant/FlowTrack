@@ -9,22 +9,14 @@ const workspaceSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a description for the workspace'],
   },
-  // collaborators: [{
-  //   user_id: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'User',
-  //     required: true,
-  //   },
-  //   admin: {
-  //     type: Boolean,
-  //     required: true,
-  //   }
-  // }],
-  // author: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   required: true,
-  // },
+  manager: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   createdAt: {
     type: Date,
     default: Date.now

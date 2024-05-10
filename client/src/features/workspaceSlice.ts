@@ -4,8 +4,10 @@ import axios from "axios";
 const initialState = {
   workspace: {
     data: [],
+    currentId: "",
     currentData: {},
   },
+  activeWorkspaceForm: false,
   tags: {
     data: [],
     error: "",
@@ -40,6 +42,12 @@ export const workspaceSlice = createSlice({
       const { key, value } = action.payload;
       state[key].currentData = value;
     },
+    toggleActiveWorkspaceForm: (state) => {
+      state.activeWorkspaceForm = !state.activeWorkspaceForm;
+    },
+    setWorkspaceId: (state, action) => {
+      state.workspace.currentId = action.payload;
+    },
   },
 });
 
@@ -50,6 +58,8 @@ export const {
   deleteData,
   setTagError,
   setCurrentData,
+  toggleActiveWorkspaceForm,
+  setWorkspaceId,
 } = workspaceSlice.actions;
 
 const catchAsync = (fn) => {
@@ -63,6 +73,7 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 const headersTypeJson = {
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 };
 
@@ -74,10 +85,24 @@ export const addWorkspace = (formdata) =>
 
 export const getAllWorkspaces = () =>
   catchAsync(async (dispatch, getState) => {
-    const response = await axios.get(`${apiBaseUrl}workspaces`);
+    const response = await axios.get(
+      `${apiBaseUrl}workspaces`,
+      headersTypeJson
+    );
     const { data } = await response.data;
     const { workspaces } = data;
     dispatch(setAllData({ key: "workspace", value: workspaces }));
+  });
+
+export const getWorkspaceProjects = (id) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.get(
+      `${apiBaseUrl}workspaces/${id}/projects`,
+      headersTypeJson
+    );
+    const { data } = await response.data;
+    const { projects } = data;
+    dispatch(setAllData({ key: "workspace", value: projects }));
   });
 
 export default workspaceSlice.reducer;

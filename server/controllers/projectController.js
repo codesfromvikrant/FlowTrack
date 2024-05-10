@@ -3,7 +3,13 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 
 exports.getAllProjects = catchAsync(async (req, res, next) => {
-  const projects = await Project.find();
+  const { workspaceId } = req.query;
+  let projects;
+  if (workspaceId) {
+    projects = await Project.find({ workspace: workspaceId });
+  } else {
+    projects = await Project.find();
+  }
   res.status(200).json({
     status: 'success',
     results: projects.length,

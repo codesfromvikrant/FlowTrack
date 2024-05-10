@@ -35,6 +35,7 @@ const WorkspaceForm = () => {
         placeholder="Workspace Description"
         className="w-full p-2 rounded-md bg-secondary border-[1px] border-gray-800 text-slate-400 text-sm placeholder:text-slate-400"
       ></textarea>
+
       <IconButton
         onClick={() => {}} // Add onClick handler
         label="Create Workspace"

@@ -5,13 +5,19 @@ import Protected from "src/Protected";
 import Layout from "src/pages/Layout";
 import DocumentsRoot from "src/pages/documents/DocumentsRoot";
 import Explore from "src/pages/Explore";
-import ProjectHome from "src/components/projects/ProjectHome";
 import NoPage from "src/pages/NoPage";
-import TaskManager from "src/components/projects/TaskManager.tsx";
-import ProjectsLab from "src/pages/ProjectsLab";
 import DocumentsEditor from "./pages/documents/DocumentsEditor";
 import DocumentsLayout from "./pages/documents/DocumentsLayout";
-import Workspace from "./pages/Workspace";
+import Workspaces from "./pages/Workspaces";
+import WorkspaceLayout from "./pages/workspace/WorkspaceLayout";
+import WorkspaceRoot from "./pages/workspace/WorkspaceRoot";
+import Projects from "./pages/projects/Projects";
+import ProjectLayout from "./pages/projects/ProjectLayout";
+import ProjectOverview from "./pages/projects/ProjectOverview";
+import TaskLayout from "./pages/tasks/TasksLayout";
+import TasksLayout from "./pages/tasks/TasksLayout";
+import ProjectsDocuments from "./pages/projects/ProjectsDocuments";
+import ProjectDiscussion from "./pages/projects/ProjectDiscussion";
 
 const RoutePaths = () => {
   return (
@@ -30,12 +36,18 @@ const RoutePaths = () => {
           <Route path="*" element={<NoPage />} />
 
           {/* Workspaces */}
-          <Route path="workspaces" element={<Workspace />} />
+          <Route path="workspaces" element={<WorkspaceRoot />}>
+            <Route index element={<Workspaces />} />
+            <Route path=":workspaceId" element={<WorkspaceLayout />} />
+          </Route>
 
           {/* Projects */}
-          <Route path="projects" element={<ProjectsLab />}>
-            <Route index element={<ProjectHome />} />
-            <Route path="tasks" element={<TaskManager />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="project/:projectId" element={<ProjectLayout />}>
+            <Route index element={<ProjectOverview />} />
+            <Route path="tasks" element={<TasksLayout />} />
+            <Route path="documents" element={<ProjectsDocuments />} />
+            <Route path="discussion" element={<ProjectDiscussion />} />
           </Route>
 
           {/* Documents */}
