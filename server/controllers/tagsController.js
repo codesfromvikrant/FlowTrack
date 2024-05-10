@@ -25,7 +25,9 @@ exports.createTag = catchAsync(async (req, res, next) => {
       message: 'Tag already exists'
     });
   }
-  tag = await Tag.create(req.body);
+  tag = await Tag.create({
+    name, userID: _id
+  });
   res.status(201).json({
     status: 'success',
     data: {

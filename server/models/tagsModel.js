@@ -5,10 +5,10 @@ const tagSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a name for the tag'],
   },
-  category: {
-    type: String,
-    required: [true, 'Please provide a category for the tag'],
-  },
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 const Tag = mongoose.model('Tag', tagSchema);

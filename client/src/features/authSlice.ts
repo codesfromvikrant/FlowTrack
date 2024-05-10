@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import apiURL from '../config';
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import apiURL from "../config";
 
 const initialState = {
   logged_in: false,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     setLoggedIn: (state, action) => {
@@ -31,25 +31,26 @@ export const authSlice = createSlice({
     toggleSignup: (state) => {
       state.signupVisible = !state.signupVisible;
     },
-  }
+  },
 });
 
-export const { setLoggedIn, setAuth, removeAuth, showSidebar, toggleSignup } = authSlice.actions;
+export const { setLoggedIn, setAuth, removeAuth, showSidebar, toggleSignup } =
+  authSlice.actions;
 
 const catchAsync = (fn) => {
   return (dispatch, getState) => {
     fn(dispatch, getState).catch((error) => console.error(error));
-  }
-}
+  };
+};
 
 const headersObj = {
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
-}
+};
 
 export const userSignup = (data) => async (dispatch, getState) => {
-  console.log(data)
+  console.log(data);
   // try {
   //   const response = await axios.post(`${apiURL}users/signup`, data, {
   //     headers: {
@@ -59,12 +60,20 @@ export const userSignup = (data) => async (dispatch, getState) => {
   //   const result = await response.data;
   //   if (result?.token && result?.status) dispatch(setLoggedIn(true));
   // } catch (error) { console.error(error) }
-}
+};
 
-export const userSignin = (data) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.post(`${apiURL}users/signin`, data, headersObj);
-  const result = await response.data;
-  if (result?.token) dispatch(setLoggedIn(true));
-})
+export const userSignin = (data) =>
+  catchAsync(async (dispatch, getState) => {
+    const response = await axios.post(
+      `${apiURL}users/signin`,
+      data,
+      headersObj
+    );
+    const result = await response.data;
+    if (result?.token) {
+      dispatch(setLoggedIn(true));
+      localStorage.setItem("token", result.token);
+    }
+  });
 
 export default authSlice.reducer;

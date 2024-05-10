@@ -23,7 +23,6 @@ const useDocsFilter = () => {
   let debounceTimer;
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);
-    console.log("Debouncing Calls", e.target.value);
     if (debounceTimer) clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       dispatch(getAllDocuments(1, docsPerPage, selectedTags, e.target.value));

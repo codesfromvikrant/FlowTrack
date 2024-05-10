@@ -9,45 +9,45 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a description for the project'],
   },
+  workspace: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Workspace'
+  },
   tags: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
   }],
-  createdBy: {
+  managers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
-  collaborators: [{
-    user_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    admin: {
-      type: boolean,
-      required: true,
-    },
+  }],
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }],
   status: {
     type: String,
-    enum: ['to do', 'in progress', 'completed'],
-    default: 'to do',
+    enum: ['to_do', 'in_progress', 'completed'],
+    default: 'to_do',
     required: true,
   },
   priority: {
     type: String,
-    enum: ['low', 'medium', 'high'],
-    default: 'medium',
+    enum: ['minor', 'major', 'critical'],
+    default: 'minor',
     required: true,
   },
-  deadline: {
+  startDate: {
+    type: Date
+  },
+  endDate: {
     type: Date
   },
   createdAt: {
     type: Date,
     default: Date.now
   },
-  lastUpdatedAt: {
+  UpdatedAt: {
     type: Date,
     default: Date.now
   }
