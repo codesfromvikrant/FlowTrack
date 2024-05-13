@@ -1,5 +1,5 @@
-import SideBar from "src/components/SideBar.tsx";
-import MenuIcon from "src/components/MenuIcon.tsx";
+import SideBar from "src/components/SideBar";
+import MenuIcon from "src/components/MenuIcon";
 import { Outlet } from "react-router";
 
 const UserPortal = () => {

@@ -11,7 +11,6 @@ const Signin = () => {
     password: "",
   });
   const loggedIn = useSelector((state) => state.auth.logged_in);
-  console.log(loggedIn);
 
   useEffect(() => {
     if (!loggedIn) return;

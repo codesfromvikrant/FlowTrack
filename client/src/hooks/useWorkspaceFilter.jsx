@@ -6,7 +6,7 @@ const useWorkspaceFilter = () => {
   const dispatch = useDispatch();
 
   let debounceTimer;
-  const handleSearch = (e: any) => {
+  const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     if (debounceTimer) clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {

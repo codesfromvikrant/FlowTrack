@@ -1,6 +1,7 @@
 import Pagination from "src/components/Pagination";
 import Table from "src/components/Table";
 import WorkspaceHeader from "src/components/workspace/WorkspaceHeader";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +19,9 @@ const WorkspaceLayout = () => {
   const navigation = useNavigate();
   const { workspaceId } = params;
 
-  const projects = useSelector((state: any) => state.projects.projects.data);
+  const projects = useSelector((state) => state.projects.projects.data);
   const activeCreateProject = useSelector(
-    (state: any) => state.projects.activeCreateProject
+    (state) => state.projects.activeCreateProject
   );
 
   const handleActiveCreateProject = () => dispatch(toggleActiveCreateProject());

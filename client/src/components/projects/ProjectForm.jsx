@@ -5,7 +5,7 @@ import { createProject } from "src/features/projectsSlice";
 
 const ProjectForm = () => {
   const dispatch = useDispatch();
-  const { workspace } = useSelector((state: any) => state.workspace);
+  const { workspace } = useSelector((state) => state.workspace);
   const workspaceId = workspace.currentId;
 
   const [formStates, setFormStates] = useState({

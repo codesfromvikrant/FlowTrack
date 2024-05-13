@@ -14,7 +14,6 @@ import WorkspaceRoot from "./pages/workspace/WorkspaceRoot";
 import Projects from "./pages/projects/Projects";
 import ProjectLayout from "./pages/projects/ProjectLayout";
 import ProjectOverview from "./pages/projects/ProjectOverview";
-import TaskLayout from "./pages/tasks/TasksLayout";
 import TasksLayout from "./pages/tasks/TasksLayout";
 import ProjectsDocuments from "./pages/projects/ProjectsDocuments";
 import ProjectDiscussion from "./pages/projects/ProjectDiscussion";
