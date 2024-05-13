@@ -1,5 +1,4 @@
 import Logo from "../assets/icons/workflow.png";
-import UserIntro from "./UserIntro";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import exploreIcon from "../assets/icons/explore.png";
@@ -149,8 +148,6 @@ const SideBar = () => {
           </div>
         </div>
       </div>
-
-      <UserIntro />
     </div>
   );
 };
