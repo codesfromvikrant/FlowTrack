@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
-import Menu from "src/components/Menu.tsx";
-import Header from "src/components/documents/Header.tsx";
+import Menu from "src/components/Menu";
+import Header from "src/components/documents/Header";
 import useDocsFilter from "src/hooks/useDocsFilter";
 import FilteredTagsList from "src/components/documents/documentTags/FilteredTagsList";
 import Pagination from "src/components/Pagination";
 
 const DocumentsLayout = () => {
-  const documents = useSelector((state: any) => state.documents.documents);
+  const documents = useSelector((state) => state.documents.documents);
   const allDocumentsData = documents.data;
 
   const { selectedTags, docsPerPage, searchTerm, handleTags, handleSearch } =

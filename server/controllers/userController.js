@@ -36,6 +36,29 @@ function containsSpecialCharOrSpace(text) {
   return regex.test(text) || text.includes(' ');
 }
 
+exports.uniqueUsername = catchAsync(async (req, res, next) => {
+  const { searchterm } = req.params;
+
+  // Validation: Check for special characters or spaces in the username
+  if (containsSpecialCharOrSpace(searchterm)) {
+    res.status(200).json({
+      status: 'fail',
+      message: 'Username must not contain special characters or spaces!'
+    })
+  }
+  const uniqueUsername = await User.findOne({ username: searchterm });
+  if (uniqueUsername) {
+    res.status(200).json({
+      status: 'fail',
+      message: 'Username already exists!'
+    })
+  }
+  res.status(200).json({
+    status: 'success',
+    message: 'Username is unique!'
+  })
+})
+
 exports.signup = catchAsync(async (req, res, next) => {
   const { username, email, password, passwordConfirm } = req.body;
 
@@ -96,7 +119,7 @@ exports.authorizeToken = catchAsync(async (req, res, next) => {
 
 exports.getUserByUsername = catchAsync(async (req, res, next) => {
   const { searchterm } = req.params;
-  const user = await User.findOne({ username: new RegExp(searchterm, 'i') }).limit(10);
+  const user = await User.find({ username: new RegExp(searchterm, 'i') }).limit(10);
   if (!user) return next(new AppError('No user found with that username', 404));
 
   res.status(200).json({
@@ -106,3 +129,4 @@ exports.getUserByUsername = catchAsync(async (req, res, next) => {
     }
   });
 })
+

@@ -15,7 +15,7 @@ const SideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const activeStyle = (isActive: boolean) => {
+  const activeStyle = (isActive) => {
     return {
       backgroundColor: isActive ? "#2564eb68" : "",
       color: isActive ? "#fff" : "",
@@ -30,7 +30,7 @@ const SideBar = () => {
     navigate("/");
   };
 
-  const sidebar = useSelector((state: any) => state.auth.show_sidebar);
+  const sidebar = useSelector((state) => state.auth.show_sidebar);
   return (
     <div
       className={`${

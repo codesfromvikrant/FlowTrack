@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleSignup } from "src/features/authSlice";
-import { userSignup } from "src/features/authSlice";
+import { userSignup, uniqueUsername } from "src/features/authSlice";
+import { setUsername } from "../features/authSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.auth.username);
+
   const [values, setValues] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirm: "",
   });
-
-  console.log(values);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -23,8 +24,25 @@ const Signup = () => {
     dispatch(userSignup(values));
   };
 
+  let debounceTimer;
+  const handleUsername = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+    if (debounceTimer) clearTimeout(debounceTimer);
+
+    if (e.target.value === "") {
+      dispatch(setUsername({ message: "", available: false }));
+      return;
+    }
+    debounceTimer = setTimeout(() => {
+      dispatch(uniqueUsername(e.target.value));
+    }, 300);
+  };
+
   return (
-    <form className="w-full p-4 rounded-md bg-secondary">
+    <form
+      onSubmit={handleSignup}
+      className="w-full p-4 rounded-md bg-secondary"
+    >
       <div className="">
         <p className="text-3xl font-extrabold text-center text-gray-200">
           Welcome!
@@ -35,14 +53,25 @@ const Signup = () => {
       </div>
 
       <div className="w-full mt-4 flex justify-start items-start flex-col">
-        <input
-          value={values.name}
-          name="name"
-          onChange={handleChange}
-          type="text"
-          className="w-full p-4 text-sm mb-3 bg-bgblack rounded outline-none text-gray-200"
-          placeholder="Enter Your Full Name!"
-        />
+        <div className="mb-3 w-full">
+          <input
+            value={values.username}
+            name="username"
+            onChange={handleUsername}
+            type="text"
+            className="w-full p-4 text-sm bg-bgblack rounded outline-none text-gray-200"
+            placeholder="Enter Username!"
+            required
+          />
+          <p
+            className={`${
+              username.available ? "text-green-500" : "text-red-400"
+            } text-sm`}
+          >
+            {username.message}
+          </p>
+        </div>
+
         <input
           value={values.email}
           name="email"
@@ -50,6 +79,7 @@ const Signup = () => {
           type="text"
           className="w-full p-4 text-sm mb-3 bg-bgblack rounded outline-none text-gray-200"
           placeholder="Enter Email ID!"
+          required
         />
         <input
           value={values.password}
@@ -58,17 +88,19 @@ const Signup = () => {
           type="password"
           className="w-full p-4 mb-3 text-sm bg-bgblack rounded outline-none text-gray-200"
           placeholder="Enter Password!"
+          required
         />
         <input
-          value={values.confirmPassword}
-          name="confirmPassword"
+          value={values.passwordConfirm}
+          name="passwordConfirm"
           onChange={handleChange}
           type="password"
           className="w-full p-4 mb-1 text-sm bg-bgblack rounded outline-none text-gray-200"
           placeholder="Enter Password to Confirm!"
+          required
         />
         <button
-          onClick={handleSignup}
+          type="submit"
           className="p-4 mt-6 mb-1 font-medium text-gray-200 bg-blue-700 rounded w-full"
         >
           Sign Up

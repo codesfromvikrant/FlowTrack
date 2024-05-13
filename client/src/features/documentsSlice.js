@@ -67,10 +67,10 @@ const headersTypeJson = {
 };
 
 export const getAllDocuments = (
-  page: number = 1,
-  limit: number = 10,
-  filterTags: string[] = [],
-  searchTerm: string = ""
+  page,
+  limit,
+  filterTags,
+  searchTerm
 ) =>
   catchAsync(async (dispatch, getState) => {
     let queryString = "";

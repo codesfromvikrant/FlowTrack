@@ -9,10 +9,10 @@ const WorkspaceForm = () => {
     name: "",
     description: "",
   });
-  const handleFormStates = (e: any) => {
+  const handleFormStates = (e) => {
     setFormStates({ ...formStates, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addWorkspace(formStates));
   };

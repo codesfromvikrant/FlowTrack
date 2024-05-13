@@ -4,7 +4,6 @@ import Image from "src/assets/images/project_bg.jpg";
 import WorkspaceBlock from "src/components/workspace/WorkspaceBlock";
 import Modal from "src/components/Modal/Modal";
 import WorkspaceForm from "src/components/workspace/WorkspaceForm";
-import { toggleModalVisibility } from "src/features/globalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -16,10 +15,10 @@ import SearchBar from "src/components/SearchBar";
 
 const Workspaces = () => {
   const dispatch = useDispatch();
-  const { workspace } = useSelector((state: any) => state.workspace);
+  const { workspace } = useSelector((state) => state.workspace);
   const allWorkspaceData = workspace?.data;
   const activeWorkspaceForm = useSelector(
-    (state: any) => state.workspace.activeWorkspaceForm
+    (state) => state.workspace.activeWorkspaceForm
   );
 
   useEffect(() => {

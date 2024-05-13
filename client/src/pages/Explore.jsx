@@ -3,7 +3,7 @@ import projectIcon from "../assets/icons/project_lab.png";
 import NotesIcon from "../assets/icons/notes.png";
 import galleryIcon from "../assets/icons/gallery.png";
 import { useNavigate } from "react-router";
-import ProjectBanner from "../components/explore/ProjectBanner.tsx";
+import ProjectBanner from "../components/explore/ProjectBanner";
 
 const Explore = () => {
   const navigate = useNavigate();

@@ -7,19 +7,7 @@ import FilterTags from "./documentTags/FilterTags";
 import IconButton from "../IconButton";
 import SearchBar from "../SearchBar";
 
-interface HeaderProps {
-  selectedTags: string[];
-  handleTags: () => void;
-  searchTerm: string;
-  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const Header: React.FC<HeaderProps> = ({
-  selectedTags,
-  handleTags,
-  searchTerm,
-  handleSearch,
-}) => {
+const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const Pinned = searchParams.get("pinned") === "true" ? true : false;

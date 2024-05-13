@@ -4,10 +4,12 @@ import apiURL from "../config";
 
 const initialState = {
   logged_in: false,
-  username: "",
-  email_id: "",
   show_sidebar: true,
   signupVisible: false,
+  username: {
+    message: "",
+    available: false,
+  }
 };
 
 export const authSlice = createSlice({
@@ -31,10 +33,13 @@ export const authSlice = createSlice({
     toggleSignup: (state) => {
       state.signupVisible = !state.signupVisible;
     },
+    setUsername: (state, action) => {
+      state.username = action.payload;
+    },
   },
 });
 
-export const { setLoggedIn, setAuth, removeAuth, showSidebar, toggleSignup } =
+export const { setLoggedIn, setAuth, removeAuth, showSidebar, toggleSignup, setUsername } =
   authSlice.actions;
 
 const catchAsync = (fn) => {
@@ -49,18 +54,23 @@ const headersObj = {
   },
 };
 
-export const userSignup = (data) => async (dispatch, getState) => {
-  console.log(data);
-  // try {
-  //   const response = await axios.post(`${apiURL}users/signup`, data, {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   });
-  //   const result = await response.data;
-  //   if (result?.token && result?.status) dispatch(setLoggedIn(true));
-  // } catch (error) { console.error(error) }
-};
+export const uniqueUsername = (username) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.get(`${apiURL}users/unique_username/${username}`, headersObj);
+  const result = await response.data;
+  result.status === "success"
+    ? dispatch(setUsername({ message: result.message, available: true }))
+    : dispatch(setUsername({ message: result.message, available: false }));
+});
+
+export const userSignup = (formdata) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.post(`${apiURL}users/signup`, formdata, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await response.data;
+  if (result?.token && result?.status) dispatch(setLoggedIn(true));
+});
 
 export const userSignin = (data) =>
   catchAsync(async (dispatch, getState) => {

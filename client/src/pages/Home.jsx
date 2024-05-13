@@ -3,9 +3,9 @@ import Logo from "../assets/icons/workflow.png";
 import { BsGithub } from "react-icons/bs";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { useOutletContext } from "react-router";
-import Signin from "src/components/Signin.tsx";
+import Signin from "src/components/Signin";
 import { useSelector } from "react-redux";
-import Signup from "src/components/Signup.tsx";
+import Signup from "src/components/Signup";
 import { useNavigate } from "react-router";
 
 export default function Home() {
@@ -31,13 +31,13 @@ export default function Home() {
           <div className="flex justify-start items-center gap-2 mx-auto mb-4">
             <img src={Logo} className="w-12" alt="mediaharbor-logo" />
             <p className="text-xl font-black text-center uppercase w-max text-slate-300">
-              WorkFlow
+              FlowTrack
             </p>
           </div>
 
-          <h1 className="md:text-4xl text-3xl text-start tracking-wide text-gray-200 mb-3 font-black">
-            Empower Your Teams with Workflow Excellence. Navigate Projects,
-            Notes, and Galleries Effortlessly.
+          <h1 className="md:text-3xl text-3xl text-start tracking-wide text-gray-200 mb-3 font-black">
+            Empower Your Teams with Flowtrack Excellence. Navigate Workspace,
+            Projects, Tasks, and Documents Effortlessly.
           </h1>
           <p className="text-base font-light text-start text-gray-400">
             In the world of project management, simplicity is key. Workflow
