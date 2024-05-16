@@ -12,17 +12,23 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
   }],
-  pinned: {
-    type: Boolean,
-    default: false
-  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  project: {
+  startDate: {
+    type: Date
+  },
+  endDate: {
+    type: Date
+  },
+  projectId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
+  },
+  tasksgroupId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tasksgroup'
   },
   createdAt: {
     type: Date,

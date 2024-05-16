@@ -1,7 +1,6 @@
 import Pagination from "src/components/Pagination";
 import Table from "src/components/Table";
 import WorkspaceHeader from "src/components/workspace/WorkspaceHeader";
-
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +32,7 @@ const WorkspaceLayout = () => {
   }, [workspaceId]);
 
   const handleProject = (id) => {
-    navigation(`/user/project/${id}`);
+    navigation(`/user/project/${id}/tasks`);
   };
 
   const columns = ["name", "status", "priority", "deadline"];

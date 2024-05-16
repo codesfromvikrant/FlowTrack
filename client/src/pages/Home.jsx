@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import Logo from "../assets/icons/workflow.png";
-import { BsGithub } from "react-icons/bs";
-import { AiOutlineGoogle } from "react-icons/ai";
-import { useOutletContext } from "react-router";
 import Signin from "src/components/Signin";
 import { useSelector } from "react-redux";
 import Signup from "src/components/Signup";
 import { useNavigate } from "react-router";
 
 export default function Home() {
-  const [googleAuth, gitAuth, emailAuth] = useOutletContext();
   const signupVisible = useSelector((state) => state.auth.signupVisible);
   const loggedIn = useSelector((state) => state.auth.logged_in);
   const navigate = useNavigate();
@@ -26,7 +22,7 @@ export default function Home() {
 
   return (
     <main style={style}>
-      <section className="flex justify-between items-center lg:flex-row flex-col gap-10 max-w-6xl mx-auto px-4 py-16">
+      <section className="h-screen flex justify-between items-center lg:flex-row flex-col gap-10 max-w-6xl mx-auto px-4 py-16">
         <div className="sm:w-2/3 w-full">
           <div className="flex justify-start items-center gap-2 mx-auto mb-4">
             <img src={Logo} className="w-12" alt="mediaharbor-logo" />
@@ -52,30 +48,6 @@ export default function Home() {
 
         <div className="lg:w-1/3 md:w-1/2 sm:w-2/3 w-full flex justify-center items-center gap-2  flex-col">
           {signupVisible ? <Signup /> : <Signin />}
-          <p className="text-gray-200 text-4xl font-extrabold text-center">
-            or
-          </p>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              googleAuth();
-            }}
-            className="flex justify-center items-center gap-3 w-full bg-glassyblue border-2 border-blue-600 text-white shadow p-3 rounded-md font-semibold"
-          >
-            <span>SignIn via </span>
-            <AiOutlineGoogle className="w-max text-3xl" />
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              gitAuth();
-            }}
-            className="flex justify-center items-center gap-3 w-full bg-gray-200 text-slate-800 shadow p-3 rounded-md"
-          >
-            <span className="font-black">SignIn via</span>
-            <BsGithub className="w-max text-3xl" />
-          </button>
         </div>
       </section>
     </main>
