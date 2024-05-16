@@ -2,12 +2,54 @@ import { useSelector } from "react-redux";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import IconButton from "../IconButton";
+import { NavLink, useParams } from "react-router-dom";
+import { useMemo } from "react";
+import Button from "../Button";
 
 const ProjectHeader = () => {
+  const { projectId } = useParams();
   const { projects } = useSelector((state) => state.projects);
   const currentProjectData = projects?.currentData;
 
-  console.log("currentProjectData", currentProjectData);
+  const navs = [
+    {
+      name: "Overview",
+      path: `/user/project/${projectId}/overview`,
+    },
+    {
+      name: "Tasks",
+      path: `/user/project/${projectId}/tasks`,
+    },
+    {
+      name: "Documents",
+      path: `/user/project/${projectId}/documents`,
+    },
+    {
+      name: "Discussion",
+      path: `/user/project/${projectId}/discussion`,
+    },
+  ];
+
+  const activeStyle = (isActive) => {
+    return {
+      borderBottom: isActive ? "2px solid white" : "",
+    };
+  };
+
+  const NavLinkItems = useMemo(() => {
+    return navs.map((nav, index) => (
+      <NavLink
+        key={index}
+        to={nav.path}
+        style={({ isActive }) => ({
+          borderBottom: isActive ? "2px solid white" : "",
+        })}
+        className="cursor-pointer hover:text-blue-500 w-max py-2"
+      >
+        <span className="text-gray-300">{nav.name}</span>
+      </NavLink>
+    ));
+  }, [navs]);
 
   return (
     <div className="w-full px-10 pt-4 bg-primary">
@@ -17,38 +59,12 @@ const ProjectHeader = () => {
         </span>
 
         <div className="flex justify-start items-center gap-2 text-gray-200">
-          <IconButton
-            onClick={() => {}}
-            label="Edit"
-            icon={<MdEdit />}
-            active={false}
-          />
-          <IconButton
-            onClick={() => {}}
-            label="Trash"
-            icon={<FaTrash />}
-            active={false}
-          />
+          <Button onClick={() => {}} label="Edit" active={false} />
+          <Button onClick={() => {}} label="Trash" active={false} />
         </div>
       </div>
 
-      <div className="flex justify-start items-start gap-6">
-        <div className="cursor-pointer hover:border-b-2 border-b-white w-max py-2">
-          <span className="text-gray-300">Overview</span>
-        </div>
-
-        <div className="cursor-pointer hover:border-b-2 border-b-white w-max py-2">
-          <span className="text-gray-300">Tasks</span>
-        </div>
-
-        <div className="cursor-pointer hover:border-b-2 border-b-white w-max py-2">
-          <span className="text-gray-300">Documents</span>
-        </div>
-
-        <div className="cursor-pointer hover:border-b-2 border-b-white w-max py-2">
-          <span className="text-gray-300">Discussions</span>
-        </div>
-      </div>
+      <nav className="flex justify-start items-start gap-6">{NavLinkItems}</nav>
     </div>
   );
 };
