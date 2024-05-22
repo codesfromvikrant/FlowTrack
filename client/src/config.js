@@ -1,2 +1,2 @@
-const apiURL = "http://localhost:5000/api/v1/"
+const apiURL = "https://flowtrack-api.vercel.app/api/v1/"
 export default apiURL;
