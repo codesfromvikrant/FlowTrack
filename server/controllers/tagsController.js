@@ -3,10 +3,9 @@ const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllTags = catchAsync(async (req, res, next) => {
-  const { category } = req.query;
-  if (!category) return next(new AppError('Please provide a category', 400));
+  const { _id } = req.user;
+  const tags = await Tag.find({ userID: _id })
 
-  const tags = await Tag.find({ category });
   res.status(200).json({
     status: 'success',
     results: tags.length,
@@ -18,6 +17,7 @@ exports.getAllTags = catchAsync(async (req, res, next) => {
 
 exports.createTag = catchAsync(async (req, res, next) => {
   const { name } = req.body;
+  const { _id } = req.user;
   let tag = await Tag.findOne({ name });
   if (tag) {
     res.status(400).json({

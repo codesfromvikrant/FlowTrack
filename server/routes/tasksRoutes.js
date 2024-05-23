@@ -8,6 +8,10 @@ router.route('/')
   .get(tasksController.getAllTasks)
   .post(tasksController.createTask);
 
+router.route('/:id')
+  .patch(tasksController.updateTask)
+  .delete(tasksController.deleteTask);
+
 router.route('/tasksgroup')
   .get(tasksController.getAllTasksGroup)
   .post(tasksController.createTasksGroup);

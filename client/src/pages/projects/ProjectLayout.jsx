@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import ProjectHeader from "src/components/projects/ProjectHeader";
+import ProjectHeader from "src/modules/Projects/ProjectHeader";
 import { getCurrentProjectData } from "src/features/projectsSlice";
 import { Outlet } from "react-router-dom";
-import { setProjectId } from "../../features/projectsSlice";
+import { setProjectId } from "src/features/projectsSlice";
 
 const ProjectLayout = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ProjectLayout = () => {
   }, [projectId]);
 
   return (
-    <main className="w-full">
+    <main className="w-full bg-white">
       <ProjectHeader />
       <Outlet />
     </main>

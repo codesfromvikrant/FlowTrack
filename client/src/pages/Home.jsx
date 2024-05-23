@@ -16,26 +16,22 @@ export default function Home() {
     }
   }, [loggedIn]);
 
-  const style = {
-    background: "linear-gradient(45deg, #19181b 40%, #101011 60%)",
-  };
-
   return (
-    <main style={style}>
+    <main className="bg-slate-200">
       <section className="h-screen flex justify-between items-center lg:flex-row flex-col gap-10 max-w-6xl mx-auto px-4 py-16">
         <div className="sm:w-2/3 w-full">
           <div className="flex justify-start items-center gap-2 mx-auto mb-4">
             <img src={Logo} className="w-12" alt="mediaharbor-logo" />
-            <p className="text-xl font-black text-center uppercase w-max text-slate-300">
+            <p className="text-xl font-black text-center uppercase w-max text-slate-800">
               FlowTrack
             </p>
           </div>
 
-          <h1 className="md:text-3xl text-3xl text-start tracking-wide text-gray-200 mb-3 font-black">
+          <h1 className="md:text-3xl text-3xl text-start tracking-wide text-gray-700 mb-3 font-black">
             Empower Your Teams with Flowtrack Excellence. Navigate Workspace,
             Projects, Tasks, and Documents Effortlessly.
           </h1>
-          <p className="text-base font-light text-start text-gray-400">
+          <p className="text-base font-normal text-start text-gray-600">
             In the world of project management, simplicity is key. Workflow
             provides a seamless and effortless experience for navigating through
             projects, taking notes, and curating image galleries. Whether you're

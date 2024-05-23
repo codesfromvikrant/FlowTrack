@@ -1,0 +1,83 @@
+.ql-editor {
+  min-height: 15rem;
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.5;
+  color: white;
+  padding: 10px;
+  background-color: var(--secondary);
+  border-radius: 0.5rem;
+}
+
+.ql-toolbar {
+  background-color: var(--secondary);
+  border-radius: 0.5rem;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.ql-container {
+  border: none !important;
+  margin-top: 0.8rem !important;
+}
+
+.quill>.ql-container>.ql-editor.ql-blank::before {
+  font-size: 1rem;
+  font-style: normal;
+  width: 100%;
+  color: var(--blureffect);
+}
+
+.quill>.ql-container>.ql-editor p {
+  font-family: "Gilroy", sans-serif;
+  font-style: normal;
+  font-weight: lighter;
+  width: 100%;
+  color: var(--gray-200);
+}
+
+.ql-formats {
+  /* background-color: var(--linear); */
+  color: white !important;
+  padding: 5px;
+}
+
+.ql-formats>.ql-list {
+  color: white !important;
+}
+
+.ql-editor h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ql-editor h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ql-editor h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ql-editor h4 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ql-editor h5 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ql-editor h6 {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.ql-editor p {
+  margin: 0;
+  font-weight: 300;
+}

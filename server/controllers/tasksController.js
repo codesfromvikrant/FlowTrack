@@ -48,3 +48,28 @@ exports.getAllTasks = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.updateTask = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const task = await Task.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true
+  });
+  if (!task) return next(new AppError('No task found with that ID', 404));
+  res.status(200).json({
+    status: 'success',
+    data: {
+      task
+    }
+  });
+});
+
+exports.deleteTask = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const task = await Task.findByIdAndDelete(id);
+  if (!task) return next(new AppError('No task found with that ID', 404));
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

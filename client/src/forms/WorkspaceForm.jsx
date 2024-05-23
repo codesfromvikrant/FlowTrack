@@ -1,7 +1,7 @@
 import { useState } from "react";
-import IconButton from "../IconButton";
 import { useDispatch } from "react-redux";
 import { addWorkspace } from "src/features/workspaceSlice";
+import Button from "src/components/Button";
 
 const WorkspaceForm = () => {
   const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const WorkspaceForm = () => {
         className="w-full p-2 rounded-md bg-secondary border-[1px] border-gray-800 text-slate-400 text-sm placeholder:text-slate-400"
       ></textarea>
 
-      <IconButton
-        onClick={() => {}} // Add onClick handler
+      <Button
+        onClick={() => {}}
         label="Create Workspace"
         icon={<i className="fa-solid fa-plus"></i>}
         active={true}

@@ -9,7 +9,6 @@ import { FaTrash } from "react-icons/fa";
 import { MdPublish } from "react-icons/md";
 import { FaShare } from "react-icons/fa";
 import { IoCloudDownloadSharp } from "react-icons/io5";
-import { toggleModalVisibility } from "src/features/globalSlice";
 import { toast } from "react-toastify";
 
 import {
@@ -19,8 +18,7 @@ import {
   updateDocument,
   updateDocumentTags,
 } from "src/features/documentsSlice";
-import TagsEditor from "src/components/documents/documentTags/TagsEditor";
-import ConfirmModal from "src/components/Modal/ConfirmModal";
+import TagsEditor from "src/modules/Documents/DocumentTags/TagsEditor";
 
 const modules = {
   toolbar: [
@@ -75,7 +73,6 @@ const Editor = () => {
   const currentDocument = useSelector(
     (state) => state.documents.documents.currentData
   );
-  const confirmModalView = useSelector((state) => state.global.confirmModal);
   const [searchParams, setSearchParams] = useSearchParams();
   const documentId = searchParams.get("documentId");
 
@@ -134,13 +131,13 @@ const Editor = () => {
 
   return (
     <div className="w-full h-[100vh] overflow-y-auto">
-      {confirmModalView && (
+      {/* {confirmModalView && (
         <ConfirmModal handleOk={handleDelete}>
           <h1 className="text-xl font-normal text-gray-200">
             Are you sure you want to delete this document?
           </h1>
         </ConfirmModal>
-      )}
+      )} */}
 
       <div className="max-w-4xl mx-auto bg-secondary py-4 sm:px-6 px-3 rounded-lg shadow-md mt-4 ">
         <div className="flex justify-between sm:items-center items-start gap-2 sm:flex-row flex-col py-3 border-b-[1px] border-blureffect mb-6">
@@ -182,7 +179,7 @@ const Editor = () => {
               <IoCloudDownloadSharp />
             </button>
             <button
-              onClick={() => dispatch(setConfirmModal(true))}
+              // onClick={() => dispatch(setConfirmModal(true))}
               className="w-max flex justify-start items-center gap-1 shadow-md text-textcolor bg-primary hover:text-gray-200 hover:bg-blue-700 transition-all duration-500 py-2 px-4 rounded-lg"
             >
               <span className="text-sm font-semibold tracking-wide">

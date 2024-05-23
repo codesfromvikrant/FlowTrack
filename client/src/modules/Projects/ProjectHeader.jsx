@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
-import IconButton from "../IconButton";
+import IconButton from "../../components/IconButton";
 import { NavLink, useParams } from "react-router-dom";
 import { useMemo } from "react";
-import Button from "../Button";
+import Button from "../../components/Button";
 
 const ProjectHeader = () => {
   const { projectId } = useParams();
@@ -30,31 +30,25 @@ const ProjectHeader = () => {
     },
   ];
 
-  const activeStyle = (isActive) => {
-    return {
-      borderBottom: isActive ? "2px solid white" : "",
-    };
-  };
-
   const NavLinkItems = useMemo(() => {
     return navs.map((nav, index) => (
       <NavLink
         key={index}
         to={nav.path}
         style={({ isActive }) => ({
-          borderBottom: isActive ? "2px solid white" : "",
+          borderBottom: isActive ? "3px solid #3b82f6" : "",
         })}
         className="cursor-pointer hover:text-blue-500 w-max py-2"
       >
-        <span className="text-gray-300">{nav.name}</span>
+        <span className="text-gray-600 font-medium">{nav.name}</span>
       </NavLink>
     ));
   }, [navs]);
 
   return (
-    <div className="w-full px-10 pt-4 bg-primary">
+    <div className="w-full px-10 pt-4 bg-slate-100">
       <div className="flex justify-between items-center gap-4">
-        <span className="text-xl text-gray-200 font-medium">
+        <span className="text-xl text-gray-700 font-semibold">
           {currentProjectData?.name}
         </span>
 
