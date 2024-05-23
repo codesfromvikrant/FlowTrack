@@ -10,7 +10,7 @@ const SelectInput = ({ data }) => {
     });
 
   return (
-    <select className="w-max bg-primary border-[1px] border-gray-800 hover:bg-blue-700 text-gray-200 hover:text-white transition-all duration-500 text-sm py-3 px-5 shadow-md rounded-lg font-medium">
+    <select className="w-max outline-none bg-primary hover:bg-blue-700 text-gray-700 hover:text-gray-200 transition-all duration-500 text-sm py-2 px-5 shadow-md rounded-lg font-medium">
       {renderOptionList}
     </select>
   );

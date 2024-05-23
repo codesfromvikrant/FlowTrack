@@ -11,6 +11,10 @@ const initialState = {
     currentId: "",
   },
   taskForm: true,
+  todos: {
+    data: [],
+    currentId: "",
+  },
 };
 
 export const tasksSlice = createSlice({
@@ -31,8 +35,8 @@ export const tasksSlice = createSlice({
     },
     updateData: (state, action) => {
       const { key, value } = action.payload;
-      const index = state[key].data.findIndex((item) => item._id === value.id);
-      state[key].data[index] = value.data;
+      const index = state[key].data.findIndex((item) => item._id === value._id);
+      state[key].data[index] = value;
     },
     deleteData: (state, action) => {
       const { key, value } = action.payload;
@@ -75,6 +79,7 @@ export const getAllTasksGroup = (projectId) => catchAsync(async (dispatch, getSt
 
 
 
+
 ////// Tasks ///////
 export const createTask = (formdata) => catchAsync(async (dispatch, getState) => {
   const response = await axios.post(`${apiBaseUrl}tasks`, formdata, headersTypeJson);
@@ -83,12 +88,54 @@ export const createTask = (formdata) => catchAsync(async (dispatch, getState) =>
   dispatch(addData({ key: "tasks", value: task }));
 });
 
-
 export const getAllTasks = (projectId) => catchAsync(async (dispatch, getState) => {
   const response = await axios.get(`${apiBaseUrl}tasks?projectId=${projectId}`, headersTypeJson);
   const { data } = await response.data;
   const { tasks } = data;
   dispatch(setAllData({ key: "tasks", value: tasks }));
+});
+
+export const updateTask = (formdata, id) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.patch(`${apiBaseUrl}tasks/${id}`, formdata, headersTypeJson);
+  const { data } = await response.data;
+  const { task } = data;
+  dispatch(updateData({ key: "tasks", value: task }));
+});
+
+export const deleteTask = (id) => catchAsync(async (dispatch, getState) => {
+  await axios.delete(`${apiBaseUrl}tasks/${id}`, headersTypeJson);
+  dispatch(deleteData({ key: "tasks", value: { id } }));
+});
+
+
+
+
+
+////// Todos ///////
+export const getAllTodos = (taskId) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.get(`${apiBaseUrl}todos?taskId=${taskId}`, headersTypeJson);
+  const { data } = await response.data;
+  const { todos } = data;
+  dispatch(setAllData({ key: "todos", value: todos }));
+});
+
+export const addTodo = (formdata) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.post(`${apiBaseUrl}todos`, formdata, headersTypeJson);
+  const { data } = await response.data;
+  const { todo } = data;
+  dispatch(addData({ key: "todos", value: todo }));
+});
+
+export const updateTodo = (formdata, id) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.patch(`${apiBaseUrl}todos/${id}`, formdata, headersTypeJson);
+  const { data } = await response.data;
+  const { todo } = data;
+  dispatch(updateData({ key: "todos", value: todo }));
+});
+
+export const deleteTodo = (id) => catchAsync(async (dispatch, getState) => {
+  await axios.delete(`${apiBaseUrl}todos/${id}`, headersTypeJson);
+  dispatch(deleteData({ key: "todos", value: { id } }));
 });
 
 

@@ -41,13 +41,13 @@ const Signup = () => {
   return (
     <form
       onSubmit={handleSignup}
-      className="w-full p-4 rounded-md bg-secondary"
+      className="w-full p-4 rounded-md bg-white shadow"
     >
       <div className="">
-        <p className="text-3xl font-extrabold text-center text-gray-200">
+        <p className="text-3xl font-extrabold text-center text-gray-700">
           Welcome!
         </p>
-        <p className="text-center text-sm text-gray-200">
+        <p className="text-center font-medium text-sm text-gray-600">
           Signup To Get Started!
         </p>
       </div>
@@ -59,7 +59,7 @@ const Signup = () => {
             name="username"
             onChange={handleUsername}
             type="text"
-            className="w-full p-4 text-sm bg-bgblack rounded outline-none text-gray-200"
+            className="w-full p-4 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
             placeholder="Enter Username!"
             required
           />
@@ -77,7 +77,7 @@ const Signup = () => {
           name="email"
           onChange={handleChange}
           type="text"
-          className="w-full p-4 text-sm mb-3 bg-bgblack rounded outline-none text-gray-200"
+          className="w-full p-4 text-sm mb-3 bg-slate-100 rounded-md outline-none text-gray-700"
           placeholder="Enter Email ID!"
           required
         />
@@ -86,7 +86,7 @@ const Signup = () => {
           name="password"
           onChange={handleChange}
           type="password"
-          className="w-full p-4 mb-3 text-sm bg-bgblack rounded outline-none text-gray-200"
+          className="w-full p-4 mb-3 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
           placeholder="Enter Password!"
           required
         />
@@ -95,19 +95,21 @@ const Signup = () => {
           name="passwordConfirm"
           onChange={handleChange}
           type="password"
-          className="w-full p-4 mb-1 text-sm bg-bgblack rounded outline-none text-gray-200"
+          className="w-full p-4 mb-1 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
           placeholder="Enter Password to Confirm!"
           required
         />
         <button
           type="submit"
-          className="p-4 mt-6 mb-1 font-medium text-gray-200 bg-blue-700 rounded w-full"
+          className="p-4 mt-6 mb-1 font-medium text-gray-200 bg-blue-600 rounded-md w-full"
         >
           Sign Up
         </button>
 
         <div className="flex justify-center items-center mt-2 mx-auto text-sm flex-col">
-          <p className="text-gray-200 text-center">Already have an account?</p>
+          <p className="text-gray-700 font-medium text-center">
+            Already have an account?
+          </p>
           <p
             onClick={() => dispatch(toggleSignup(false))}
             className="text-blue-600 font-medium cursor-pointer"

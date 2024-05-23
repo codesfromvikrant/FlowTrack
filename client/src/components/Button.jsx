@@ -4,11 +4,11 @@ const Button = ({ onClick, label, className, icon, active }) => {
   return (
     <button
       onClick={onClick}
-      className={`${className} w-full flex justify-center items-center gap-2 ${
+      className={`w-full flex justify-center items-center gap-2 ${
         active
-          ? "bg-glassyblue border-2 border-blue-600"
-          : "bg-primary border-[1px] border-gray-800"
-      } hover:bg-blue-700 text-gray-200 hover:text-white transition-all duration-500 text-sm py-2 px-3 shadow-md rounded-lg font-medium`}
+          ? "bg-glassyblue border-2 border-blue-600 text-blue-700"
+          : "bg-primary text-slate-600"
+      } hover:bg-blue-700 transition-all duration-500 text-sm py-2 px-3 shadow-md rounded-lg font-semibold ${className}`}
     >
       <span className="tracking-wide">{label}</span>
       {icon}

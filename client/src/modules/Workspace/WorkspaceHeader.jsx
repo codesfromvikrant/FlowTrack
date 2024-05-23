@@ -1,9 +1,9 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import IconButton from "../IconButton";
-import SearchBar from "../SearchBar";
+import Button from "src/components/Button";
+import SearchBar from "src/components/SearchBar";
 import { BiSolidAddToQueue } from "react-icons/bi";
 import useWorkspaceFilter from "src/hooks/useWorkspaceFilter";
-import SelectInput from "../SelectInput";
+import SelectInput from "src/components/SelectInput";
 import { toggleActiveCreateProject } from "src/features/projectsSlice";
 import { useDispatch } from "react-redux";
 
@@ -28,22 +28,13 @@ const WorkspaceHeader = () => {
 
   return (
     <div className="flex justify-start items-center md:flex-nowrap flex-wrap gap-3 text-slate-400">
-      <IconButton
+      <Button
         onClick={handleActiveCreateProject}
         label="New"
         icon={<BiSolidAddToQueue className="text-xl" />}
         active={false}
+        className="w-max hover:text-gray-200"
       />
-
-      {/* <div className="relative">
-        <IconButton
-          onClick={handleTags}
-          label="Filter By Tags"
-          icon={<ImPriceTags className="text-xl" />}
-          active={false}
-        />
-        <FilterTags selectedTags={selectedTags} handleTags={handleTags} />
-      </div> */}
 
       <SelectInput data={statusData} />
       <SelectInput data={priorityData} />

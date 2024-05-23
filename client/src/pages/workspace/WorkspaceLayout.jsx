@@ -1,6 +1,6 @@
 import Pagination from "src/components/Pagination";
 import Table from "src/components/Table";
-import WorkspaceHeader from "src/components/workspace/WorkspaceHeader";
+import WorkspaceHeader from "src/modules/Workspace/WorkspaceHeader";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import {
   toggleActiveCreateProject,
 } from "src/features/projectsSlice";
 import Modal from "src/components/Modal/Modal";
-import ProjectForm from "src/components/projects/ProjectForm";
+import ProjectForm from "src/forms/ProjectForm";
 import { setWorkspaceId } from "src/features/workspaceSlice";
 
 const WorkspaceLayout = () => {

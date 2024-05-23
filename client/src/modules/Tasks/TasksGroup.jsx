@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../Button";
+import Button from "../../components/Button";
 import { CiMenuKebab } from "react-icons/ci";
 import { toggleTaskForm } from "src/features/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +9,13 @@ import TaskBlock from "./TaskBlock";
 const TasksGroup = ({ data }) => {
   const dispatch = useDispatch();
   const tasksGroupData = useSelector((state) => state.tasks.tasks.data);
+  const tasksGroupId = data?._id;
   const allTasksData = tasksGroupData.filter(
     (item) => item.tasksgroupId === data._id
   );
 
   const renderTaskBlocks = allTasksData.map((data) => (
-    <TaskBlock data={data} key={data._id} />
+    <TaskBlock key={data._id} data={data} tasksGroupId={tasksGroupId} />
   ));
 
   const handleTaskFormToggle = (value) => {
@@ -24,9 +25,9 @@ const TasksGroup = ({ data }) => {
   };
 
   return (
-    <div className="w-[350px] h-screen bg-primary text-gray-200 p-4 rounded-md shadow-lg">
+    <div className="w-[350px] h-screen bg-slate-100 text-gray-700 p-4 rounded-md shadow-lg">
       <div className="mb-4 flex justify-between items-center gap-6">
-        <h4>{data.name}</h4>
+        <h4 className="font-semibold">{data.name}</h4>
         <CiMenuKebab className="text-xl" />
       </div>
       <Button

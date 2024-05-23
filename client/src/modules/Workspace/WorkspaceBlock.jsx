@@ -7,9 +7,9 @@ const WorkspaceBlock = ({ data }) => {
       <div
         key={el._id}
         onClick={() => navigation(`./${el._id}`)}
-        className="text-gray-200 bg-secondary p-3 cursor-pointer rounded-md"
+        className="text-gray-700 bg-white border-b-4 border-slate-600 shadow-md p-3 cursor-pointer rounded-md"
       >
-        <p>{el.name}</p>
+        <p className="text-sm font-semibold">{el.name}</p>
         <p>{el.createdAt}</p>
       </div>
     );

@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from "react";
-import AddTaskGroup from "src/components/tasks/AddTaskGroup";
+import AddTaskGroup from "src/modules/Tasks/AddTaskGroup";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasksGroup } from "src/features/tasksSlice";
-import TasksGroup from "src/components/tasks/TasksGroup";
+import TasksGroup from "src/modules/Tasks/TasksGroup";
 import Modal from "src/components/Modal/Modal";
-import TaskForm from "src/components/tasks/TaskForm";
+import TaskForm from "src/forms/TaskForm";
 import { toggleTaskForm, getAllTasks } from "src/features/tasksSlice";
 
 const TasksLayout = () => {

@@ -36,9 +36,9 @@ const Pagination = ({ totalCount, docsPerPage }) => {
         key={btn}
         className={`${
           btn === page
-            ? "bg-glassyblue border-2 border-blue-600"
-            : "bg-secondary"
-        } text-gray-200 px-4 py-2 rounded shadow text-sm font-medium`}
+            ? "bg-glassyblue border-2 text-white border-blue-600"
+            : "bg-white text-slate-700"
+        }  px-4 py-2 rounded shadow text-sm font-medium`}
         onClick={() => paginate("page", btn)}
       >
         {btn}
@@ -80,8 +80,8 @@ const Pagination = ({ totalCount, docsPerPage }) => {
         className={`${
           totalPages > btnCount
             ? "opacity-100 hover:bg-blue-600 cursor-pointer"
-            : "opacity-20"
-        } text-gray-200 bg-secondary transition-all duration-400 rounded shadow font-medium py-2 px-4`}
+            : "opacity-20 "
+        }  bg-white text-slate-700 transition-all duration-400 rounded shadow font-medium py-2 px-4`}
       >
         Prev
       </button>
@@ -93,7 +93,7 @@ const Pagination = ({ totalCount, docsPerPage }) => {
           totalPages > btnCount
             ? "opacity-100 hover:bg-blue-600 cursor-pointer"
             : "opacity-20"
-        } text-gray-200 bg-secondary  transition-all duration-400 rounded shadow font-medium py-2 px-4`}
+        } text-gray-700 bg-white transition-all duration-400 rounded shadow font-medium py-2 px-4`}
       >
         Next
       </button>

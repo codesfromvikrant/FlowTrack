@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import IconButton from "../IconButton";
 import Button from "src/components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { createTasksGroup } from "src/features/tasksSlice";
@@ -32,7 +31,7 @@ const AddTaskGroup = () => {
   };
 
   return (
-    <div className="bg-primary p-4 rounded-md w-[350px] shadow-lg">
+    <div className="bg-slate-100 p-4 rounded-md w-[350px] shadow-lg">
       {formState.toggleTaskGroupForm ? (
         <div className="">
           <input
@@ -41,7 +40,7 @@ const AddTaskGroup = () => {
             value={formState.title}
             onChange={handlFormState}
             placeholder="Enter Task Group Title"
-            className="w-full px-3 py-4 text-sm mb-3 bg-bgblack rounded text-gray-200"
+            className="w-full px-3 py-4 text-sm mb-3 bg-slate-200 rounded text-gray-200"
           />
           <div className="flex justify-start items-center gap-2">
             <Button
@@ -61,7 +60,7 @@ const AddTaskGroup = () => {
           onClick={toggleTaskGroupForm}
           label="Add Task Group"
           active={false}
-          className="w-full"
+          className="w-full shadow-none"
         />
       )}
     </div>

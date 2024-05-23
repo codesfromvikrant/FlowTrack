@@ -1,9 +1,9 @@
-import IconButton from "src/components/IconButton";
+import Button from "src/components/Button";
 import { IoMdCreate } from "react-icons/io";
 import Image from "src/assets/images/project_bg.jpg";
-import WorkspaceBlock from "src/components/workspace/WorkspaceBlock";
+import WorkspaceBlock from "src/modules/Workspace/WorkspaceBlock";
 import Modal from "src/components/Modal/Modal";
-import WorkspaceForm from "src/components/workspace/WorkspaceForm";
+import WorkspaceForm from "src/forms/WorkspaceForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -36,22 +36,19 @@ const Workspaces = () => {
       </div>
 
       <div id="container" className="max-w-5xl mx-auto my-4">
-        <div className="w-full rounded-lg shadow-md px-4 py-2 mb-4 bg-primary flex justify-between items-center gap-10">
-          <h3 className="text-xl font-medium text-white">Workspaces Board</h3>
+        <div className="w-full rounded-lg px-4 py-2 mb-4 bg-primary flex justify-between items-center gap-10">
+          <h3 className="text-xl font-semibold text-slate-700">
+            Workspaces Board
+          </h3>
 
-          <IconButton
+          <Button
             onClick={handleActiveWorkspaceForm}
             label={"Create New Workspace"}
             icon={<IoMdCreate className="text-xl" />}
             active={false}
+            className="w-max bg-slate-200 shadow-none hover:text-gray-200"
           />
         </div>
-
-        <SearchBar
-          handleSearch={() => {}}
-          searchTerm={""}
-          placeholder={"Search"}
-        />
 
         <Modal
           active={activeWorkspaceForm}

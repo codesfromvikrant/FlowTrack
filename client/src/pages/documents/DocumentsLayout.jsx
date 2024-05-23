@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 import Menu from "src/components/Menu";
-import Header from "src/components/documents/Header";
+import Header from "src/modules/Documents/Header";
 import useDocsFilter from "src/hooks/useDocsFilter";
-import FilteredTagsList from "src/components/documents/documentTags/FilteredTagsList";
+import FilteredTagsList from "src/modules/Documents/DocumentTags/FilteredTagsList";
 import Pagination from "src/components/Pagination";
 
 const DocumentsLayout = () => {

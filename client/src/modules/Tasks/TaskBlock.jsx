@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux";
 import { toggleTaskForm } from "src/features/tasksSlice";
 import { setCurrentId } from "src/features/tasksSlice";
 
-const TaskBlock = ({ data }) => {
+const TaskBlock = ({ data, tasksGroupId }) => {
   const dispatch = useDispatch();
 
   const handleToggleTaskForm = () => {
     dispatch(toggleTaskForm(true));
     dispatch(setCurrentId({ key: "tasks", value: data._id }));
+    dispatch(setCurrentId({ key: "tasksgroups", value: tasksGroupId }));
   };
 
   const spliceDate = (date) => {
@@ -29,17 +30,17 @@ const TaskBlock = ({ data }) => {
         <CiMenuKebab className="text-xl hover:text-blue-500 cursor-pointer" />
       </div>
 
-      <span className="text-gray-400 text-sm">{data?.description}</span>
+      <span className="text-gray-600 text-sm">{data?.description}</span>
 
       <div className="flex justify-between items-center mt-2 text-sm font-medium">
         <div className="">
           <div className="text-gray-400">Start Date:</div>
-          <div className="text-gray-200">{spliceDate(data?.startDate)}</div>
+          <div className="text-slate-600">{spliceDate(data?.startDate)}</div>
         </div>
 
         <div className="">
           <div className="text-gray-400">End Date:</div>
-          <div className="text-gray-200">{spliceDate(data?.endDate)}</div>
+          <div className="text-gray-600">{spliceDate(data?.endDate)}</div>
         </div>
       </div>
     </div>
