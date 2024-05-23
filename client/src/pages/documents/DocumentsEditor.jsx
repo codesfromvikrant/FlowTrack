@@ -61,7 +61,7 @@ const options = {
 };
 const todayDate = date.toLocaleDateString("en-US", options);
 
-const Editor = () => {
+const DocumentsEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openTags, setOpenTags] = useState(false);
@@ -220,4 +220,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default DocumentsEditor;
