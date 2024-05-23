@@ -34,7 +34,7 @@ const Tags = ({ selectedTags, handleSelectedTags }) => {
     <div className="relative w-full">
       <Button
         label="Add Tags"
-        className="text-slate-600 font-semibold hover:text-white text-sm shadow-none bg-secondary"
+        className="text-slate-600 font-semibold hover:text-white text-sm shadow bg-primary"
         icon={<FaTags className="" />}
         onClick={toggleTagsList}
         active={false}

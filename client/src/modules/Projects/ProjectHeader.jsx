@@ -46,7 +46,7 @@ const ProjectHeader = () => {
   }, [navs]);
 
   return (
-    <div className="w-full px-10 pt-4 bg-slate-100">
+    <div className="w-full px-10 pt-4 bg-white border-b-2 border-slate-200">
       <div className="flex justify-between items-center gap-4">
         <span className="text-xl text-gray-700 font-semibold">
           {currentProjectData?.name}

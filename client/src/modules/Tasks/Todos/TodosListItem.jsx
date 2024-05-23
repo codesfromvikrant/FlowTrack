@@ -37,7 +37,7 @@ const TodosListItem = ({ data, checked, handleTodos }) => {
         />
         <span
           className={`${
-            data.completed ? "line-through text-gray-500" : "text-gray-200"
+            data.completed ? "line-through text-gray-500" : "text-slate-700"
           } "text-gray-200 text-sm line-through"`}
         >
           {data.name}

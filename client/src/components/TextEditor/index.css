@@ -6,12 +6,12 @@
   line-height: 1.5;
   color: white;
   padding: 10px;
-  background-color: var(--secondary);
+  background-color: white;
   border-radius: 0.5rem;
 }
 
 .ql-toolbar {
-  background-color: var(--secondary);
+  background-color: white;
   border-radius: 0.5rem;
   border: none !important;
   padding: 0 !important;

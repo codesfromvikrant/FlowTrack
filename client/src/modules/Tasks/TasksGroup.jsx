@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "../../components/Button";
-import { CiMenuKebab } from "react-icons/ci";
+import Button from "src/components/Button";
 import { toggleTaskForm } from "src/features/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentId } from "src/features/tasksSlice";
@@ -25,15 +24,15 @@ const TasksGroup = ({ data }) => {
   };
 
   return (
-    <div className="w-[350px] h-screen bg-slate-100 text-gray-700 p-4 rounded-md shadow-lg">
-      <div className="mb-4 flex justify-between items-center gap-6">
+    <div className="w-[350px] h-screen text-gray-700">
+      <div className="mb-1 flex justify-between items-center gap-3">
         <h4 className="font-semibold">{data.name}</h4>
-        <CiMenuKebab className="text-xl" />
+        <i className="fa-solid fa-ellipsis text-xl hover:text-blue-500 cursor-pointer pr-2"></i>
       </div>
       <Button
         onClick={() => handleTaskFormToggle(true)}
         label="Add Task"
-        className="w-full"
+        className="w-full shadow-none bg-slate-200 hover:text-white"
       />
       <div className="space-y-3 mt-3">{renderTaskBlocks}</div>
     </div>

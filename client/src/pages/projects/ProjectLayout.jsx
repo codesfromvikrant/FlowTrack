@@ -18,7 +18,7 @@ const ProjectLayout = () => {
   }, [projectId]);
 
   return (
-    <main className="w-full bg-white">
+    <main className="w-full bg-slate-100">
       <ProjectHeader />
       <Outlet />
     </main>
