@@ -44,12 +44,12 @@ const Todos = () => {
             value={content}
             onChange={handleContent}
             placeholder="Enter To Do Item..."
-            className="text-gray-200 bg-secondary w-full text-sm py-3 px-2  rounded-md"
+            className="text-slate-600 placeholder:text-slate-600 font-medium bg-primaru shadow w-full text-sm py-3 px-2  rounded-md"
           />
           <Button
             onClick={handleSubmit}
             label="Add"
-            className="w-max py-3 flex justify-center items-center"
+            className="w-max py-3 flex justify-center items-center shadow"
           />
         </div>
       </form>

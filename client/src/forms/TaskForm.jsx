@@ -67,7 +67,7 @@ const TaskForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-start gap-3">
+    <div className="flex justify-center items-start gap-6">
       <form className="space-y-3">
         <input
           type="text"
@@ -75,7 +75,7 @@ const TaskForm = () => {
           value={formStates.name}
           placeholder="Task Name"
           onChange={handleFormStates}
-          className="text-gray-200 bg-secondary w-full text-sm py-3 px-2  rounded-md"
+          className="text-slate-600  font-medium outline-none bg-primary shadow w-full text-sm py-2 px-2 rounded-md"
         />
 
         <TextEditor
@@ -93,7 +93,10 @@ const TaskForm = () => {
         />
 
         <div className="">
-          <label htmlFor="startDate" className="text-gray-200 text-sm">
+          <label
+            htmlFor="startDate"
+            className="text-slate-700 font-medium text-sm"
+          >
             Start Date:
           </label>
           <input
@@ -101,12 +104,15 @@ const TaskForm = () => {
             name="startDate"
             value={formStates.startDate}
             onChange={handleFormStates}
-            className="text-gray-200 w-full text-sm py-3 px-2 bg-secondary rounded-md"
+            className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
           />
         </div>
 
         <div className="">
-          <label htmlFor="endDate" className="text-gray-200 text-sm">
+          <label
+            htmlFor="endDate"
+            className="text-slate-700 font-medium text-sm"
+          >
             End Date:
           </label>
           <input
@@ -114,19 +120,22 @@ const TaskForm = () => {
             name="endDate"
             value={formStates.endDate}
             onChange={handleFormStates}
-            className="text-gray-200 w-full text-sm py-3 px-2 bg-secondary rounded-md"
+            className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
           />
         </div>
 
         <div className="">
-          <label htmlFor="status" className="text-gray-200 text-sm">
+          <label
+            htmlFor="status"
+            className="text-slate-700 font-medium text-sm"
+          >
             Status:
           </label>
           <select
             name="status"
             onChange={handleFormStates}
             value={formStates.status}
-            className="text-gray-200 w-full text-sm py-3 px-2 bg-secondary rounded-md "
+            className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md "
           >
             <option value="to_do">To Do</option>
             <option value="in_progress">In Progress</option>
@@ -136,14 +145,17 @@ const TaskForm = () => {
         </div>
 
         <div className="">
-          <label htmlFor="status" className="text-gray-200 text-sm">
+          <label
+            htmlFor="status"
+            className="text-slate-700 font-medium text-sm"
+          >
             Priority:
           </label>
           <select
             name="priority"
             onChange={handleFormStates}
             value={formStates.priority}
-            className="text-gray-200 w-full text-sm py-3 px-2 bg-secondary rounded-md"
+            className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
           >
             <option value="minor">Minor</option>
             <option value="major">Major</option>
@@ -155,14 +167,14 @@ const TaskForm = () => {
           onClick={handleSubmit}
           label={currentTaskId ? "Update Task" : "Create Task"}
           active={true}
-          className={"py-3"}
+          className={"py-2"}
         />
 
         <Button
           onClick={handleSubmit}
           label="Delete Task"
           active={false}
-          className={"py-3"}
+          className={"py-2 hover:text-white"}
         />
       </div>
     </div>

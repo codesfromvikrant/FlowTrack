@@ -61,7 +61,7 @@ const options = {
 };
 const todayDate = date.toLocaleDateString("en-US", options);
 
-const Editor = () => {
+const DocumentsEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openTags, setOpenTags] = useState(false);
@@ -139,7 +139,7 @@ const Editor = () => {
         </ConfirmModal>
       )} */}
 
-      <div className="max-w-4xl mx-auto bg-secondary py-4 sm:px-6 px-3 rounded-lg shadow-md mt-4 ">
+      <div className="max-w-4xl mx-auto bg-slate-100 py-4 sm:px-6 px-3 rounded-lg shadow-md mt-4 ">
         <div className="flex justify-between sm:items-center items-start gap-2 sm:flex-row flex-col py-3 border-b-[1px] border-blureffect mb-6">
           <button
             onClick={handleBack}
@@ -203,7 +203,7 @@ const Editor = () => {
         <input
           value={values?.title}
           onChange={handleTitleChange}
-          className="bg-transparent w-full outline-none mb-4 py-2 text-gray-200 placeholder:text-blureffect placeholder:font-extrabold font-semibold md:text-4xl text-3xl"
+          className="bg-primary w-full outline-none mb-4 py-4 px-3 text-slate-700 placeholder:text-blureffect placeholder:font-extrabold font-semibold rounded-lg md:text-4xl text-3xl"
           type="text"
           placeholder="New Post Title Here..."
         />
@@ -220,4 +220,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default DocumentsEditor;

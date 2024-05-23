@@ -39,10 +39,10 @@ const SideBar = () => {
       key={to}
       to={to}
       style={({ isActive }) => activeStyle(isActive)}
-      className="flex items-center gap-2 text-slate-600 hover:text-gray-700 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-primary cursor-pointer"
+      className="flex items-center gap-2 text-slate-600 hover:text-gray-700 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-secondary cursor-pointer"
     >
-      <Icon className="text-2xl text-slate-700" />
-      <p className="font-medium tracking-wide text-sm">{text}</p>
+      <Icon className="text-xl text-slate-500" />
+      <p className="font-semibold tracking-wide text-sm">{text}</p>
     </NavLink>
   ));
 
@@ -50,7 +50,7 @@ const SideBar = () => {
     <div
       className={`${
         sidebar ? "lg:flex hidden" : ""
-      } lg:flex flex-col min-w-max h-[100vh] overflow-y-auto bg-secondary px-4 py-8 lg:static fixed top-0 left-0 z-[99] shadow-md`}
+      } lg:flex flex-col min-w-max h-[100vh] overflow-y-auto bg-white px-4 py-8 lg:static fixed top-0 left-0 z-[99] shadow-md`}
     >
       <div className="flex flex-col items-start gap-6 w-full">
         <div className="flex items-center mx-auto">

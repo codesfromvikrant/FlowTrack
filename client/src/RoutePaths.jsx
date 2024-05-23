@@ -45,7 +45,10 @@ const RoutePaths = () => {
           <Route path="project/:projectId" element={<ProjectLayout />}>
             <Route index element={<ProjectOverview />} />
             <Route path="tasks" element={<TasksLayout />} />
-            <Route path="documents" element={<ProjectsDocuments />} />
+            <Route path="documents" element={<ProjectsDocuments />}>
+              <Route index element={<DocumentsLayout />} />
+              <Route path="editor" element={<DocumentsEditor />} />
+            </Route>
             <Route path="discussion" element={<ProjectDiscussion />} />
           </Route>
 

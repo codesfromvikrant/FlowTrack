@@ -1,7 +1,9 @@
 import React from "react";
+import Header from "src/modules/Documents/Header";
+import { Outlet } from "react-router-dom";
 
 const ProjectsDocuments = () => {
-  return <div>ProjectsDocuments</div>;
+  return <Outlet />;
 };
 
 export default ProjectsDocuments;

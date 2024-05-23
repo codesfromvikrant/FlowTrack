@@ -10,7 +10,7 @@ const initialState = {
     data: [],
     currentId: "",
   },
-  taskForm: true,
+  taskForm: false,
   todos: {
     data: [],
     currentId: "",
