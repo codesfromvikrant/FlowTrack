@@ -3,20 +3,20 @@ import Home from "src/pages/Home";
 import UserPortal from "src/pages/UserPortal";
 import Protected from "src/Protected";
 import Layout from "src/pages/Layout";
-import DocumentsRoot from "src/pages/Documents/DocumentsRoot";
+import DocumentsRoot from "src/pages/documents/DocumentsRoot";
 import Explore from "src/pages/Explore";
 import NoPage from "src/pages/NoPage";
-import DocumentsEditor from "src/pages/Documents/DocumentsEditor";
-import DocumentsLayout from "src/pages/Documents/DocumentsLayout";
-import Workspaces from "src/pages/Workspaces";
-import WorkspaceLayout from "src/pages/Workspace/WorkspaceLayout";
-import WorkspaceRoot from "./pages/Workspace/WorkspaceRoot";
-import Projects from "src/pages/Projects/Projects";
-import ProjectLayout from "src/pages/Projects/ProjectLayout";
-import ProjectOverview from "src/pages/Projects/ProjectOverview";
-import TasksLayout from "src/pages/Tasks/TasksLayout";
-import ProjectsDocuments from "src/pages/Projects/ProjectsDocuments";
-import ProjectDiscussion from "src/pages/Projects/ProjectDiscussion";
+import DocumentsEditor from "src/pages/documents/DocumentsEditor";
+import DocumentsLayout from "src/pages/documents/DocumentsLayout";
+import Workspaces from "src/pages/workspaces";
+import WorkspaceLayout from "src/pages/workspace/WorkspaceLayout";
+import WorkspaceRoot from "src/pages/workspace/WorkspaceRoot";
+import Projects from "src/pages/projects/Projects";
+import ProjectLayout from "src/pages/projects/ProjectLayout";
+import ProjectOverview from "src/pages/projects/ProjectOverview";
+import TasksLayout from "src/pages/tasks/TasksLayout";
+import ProjectsDocuments from "src/pages/projects/ProjectsDocuments";
+import ProjectDiscussion from "src/pages/projects/ProjectDiscussion";
 
 const RoutePaths = () => {
   return (
