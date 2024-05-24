@@ -10,7 +10,7 @@ import DocumentsEditor from "src/pages/Documents/DocumentsEditor";
 import DocumentsLayout from "src/pages/Documents/DocumentsLayout";
 import Workspaces from "src/pages/Workspaces";
 import WorkspaceLayout from "src/pages/Workspace/WorkspaceLayout";
-import WorkspaceRoot from "./pages/Workspace/WorkspaceRoot";
+import WorkspaceRoot from "src/pages/Workspace/WorkspaceRoot";
 import Projects from "src/pages/Projects/Projects";
 import ProjectLayout from "src/pages/Projects/ProjectLayout";
 import ProjectOverview from "src/pages/Projects/ProjectOverview";
