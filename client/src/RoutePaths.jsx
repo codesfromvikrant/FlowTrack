@@ -12,6 +12,7 @@ import DocumentsEditor from "./pages/documents/Editor";
 import DocumentsDashboard from "./pages/documents/Dashboard";
 
 import Workspaces from "src/pages/Workspaces";
+
 import WorkspaceLayout from "./pages/workspace/WorkspaceLayout";
 import WorkspaceRoot from "./pages/workspace/WorkspaceRoot";
 
