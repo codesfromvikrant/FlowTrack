@@ -31,17 +31,17 @@ const Tags = ({ selectedTags, handleSelectedTags }) => {
   });
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       <Button
-        label="Add Tags"
+        label="Tags"
         className="text-slate-600 font-semibold hover:text-white text-sm shadow bg-primary"
-        icon={<FaTags className="" />}
+        icon={<FaTags />}
         onClick={toggleTagsList}
         active={false}
       />
 
       {activeTagsList && (
-        <div className="space-y-2 my-2 absolute w-full bg-primary">
+        <div className="space-y-2 my-2 absolute min-w-full py-2 bg-primary shadow rounded-md">
           {renderTagsListItem}
         </div>
       )}

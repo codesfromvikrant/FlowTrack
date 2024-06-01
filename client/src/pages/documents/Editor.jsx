@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useParams } from "react-router-dom";
 import { IoCaretBackCircle } from "react-icons/io5";
 import { ImPriceTags } from "react-icons/im";
 import { FaTrash } from "react-icons/fa";
@@ -65,10 +65,13 @@ const DocumentsEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openTags, setOpenTags] = useState(false);
+  const { projectId } = useParams();
+
   const [values, setValues] = useState({
     title: "",
     content: "",
     tags: [],
+    projectId,
   });
   const currentDocument = useSelector(
     (state) => state.documents.documents.currentData
@@ -95,6 +98,7 @@ const DocumentsEditor = () => {
       dispatch(createDocument(values, setSearchParams));
       return;
     }
+    console.log("values", values);
     dispatch(updateDocument(documentId, values));
     toast.success("Document Updated Successfully!");
   };

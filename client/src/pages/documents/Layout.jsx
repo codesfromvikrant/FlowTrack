@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router";
+import { useParams } from "react-router-dom";
 import { getAllDocuments } from "src/features/documentsSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DocumentsRoot = () => {
+const DocumentsLayout = () => {
   const dispatch = useDispatch();
+  const { projectId } = useParams();
 
   useEffect(() => {
     document.title = "Documents | WorkFlow";
-    dispatch(getAllDocuments());
+    dispatch(getAllDocuments({ projectId }));
   }, []);
 
   return (
@@ -32,4 +34,4 @@ const DocumentsRoot = () => {
   );
 };
 
-export default DocumentsRoot;
+export default DocumentsLayout;

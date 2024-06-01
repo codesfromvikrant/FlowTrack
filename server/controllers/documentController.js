@@ -3,9 +3,13 @@ const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllDocuments = catchAsync(async (req, res, next) => {
-  const { tags, page, limit, search } = req.query;
+  const { tags, page, limit, search, projectId } = req.query;
 
   let query = {};
+
+  if (projectId) {
+    query.projectId = projectId;
+  }
 
   if (search) {
     query = {
@@ -19,6 +23,8 @@ exports.getAllDocuments = catchAsync(async (req, res, next) => {
   if (tags) {
     query.tags = { $in: tags };
   }
+
+  console.log("query", query)
 
   let documents = [];
   if (Object.keys(query).length === 0) {

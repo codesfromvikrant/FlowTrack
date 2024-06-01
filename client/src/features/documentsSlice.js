@@ -63,32 +63,39 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 const headersTypeJson = {
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 };
 
-export const getAllDocuments = (
-  page,
-  limit,
-  filterTags,
-  searchTerm
-) =>
+export const getAllDocuments = ({ page = 1,
+  limit = 10,
+  filterTags = [],
+  searchTerm = '',
+  projectId = null } = {}) =>
+
   catchAsync(async (dispatch, getState) => {
-    let queryString = "";
+    const params = new URLSearchParams();
+    params.append('page', page);
+    params.append('limit', limit);
+    projectId && params.append('projectId', projectId);
+    searchTerm && params.append('search', searchTerm);
+
+    console.log("projectId", projectId)
+
     filterTags.forEach((tagId) => {
-      queryString += `tags[]=${tagId}&`;
+      params.append('tags[]', tagId);
     });
 
-    const response = await axios.get(
-      `${apiBaseUrl}documents?page=${page}&limit=${limit}&search=${searchTerm}&${queryString}`
-    );
-    const { data } = await response.data;
-    const { documents } = data;
+    const response = await axios.get(`${apiBaseUrl}documents`, { params, ...headersTypeJson });
+
+
+    const { data: { documents } } = response.data;
     dispatch(setAllData({ key: "documents", value: documents }));
   });
 
 export const getDocument = (id) =>
   catchAsync(async (dispatch, getState) => {
-    const response = await axios.get(`${apiBaseUrl}documents/${id}`);
+    const response = await axios.get(`${apiBaseUrl}documents/${id}`, headersTypeJson);
     const { data } = await response.data;
     const { document } = data;
     dispatch(setCurrentData({ key: "documents", value: document }));
@@ -122,14 +129,14 @@ export const createDocument = (newDocument, setSearchParams) =>
 
 export const deleteDocument = (id) =>
   catchAsync(async (dispatch, getState) => {
-    await axios.delete(`${apiBaseUrl}documents/${id}`);
+    await axios.delete(`${apiBaseUrl}documents/${id}`, headersTypeJson);
     dispatch(deleteData({ key: "documents", value: { id } }));
   });
 
 // Tags
 export const getAllTags = () =>
   catchAsync(async (dispatch, getState) => {
-    const response = await axios.get(`${apiBaseUrl}tags?category=documents`);
+    const response = await axios.get(`${apiBaseUrl}tags`, headersTypeJson);
     const { data } = await response.data;
     const { tags } = data;
     dispatch(setAllData({ key: "tags", value: tags }));
