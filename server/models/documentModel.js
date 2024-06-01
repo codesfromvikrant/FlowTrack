@@ -19,7 +19,7 @@ const documentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  project: {
+  projectId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
   },
@@ -33,5 +33,5 @@ const documentSchema = new mongoose.Schema({
   }
 });
 
-const Document = mongoose.model('Note', documentSchema);
+const Document = mongoose.model('Document', documentSchema);
 module.exports = Document;

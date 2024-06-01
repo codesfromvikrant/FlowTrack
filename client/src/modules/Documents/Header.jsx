@@ -5,8 +5,8 @@ import { ImPriceTags } from "react-icons/im";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import FilterTags from "./DocumentTags/FilterTags";
 import Button from "src/components/Button";
-import IconButton from "src/components/IconButton";
 import SearchBar from "src/components/SearchBar";
+import Tags from "../../components/Tags";
 
 const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
         active={false}
         className="w-max"
       />
-
+      {/* 
       <div className="relative">
         <Button
           onClick={handleTags}
@@ -48,7 +48,9 @@ const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
           className="w-max"
         />
         <FilterTags selectedTags={selectedTags} handleTags={handleTags} />
-      </div>
+      </div> */}
+
+      <Tags selectedTags={selectedTags} handleSelectedTags={handleTags} />
 
       <SearchBar
         searchTerm={searchTerm}

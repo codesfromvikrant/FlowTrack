@@ -1,22 +1,25 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "src/pages/Home";
-import UserPortal from "src/pages/UserPortal";
-import Protected from "src/Protected";
-import Layout from "src/pages/Layout";
-import DocumentsRoot from "src/pages/documents/DocumentsRoot";
-import Explore from "src/pages/Explore";
-import NoPage from "src/pages/NoPage";
-import DocumentsEditor from "src/pages/documents/DocumentsEditor";
-import DocumentsLayout from "src/pages/documents/DocumentsLayout";
-import Workspaces from "src/pages/workspaces";
-import WorkspaceLayout from "src/pages/workspace/WorkspaceLayout";
-import WorkspaceRoot from "src/pages/workspace/WorkspaceRoot";
-import Projects from "src/pages/projects/Projects";
-import ProjectLayout from "src/pages/projects/ProjectLayout";
-import ProjectOverview from "src/pages/projects/ProjectOverview";
-import TasksLayout from "src/pages/tasks/TasksLayout";
-import ProjectsDocuments from "src/pages/projects/ProjectsDocuments";
-import ProjectDiscussion from "src/pages/projects/ProjectDiscussion";
+import Home from "./pages/Home";
+import UserPortal from "./pages/UserPortal";
+import Protected from "./Protected";
+import Layout from "./pages/Layout";
+
+import Explore from "./pages/Explore";
+import NoPage from "./pages/NoPage";
+
+import DocumentsLayout from "./pages/documents/Layout";
+import DocumentsEditor from "./pages/documents/Editor";
+import DocumentsDashboard from "./pages/documents/Dashboard";
+
+import Workspaces from "src/pages/Workspaces";
+import WorkspaceLayout from "./pages/workspace/WorkspaceLayout";
+import WorkspaceRoot from "./pages/workspace/WorkspaceRoot";
+
+import Projects from "./pages/projects/Projects";
+import ProjectLayout from "./pages/projects/ProjectLayout";
+import ProjectOverview from "./pages/projects/ProjectOverview";
+import TasksLayout from "./pages/tasks/TasksLayout";
+import ProjectDiscussion from "./pages/projects/ProjectDiscussion";
 
 const RoutePaths = () => {
   return (
@@ -45,16 +48,16 @@ const RoutePaths = () => {
           <Route path="project/:projectId" element={<ProjectLayout />}>
             <Route index element={<ProjectOverview />} />
             <Route path="tasks" element={<TasksLayout />} />
-            <Route path="documents" element={<ProjectsDocuments />}>
-              <Route index element={<DocumentsLayout />} />
+            <Route path="documents" element={<DocumentsLayout />}>
+              <Route index element={<DocumentsDashboard />} />
               <Route path="editor" element={<DocumentsEditor />} />
             </Route>
             <Route path="discussion" element={<ProjectDiscussion />} />
           </Route>
 
           {/* Documents */}
-          <Route path="documents" element={<DocumentsRoot />}>
-            <Route index element={<DocumentsLayout />} />
+          <Route path="documents" element={<DocumentsLayout />}>
+            <Route index element={<DocumentsDashboard />} />
             <Route path="editor" element={<DocumentsEditor />} />
           </Route>
         </Route>

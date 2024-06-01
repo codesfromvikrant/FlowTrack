@@ -8,7 +8,7 @@ const TagsListItem = ({ data, checked, handleSelectedTags }) => {
     handleSelectedTags(data._id);
   };
   return (
-    <div className="bg-secondary hover:bg-gray-900 p-2 text-gray-200 text-sm rounded-md flex justify-start items-center gap-2 cursor-pointer">
+    <div className="hover:bg-slate-100 px-2 hover:py-2 transition-all duration-500 text-slate-600 text-sm font-medium rounded-md flex justify-start items-center gap-2 cursor-pointer w-full">
       <input
         type="checkbox"
         checked={active}

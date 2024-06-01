@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { toggleTaskForm } from "src/features/tasksSlice";
 import { setCurrentId } from "src/features/tasksSlice";
+import Menu from "src/components/Menu";
 
 const statusStyles = {
   to_do: {
@@ -60,7 +61,7 @@ const TaskBlock = ({ data, tasksGroupId }) => {
         >
           {data?.name}
         </span>
-        <i className="fa-solid fa-ellipsis text-xl hover:text-blue-500 cursor-pointer"></i>
+        <Menu />
       </div>
 
       <div className="flex justify-between items-center gap-1 font-semibold">
