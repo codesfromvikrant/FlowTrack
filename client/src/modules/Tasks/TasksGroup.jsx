@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "src/components/Button";
+import { Button } from "@/components/ui/button";
 import { toggleTaskForm } from "src/features/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentId } from "src/features/tasksSlice";
@@ -31,9 +31,10 @@ const TasksGroup = ({ data }) => {
       </div>
       <Button
         onClick={() => handleTaskFormToggle(true)}
-        label="Add Task"
-        className="w-full shadow-none bg-slate-200 hover:text-white"
-      />
+        className="w-full bg-white shadow-none border-[1px] border-gray-300 text-foreground dark:text-gray-200"
+      >
+        Create Task
+      </Button>
       <div className="space-y-3 mt-3">{renderTaskBlocks}</div>
     </div>
   );

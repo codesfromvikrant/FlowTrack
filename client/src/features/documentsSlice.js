@@ -67,31 +67,25 @@ const headersTypeJson = {
   },
 };
 
-export const getAllDocuments = ({ page = 1,
-  limit = 10,
-  filterTags = [],
-  searchTerm = '',
-  projectId = null } = {}) =>
+export const getAllDocuments = (values) => catchAsync(async (dispatch, getState) => {
+  const { page = 1, limit = 10, filterTags = [], searchTerm = '', projectId } = values;
 
-  catchAsync(async (dispatch, getState) => {
-    const params = new URLSearchParams();
-    params.append('page', page);
-    params.append('limit', limit);
-    projectId && params.append('projectId', projectId);
-    searchTerm && params.append('search', searchTerm);
+  console.log("values", values);
+  const params = new URLSearchParams();
+  params.append('page', page);
+  params.append('limit', limit);
+  projectId && params.append('projectId', projectId);
+  searchTerm && params.append('search', searchTerm);
 
-    console.log("projectId", projectId)
-
-    filterTags.forEach((tagId) => {
-      params.append('tags[]', tagId);
-    });
-
-    const response = await axios.get(`${apiBaseUrl}documents`, { params, ...headersTypeJson });
-
-
-    const { data: { documents } } = response.data;
-    dispatch(setAllData({ key: "documents", value: documents }));
+  filterTags.forEach((tagId) => {
+    params.append('tags[]', tagId);
   });
+
+  const response = await axios.get(`${apiBaseUrl}documents`, { params, ...headersTypeJson });
+
+  const { data: { documents } } = response.data;
+  dispatch(setAllData({ key: "documents", value: documents }));
+});
 
 export const getDocument = (id) =>
   catchAsync(async (dispatch, getState) => {

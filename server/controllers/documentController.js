@@ -6,10 +6,7 @@ exports.getAllDocuments = catchAsync(async (req, res, next) => {
   const { tags, page, limit, search, projectId } = req.query;
 
   let query = {};
-
-  if (projectId) {
-    query.projectId = projectId;
-  }
+  projectId ? query.projectId = projectId : query.createdBy = req.user._id;
 
   if (search) {
     query = {
@@ -23,8 +20,6 @@ exports.getAllDocuments = catchAsync(async (req, res, next) => {
   if (tags) {
     query.tags = { $in: tags };
   }
-
-  console.log("query", query)
 
   let documents = [];
   if (Object.keys(query).length === 0) {
@@ -57,6 +52,7 @@ exports.getDocument = catchAsync(async (req, res, next) => {
 });
 
 exports.createDocument = catchAsync(async (req, res, next) => {
+  req.body.createdBy = req.user._id;
   const document = await Document.create(req.body);
   res.status(201).json({
     status: 'success',

@@ -7,6 +7,21 @@ const Blocks = ({ data }) => {
   const title =
     data.title.length > 65 ? data.title.slice(0, 65) + " ..." : data.title;
 
+  const menulist = [
+    {
+      text: "Edit",
+      onClick: () => {
+        console.log("edit");
+      },
+    },
+    {
+      text: "Delete",
+      onClick: () => {
+        console.log("delete");
+      },
+    },
+  ];
+
   return (
     <div
       key={data._id}
@@ -18,7 +33,7 @@ const Blocks = ({ data }) => {
             <p className="">Last Updated On :</p>
             <p className="font-semibold">{data.lastUpdatedAt}</p>
           </div>
-          <Menu onClick={() => {}} />
+          <Menu menulist={menulist} />
         </div>
         <Link to={`./editor?documentId=${data._id}`}>
           <p className="font-semibold leading-5 text-base text-slate-700 hover:text-blue-700 transition-all">

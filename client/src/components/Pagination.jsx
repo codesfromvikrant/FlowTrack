@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const Pagination = ({ totalCount, docsPerPage }) => {
+const Pagination = ({ totalCount, limit }) => {
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,12 +10,12 @@ const Pagination = ({ totalCount, docsPerPage }) => {
   const paginate = (key, value) => {
     setSearchParams((prevParam) => {
       prevParam.set(key, value);
-      prevParam.set("docsperpage", docsPerPage);
+      prevParam.set("limit", limit);
       return prevParam;
     });
   };
 
-  const totalPages = Math.ceil(totalCount / docsPerPage) || 1;
+  const totalPages = Math.ceil(totalCount / limit) || 1;
   const btnCount = 4;
 
   useEffect(() => {

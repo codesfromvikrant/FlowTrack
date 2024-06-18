@@ -1,10 +1,7 @@
 import { useSelector } from "react-redux";
-import { MdEdit } from "react-icons/md";
-import { FaTrash } from "react-icons/fa6";
-import IconButton from "../../components/IconButton";
 import { NavLink, useParams } from "react-router-dom";
 import { useMemo } from "react";
-import Button from "../../components/Button";
+import Button from "src/components/Button";
 
 const ProjectHeader = () => {
   const { projectId } = useParams();

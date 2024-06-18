@@ -5,8 +5,8 @@ const catchAsync = require('../utils/catchAsync');
 
 // Tasks Group
 exports.createTasksGroup = catchAsync(async (req, res, next) => {
-  const { name, projectId } = req.body;
-  const tasksGroup = await Tasksgroup.create({ name, projectId });
+  const { name, workspaceId } = req.body;
+  const tasksGroup = await Tasksgroup.create({ name, workspaceId });
   res.status(201).json({
     status: 'success',
     data: {
@@ -16,8 +16,8 @@ exports.createTasksGroup = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllTasksGroup = catchAsync(async (req, res, next) => {
-  const { projectId } = req.query;
-  const tasksGroup = await Tasksgroup.find({ projectId });
+  const { workspaceId } = req.query;
+  const tasksGroup = await Tasksgroup.find({ workspaceId });
   res.status(200).json({
     status: 'success',
     results: tasksGroup.length,
