@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const workspaceSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: [true, 'Please provide a name for the workspace'],
   },
@@ -9,14 +9,20 @@ const workspaceSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a description for the workspace'],
   },
-  manager: {
+  bgCover: String,
+  bgColor: String,
+  admins: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }],
   members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   createdAt: {
     type: Date,
     default: Date.now

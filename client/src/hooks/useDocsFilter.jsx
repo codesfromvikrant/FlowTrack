@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { getAllDocuments } from "src/features/documentsSlice";
 
 const useDocsFilter = () => {
@@ -8,9 +8,9 @@ const useDocsFilter = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchParams] = useSearchParams();
-  const docsPerPage = 10;
   const page = Number(searchParams.get("page")) || 1;
-  const docsperpage = Number(searchParams.get("docsperpage")) || docsPerPage;
+  const limit = Number(searchParams.get("limit")) || 10;
+  const { projectId } = useParams();
 
   const handleTags = (id) => {
     if (selectedTags.includes(id)) {
@@ -21,19 +21,31 @@ const useDocsFilter = () => {
   };
 
   let debounceTimer;
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     if (debounceTimer) clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-      dispatch(getAllDocuments(1, docsPerPage, selectedTags, e.target.value));
+      dispatch(
+        getAllDocuments({
+          page: 1,
+          limit,
+          filterTags: selectedTags,
+          searchTerm: e.target.value,
+        })
+      );
     }, 300);
   };
 
   useEffect(() => {
-    dispatch(getAllDocuments(page, docsperpage, selectedTags, searchTerm));
-  }, [page, docsperpage, selectedTags]);
+    const data = { page, limit, filterTags: selectedTags, searchTerm };
+    projectId ? (data.projectId = projectId) : null;
+    dispatch(getAllDocuments(data));
 
-  return { selectedTags, docsPerPage, searchTerm, handleTags, handleSearch };
+    document.title = "Documents | WorkFlow";
+  }, [page, limit, selectedTags]);
+
+  return { selectedTags, limit, searchTerm, handleTags, handleSearch };
 };
 
 export default useDocsFilter;

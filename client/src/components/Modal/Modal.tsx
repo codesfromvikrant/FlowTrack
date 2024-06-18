@@ -1,20 +1,18 @@
-import React from "react";
-
-const Modal = ({ children, active, handleActive, widthClass }) => {
+const Modal = ({ children, isOpen, onClose, className }) => {
   return (
     <>
-      {active && (
-        <div className="w-full h-full fixed top-0 left-0 z-[100]">
+      {isOpen && (
+        <>
           <div
-            onClick={handleActive}
-            className="w-full h-full bg-black opacity-70  backdrop-blur-sm"
+            onClick={onClose}
+            className="bg-black opacity-35 fixed top-0 left-0 h-screen w-screen"
           ></div>
           <div
-            className={`bg-slate-100 shadow-lg rounded-lg p-4 absolute max-h-[80vh] overflow-y-scroll top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${widthClass}`}
+            className={`${className} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-lg p-4  max-h-[80vh] overflow-y-auto `}
           >
             {children}
           </div>
-        </div>
+        </>
       )}
     </>
   );

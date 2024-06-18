@@ -70,8 +70,8 @@ export const createTasksGroup = (formdata) => catchAsync(async (dispatch, getSta
   dispatch(addData({ key: "taskgroups", value: formdata }));
 });
 
-export const getAllTasksGroup = (projectId) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.get(`${apiBaseUrl}tasks/tasksgroup?projectId=${projectId}`, headersTypeJson);
+export const getAllTasksGroup = (workspaceId) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.get(`${apiBaseUrl}tasks/tasksgroup?workspaceId=${workspaceId}`, headersTypeJson);
   const { data } = await response.data;
   const { tasksGroup } = data;
   dispatch(setAllData({ key: "tasksgroups", value: tasksGroup }));

@@ -1,67 +1,92 @@
 import React, { useState } from "react";
-import Button from "src/components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { createTasksGroup } from "src/features/tasksSlice";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { useParams } from "react-router-dom";
 
 const AddTaskGroup = () => {
   const dispatch = useDispatch();
-  const projectId = useSelector((state) => state.projects.projects.currentId);
+  const [taskGroupForm, setTaskGroupForm] = useState(false);
+  const { workspaceId } = useParams();
 
-  const [formState, setFormState] = useState({
-    title: "",
-    toggleTaskGroupForm: false,
+  const formSchema = z.object({
+    name: z.string().max(20, {
+      message: "Title must be at most 20 characters.",
+    }),
   });
 
-  const handlFormState = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+    },
+  });
+
+  const onSubmit = (values) => {
+    if (!workspaceId) return;
+    dispatch(createTasksGroup({ name: values.name, workspaceId }));
   };
+
   const toggleTaskGroupForm = () => {
-    setFormState({
-      ...formState,
-      toggleTaskGroupForm: !formState.toggleTaskGroupForm,
-    });
-  };
-  const handleCreateTaskGroup = () => {
-    if (!projectId || !formState.title) return;
-    dispatch(createTasksGroup({ name: formState.title, projectId }));
-    toggleTaskGroupForm();
+    setTaskGroupForm(!taskGroupForm);
   };
 
   return (
-    <div className="bg-slate-100 p-4 rounded-md w-[350px] shadow-lg">
-      {formState.toggleTaskGroupForm ? (
+    <div className="w-[350px] bg-white p-4 rounded-md shadow">
+      {taskGroupForm ? (
         <div className="">
-          <input
-            type="text"
-            name="title"
-            value={formState.title}
-            onChange={handlFormState}
-            placeholder="Enter Task Group Title"
-            className="w-full px-3 py-4 text-sm mb-3 bg-slate-200 rounded text-gray-200"
-          />
-          <div className="flex justify-start items-center gap-2">
-            <Button
-              onClick={handleCreateTaskGroup}
-              label="Add"
-              className="w-max"
-            />
-            <Button
-              onClick={toggleTaskGroupForm}
-              label="Cancel"
-              className="w-max"
-            />
-          </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Group Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter Group Name Here..."
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <div className="flex justify-start items-center gap-2 mt-2">
+                <Button
+                  type="submit"
+                  className="w-full text-foreground dark:text-gray-200"
+                >
+                  Create
+                </Button>
+                <Button
+                  onClick={toggleTaskGroupForm}
+                  className="w-full text-foreground dark:text-gray-200"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </Form>
         </div>
       ) : (
         <Button
           onClick={toggleTaskGroupForm}
-          label="Add Task Group"
-          active={false}
-          className="w-full shadow-none"
-        />
+          className="w-full bg-white shadow-none border-[1px] border-gray-300 text-foreground dark:text-gray-200"
+        >
+          Create Task Group
+        </Button>
       )}
     </div>
   );

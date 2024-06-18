@@ -1,25 +1,25 @@
 import { useEffect, useMemo } from "react";
-import AddTaskGroup from "src/modules/Tasks/AddTaskGroup";
+import AddTaskGroup from "@/modules/Tasks/AddTaskGroup";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasksGroup } from "src/features/tasksSlice";
-import TasksGroup from "src/modules/Tasks/TasksGroup";
-import Modal from "src/components/Modal/Modal";
-import TaskForm from "src/forms/TaskForm";
-import { toggleTaskForm, getAllTasks } from "src/features/tasksSlice";
+import { getAllTasksGroup } from "@/features/tasksSlice";
+import TasksGroup from "@/modules/Tasks/TasksGroup";
+import Modal from "@/components/Modal/Modal";
+import TaskForm from "@/forms/TaskForm";
+import { toggleTaskForm } from "@/features/tasksSlice";
+import { useParams } from "react-router-dom";
 
 const TasksLayout = () => {
   const dispatch = useDispatch();
-  const projectId = useSelector((state) => state.projects.projects.currentId);
+  const { workspaceId } = useParams();
   const tasksGroupIds = useSelector((state) => state.tasks.tasksgroups.data);
 
   const taskForm = useSelector((state) => state.tasks.taskForm);
   const handleTaskFormToggle = (value) => dispatch(toggleTaskForm(value));
 
   useEffect(() => {
-    if (!projectId) return;
-    dispatch(getAllTasksGroup(projectId));
-    dispatch(getAllTasks(projectId));
-  }, [projectId]);
+    if (!workspaceId) return;
+    dispatch(getAllTasksGroup(workspaceId));
+  }, [workspaceId]);
 
   const renderTaskGroup = useMemo(() => {
     return tasksGroupIds?.map((item) => {
@@ -34,7 +34,11 @@ const TasksLayout = () => {
         <AddTaskGroup />
       </div>
 
-      <Modal active={taskForm} handleActive={() => handleTaskFormToggle(false)}>
+      <Modal
+        isOpen={taskForm}
+        onClose={() => handleTaskFormToggle(false)}
+        className=""
+      >
         <TaskForm />
       </Modal>
     </main>

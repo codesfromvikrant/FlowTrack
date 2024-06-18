@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const WorkspaceRoot = () => {
+const WorkspaceLayout = () => {
   useEffect(() => {
     document.title = "Documents | WorkFlow";
   }, []);
@@ -27,4 +27,4 @@ const WorkspaceRoot = () => {
   );
 };
 
-export default WorkspaceRoot;
+export default WorkspaceLayout;

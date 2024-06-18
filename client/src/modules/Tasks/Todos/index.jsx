@@ -1,24 +1,48 @@
 import React, { useEffect, useState } from "react";
-import Button from "src/components/Button";
+import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTodos } from "src/features/tasksSlice";
 import TodosListItem from "./TodosListItem";
 import { addTodo } from "src/features/tasksSlice";
 
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+
 const Todos = () => {
-  const [content, setContent] = useState("");
   const dispatch = useDispatch();
   const taskId = useSelector((state) => state.tasks.tasks.currentId);
   const allTodos = useSelector((state) => state.tasks.todos.data);
 
-  useEffect(() => {
-    if (!taskId) return;
-    dispatch(getAllTodos(taskId));
-  }, [taskId]);
+  const formSchema = z.object({
+    name: z.string(),
+  });
 
-  const handleContent = (e) => {
-    setContent(e.target.value);
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      completed: false,
+      taskId,
+    },
+  });
+
+  const onSubmit = (values) => {
+    console.log(values);
   };
+
+  // useEffect(() => {
+  //   if (!taskId) return;
+  //   dispatch(getAllTodos(taskId));
+  // }, [taskId]);
 
   const renderTodoList = allTodos.map((todo) => (
     <TodosListItem
@@ -28,32 +52,39 @@ const Todos = () => {
     />
   ));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formdata = { name: content, completed: false, taskId };
-    dispatch(addTodo(formdata));
-    setContent("");
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="flex justify-start items-center gap-3">
-          <input
-            type="text"
-            value={content}
-            onChange={handleContent}
-            placeholder="Enter To Do Item..."
-            className="text-slate-600 placeholder:text-slate-600 font-medium bg-primaru shadow w-full text-sm py-3 px-2  rounded-md"
-          />
-          <Button
-            onClick={handleSubmit}
-            label="Add"
-            className="w-max py-3 flex justify-center items-center shadow"
-          />
-        </div>
-      </form>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-3 w-full"
+        >
+          <div className="flex justify-start items-center gap-3 w-full">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter Task Title Here..."
+                      {...field}
+                      className="min-w-full"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
+            <Button
+              type="submit"
+              className="w-max bg-white shadow-none border-[1px] border-gray-300 text-foreground dark:text-gray-200"
+            >
+              Add
+            </Button>
+          </div>
+        </form>
+      </Form>
       <div className="">{renderTodoList}</div>
     </div>
   );

@@ -14,6 +14,8 @@ exports.getAllWorkspaces = catchAsync(async (req, res, next) => {
 });
 
 exports.createWorkspace = catchAsync(async (req, res, next) => {
+  const { _id } = req.user;
+  req.body.createdBy = _id;
   const workspace = await Workspace.create(req.body);
   res.status(201).json({
     status: "success",

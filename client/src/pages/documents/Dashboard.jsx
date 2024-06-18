@@ -9,7 +9,7 @@ const DocumentsDashboard = () => {
   const { documents } = useSelector((state) => state.documents);
   const allDocumentsData = documents.data;
 
-  const { selectedTags, docsPerPage, searchTerm, handleTags, handleSearch } =
+  const { selectedTags, limit, searchTerm, handleTags, handleSearch } =
     useDocsFilter();
 
   const documentItems = allDocumentsData.map((obj) => {
@@ -39,7 +39,7 @@ const DocumentsDashboard = () => {
         {documentItems}
       </div>
 
-      <Pagination totalCount={2000} docsPerPage={docsPerPage} />
+      <Pagination totalCount={2000} limit={limit} />
     </div>
   );
 };

@@ -1,12 +1,25 @@
-import React from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import React, { useState } from "react";
+import Dropdown from "./Dropdown";
 
-const Menu = ({ onClick }) => {
+const Menu = ({ menulist }) => {
+  const [active, setActive] = useState(false);
+
+  const handleActive = () => {
+    setActive(!active);
+  };
+
   return (
-    <i
-      onClick={onClick}
-      className="fa-solid fa-ellipsis text-xl hover:text-blue-500 cursor-pointer"
-    ></i>
+    <div className="relative">
+      <i
+        onClick={handleActive}
+        className="fa-solid fa-ellipsis text-xl hover:text-blue-500 cursor-pointer"
+      ></i>
+      <Dropdown
+        active={active}
+        handleActive={handleActive}
+        menulist={menulist}
+      />
+    </div>
   );
 };
 

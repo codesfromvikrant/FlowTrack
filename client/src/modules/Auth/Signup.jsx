@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSignup } from "src/features/authSlice";
 import { userSignup, uniqueUsername } from "src/features/authSlice";
-import { setUsername } from "../features/authSlice";
+import { setUsername } from "src/features/authSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
