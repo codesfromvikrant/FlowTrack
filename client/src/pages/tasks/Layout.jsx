@@ -7,6 +7,7 @@ import Modal from "@/components/Modal/Modal";
 import TaskForm from "@/forms/TaskForm";
 import { toggleTaskForm } from "@/features/tasksSlice";
 import { useParams } from "react-router-dom";
+import { getAllTasks } from "@/features/tasksSlice";
 
 const TasksLayout = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const TasksLayout = () => {
   useEffect(() => {
     if (!workspaceId) return;
     dispatch(getAllTasksGroup(workspaceId));
+    dispatch(getAllTasks(workspaceId));
   }, [workspaceId]);
 
   const renderTaskGroup = useMemo(() => {

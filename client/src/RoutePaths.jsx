@@ -17,7 +17,7 @@ import WorkspaceLayout from "@/pages/workspace/Layout";
 import WorkspaceOverview from "@/pages/workspace/Overview";
 import WorkspaceDiscussion from "@/pages/workspace/Discussion";
 
-import TasksLayout from "./pages/tasks/TasksLayout";
+import TasksLayout from "./pages/tasks/Layout";
 
 const RoutePaths = () => {
   return (
