@@ -1,25 +1,23 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { toggleTaskForm } from "src/features/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentId } from "src/features/tasksSlice";
-import TaskBlock from "./TaskBlock";
+import { toggleTaskForm } from "@/features/tasksSlice";
+import TaskCard from "./TaskCard";
 
 const TasksGroup = ({ data }) => {
   const dispatch = useDispatch();
-  const tasksGroupData = useSelector((state) => state.tasks.tasks.data);
-  const tasksGroupId = data?._id;
-  const allTasksData = tasksGroupData.filter(
-    (item) => item.tasksgroupId === data._id
-  );
+  const allTasks = useSelector((state) => state.tasks.tasks.data);
+  const groupId = data?._id;
+  const groupTasksData = allTasks.filter((item) => item.groupId === data._id);
 
-  const renderTaskBlocks = allTasksData.map((data) => (
-    <TaskBlock key={data._id} data={data} tasksGroupId={tasksGroupId} />
+  const renderTaskBlocks = groupTasksData.map((data) => (
+    <TaskCard key={data._id} data={data} groupId={groupId} />
   ));
 
   const handleTaskFormToggle = (value) => {
-    dispatch(setCurrentId({ key: "tasks", value: "" }));
     dispatch(toggleTaskForm(value));
+    dispatch(setCurrentId({ key: "tasks", value: "" }));
     dispatch(setCurrentId({ key: "tasksgroups", value: data._id }));
   };
 

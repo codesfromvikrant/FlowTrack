@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import Button from "src/components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, updateTask } from "src/features/tasksSlice";
-import { toggleTaskForm } from "src/features/tasksSlice";
-import Tags from "src/components/Tags";
-import TextEditor from "src/components/TextEditor";
-import Todos from "src/modules/Tasks/Todos";
-
-import { Label } from "@/components/ui/label";
+import { useParams } from "react-router-dom";
+import TextEditor from "@/components/TextEditor";
+import Todos from "@/modules/Tasks/Todos";
+import DatePicker from "@/components/DatePicker";
+import SelectPicker from "@/components/SelectPicker";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,52 +17,52 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import TagsDropdown from "@/components/Tags/TagsDropdown";
+import { createTask } from "@/features/tasksSlice";
+// import PlateEditor from "@/components/PlateEditor";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
+  const { workspaceId } = useParams();
   const tasksgroupId = useSelector(
     (state) => state.tasks.tasksgroups.currentId
   );
-  const projectId = useSelector((state) => state.projects.projects.currentId);
   const currentTaskId = useSelector((state) => state.tasks.tasks.currentId);
   const allTasksData = useSelector((state) => state.tasks.tasks.data);
   const currentTaskData = allTasksData.find(
     (item) => item._id === currentTaskId
   );
 
-  const spliceDate = (date) => {
-    if (!date) return;
-    return date.split("T")[0];
+  const [formStates, setFormStates] = useState({
+    description: "",
+    startDate: "",
+    endDate: "",
+    tags: [],
+    tasksgroupId,
+    workspaceId,
+  });
+
+  const handleFormStates = (name, value) => {
+    setFormStates({ ...formStates, [name]: value });
   };
 
-  const getFormState = (key, defaultValue) =>
-    currentTaskData?.[key] || defaultValue;
-
-  const [selectedTags, setSelectedTags] = useState(getFormState("tags", []));
-  const handleSelectedTags = (id) => {
-    if (selectedTags.includes(id)) {
-      setSelectedTags(selectedTags.filter((tag) => tag !== id));
+  const handleTaskTags = (id) => {
+    if (formStates.tags.includes(id)) {
+      setFormStates({
+        ...formStates,
+        tags: formStates.tags.filter((tag) => tag !== id),
+      });
     } else {
-      setSelectedTags([...selectedTags, id]);
+      setFormStates({
+        ...formStates,
+        tags: [...formStates.tags, id],
+      });
     }
   };
-
-  const [formStates, setFormStates] = useState({
-    name: getFormState("name", ""),
-    description: getFormState("description", ""),
-    startDate: spliceDate(getFormState("startDate", "")),
-    endDate: spliceDate(getFormState("endDate", "")),
-    status: getFormState("status", "todo"),
-    priority: getFormState("priority", "minor"),
-    projectId: getFormState("projectId", projectId),
-    tasksgroupId: getFormState("tasksgroupId", tasksgroupId),
-  });
 
   const formSchema = z.object({
     name: z.string(),
     description: z.string(),
-    startDate: z.date(),
-    endDate: z.date(),
     status: z.string(),
     priority: z.string(),
   });
@@ -74,48 +72,32 @@ const TaskForm = () => {
     defaultValues: {
       name: "",
       description: "",
-      startDate: "",
-      endDate: "",
       status: "",
       priority: "",
     },
   });
 
   const onSubmit = (values) => {
-    console.log("values", values);
-  };
-
-  const handleFormStates = (e) => {
-    setFormStates({ ...formStates, [e.target.name]: e.target.value });
-  };
-  const handleDescription = (value) => {
-    setFormStates({ ...formStates, description: value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (projectId && tasksgroupId) {
-      if (currentTaskId) {
-        console.log("update task", currentTaskId);
-        dispatch(updateTask(formStates, currentTaskId));
-        return;
-      }
-      dispatch(createTask(formStates));
-      dispatch(toggleTaskForm(false));
-    }
+    const formdata = { ...values, ...formStates };
+    dispatch(createTask(formdata));
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
         <div className="flex justify-center items-start gap-6 w-full">
-          <div className="">
+          <div className="space-y-2">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Enter Task Title Here..." {...field} />
+                    <Input
+                      placeholder="Enter Task Title Here..."
+                      className="border-none shadow-none w-full px-0 placeholder:font-semibold text-lg font-semibold focus-visible:outline-none focus-visible:ring-0"
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -123,113 +105,82 @@ const TaskForm = () => {
 
             <TextEditor
               content={formStates.description}
-              handleContentChange={(value) => handleDescription(value)}
+              handleContentChange={(value) =>
+                handleFormStates("description", value)
+              }
             />
-            <Todos />
+            {/* <PlateEditor /> */}
           </div>
 
-          <div className="space-y-2">
-            <Tags
-              selectedTags={selectedTags}
-              handleSelectedTags={handleSelectedTags}
+          <div className="space-y-2 w-[200px]">
+            <TagsDropdown
+              selectedTags={formStates.taskTags}
+              handleSelectedTags={handleTaskTags}
+              triggerComponent={
+                <Button variant="outline" className="w-full">
+                  Tags
+                </Button>
+              }
+            />
+
+            <DatePicker
+              date={formStates.startDate}
+              setDate={(value) => handleFormStates("startDate", value)}
+              label="Start Date"
+            />
+
+            <DatePicker
+              date={formStates.endDate}
+              setDate={(value) => handleFormStates("endDate", value)}
+              label="End Date"
             />
 
             <FormField
               control={form.control}
-              name="name"
+              name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Input placeholder="Enter Task Title Here..." {...field} />
-                  </FormControl>
+                  <FormLabel>Status</FormLabel>
+                  <SelectPicker
+                    name="status"
+                    placeholder="Select Status"
+                    onValueChange={field.onChange}
+                    options={["todo", "in_progress", "on_hold", "completed"]}
+                  />
                 </FormItem>
               )}
             />
 
-            <div className="">
-              <label
-                htmlFor="startDate"
-                className="text-slate-700 font-medium text-sm"
-              >
-                Start Date:
-              </label>
-              <input
-                type="date"
-                name="startDate"
-                value={formStates.startDate}
-                onChange={handleFormStates}
-                className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
-              />
-            </div>
-
-            <div className="">
-              <label
-                htmlFor="endDate"
-                className="text-slate-700 font-medium text-sm"
-              >
-                End Date:
-              </label>
-              <input
-                type="date"
-                name="endDate"
-                value={formStates.endDate}
-                onChange={handleFormStates}
-                className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
-              />
-            </div>
-
-            <div className="">
-              <label
-                htmlFor="status"
-                className="text-slate-700 font-medium text-sm"
-              >
-                Status:
-              </label>
-              <select
-                name="status"
-                onChange={handleFormStates}
-                value={formStates.status}
-                className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md "
-              >
-                <option value="to_do">To Do</option>
-                <option value="in_progress">In Progress</option>
-                <option value="on_hold">On Hold</option>
-                <option value="completed">Completed</option>
-              </select>
-            </div>
-
-            <div className="">
-              <label
-                htmlFor="status"
-                className="text-slate-700 font-medium text-sm"
-              >
-                Priority:
-              </label>
-              <select
-                name="priority"
-                onChange={handleFormStates}
-                value={formStates.priority}
-                className="text-slate-600 font-medium w-full text-sm py-2 px-2 bg-primary shadow rounded-md"
-              >
-                <option value="minor">Minor</option>
-                <option value="major">Major</option>
-                <option value="critical">Critical</option>
-              </select>
-            </div>
-
-            <Button
-              onClick={handleSubmit}
-              label={currentTaskId ? "Update Task" : "Create Task"}
-              active={true}
-              className={"py-2"}
+            <FormField
+              control={form.control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Priority</FormLabel>
+                  <SelectPicker
+                    name="priority"
+                    placeholder="Select Priority"
+                    onValueChange={field.onChange}
+                    options={["minor", "major", "critical"]}
+                  />
+                </FormItem>
+              )}
             />
 
             <Button
-              onClick={handleSubmit}
-              label="Delete Task"
-              active={false}
-              className={"py-2 hover:text-white"}
-            />
+              type="submit"
+              variant="outline"
+              className="w-full bg-white text-foreground dark:text-gray-200"
+            >
+              Create Task
+            </Button>
+
+            <Button
+              variant="outline"
+              className="w-full bg-white text-foreground dark:text-gray-200"
+            >
+              Cancel
+            </Button>
           </div>
         </div>
       </form>

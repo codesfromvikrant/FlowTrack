@@ -22,7 +22,7 @@ const Tags = ({ selectedTags, handleSelectedTags }) => {
   const renderTagsListItem = tags?.map((item) => {
     return (
       <TagsListItem
-        data={item}
+        item={item}
         key={item._id}
         checked={selectedTags?.includes(item._id) ? true : false}
         handleSelectedTags={handleSelectedTags}

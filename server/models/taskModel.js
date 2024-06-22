@@ -12,10 +12,6 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
   }],
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
   startDate: {
     type: Date
   },
@@ -38,9 +34,13 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
   },
-  tasksgroupId: {
+  groupId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tasksgroup'
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   createdAt: {
     type: Date,

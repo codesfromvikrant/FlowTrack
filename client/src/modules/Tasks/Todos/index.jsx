@@ -30,8 +30,6 @@ const Todos = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      completed: false,
-      taskId,
     },
   });
 
@@ -39,10 +37,10 @@ const Todos = () => {
     console.log(values);
   };
 
-  // useEffect(() => {
-  //   if (!taskId) return;
-  //   dispatch(getAllTodos(taskId));
-  // }, [taskId]);
+  useEffect(() => {
+    if (!taskId) return;
+    dispatch(getAllTodos(taskId));
+  }, [taskId]);
 
   const renderTodoList = allTodos.map((todo) => (
     <TodosListItem
@@ -54,6 +52,7 @@ const Todos = () => {
 
   return (
     <div>
+      <h3 className="text-lg text-slate-700 font-semibold">Create Checklist</h3>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -64,10 +63,10 @@ const Todos = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Input
-                      placeholder="Enter Task Title Here..."
+                      placeholder="Enter Todo Here..."
                       {...field}
                       className="min-w-full"
                     />

@@ -1,6 +1,5 @@
 import React from "react";
 import parse from "html-react-parser";
-import Menu from "src/components/Menu";
 import { Link } from "react-router-dom";
 
 const Blocks = ({ data }) => {
@@ -33,7 +32,6 @@ const Blocks = ({ data }) => {
             <p className="">Last Updated On :</p>
             <p className="font-semibold">{data.lastUpdatedAt}</p>
           </div>
-          <Menu menulist={menulist} />
         </div>
         <Link to={`./editor?documentId=${data._id}`}>
           <p className="font-semibold leading-5 text-base text-slate-700 hover:text-blue-700 transition-all">
