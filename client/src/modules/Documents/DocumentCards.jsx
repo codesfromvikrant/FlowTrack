@@ -2,7 +2,7 @@ import React from "react";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
-const Blocks = ({ data }) => {
+const DocumentCards = ({ data }) => {
   const title =
     data.title.length > 65 ? data.title.slice(0, 65) + " ..." : data.title;
 
@@ -22,10 +22,7 @@ const Blocks = ({ data }) => {
   ];
 
   return (
-    <div
-      key={data._id}
-      className="bg-primary p-4 rounded-md shadow-md relative"
-    >
+    <div key={data._id} className="bg-white p-4 rounded-md shadow-md relative">
       <div className="cursor-pointer h-[16rem] text-sm bg-transparent text-slate-600 overflow-hidden">
         <div className="flex justify-between items-start gap-4">
           <div className="text-[0.7rem] leading-4 mb-1">
@@ -45,4 +42,4 @@ const Blocks = ({ data }) => {
   );
 };
 
-export default Blocks;
+export default DocumentCards;

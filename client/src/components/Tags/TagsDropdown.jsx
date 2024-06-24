@@ -38,7 +38,6 @@ export default function TagsDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{triggerComponent}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
-        {/* <DropdownMenuLabel></DropdownMenuLabel> */}
         <DropdownMenuSeparator />
         {renderDropdownMenuItem}
       </DropdownMenuContent>

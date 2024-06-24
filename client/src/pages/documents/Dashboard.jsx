@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import Header from "src/modules/Documents/Header";
-import useDocsFilter from "src/hooks/useDocsFilter";
-import FilteredTagsList from "src/modules/Documents/DocumentTags/FilteredTagsList";
-import Pagination from "src/components/Pagination";
-import Blocks from "../../modules/Documents/Blocks";
+import Header from "@/modules/Documents/Header";
+import useDocsFilter from "@/hooks/useDocsFilter";
+import FilteredTagsList from "@/modules/Documents/DocumentTags/FilteredTagsList";
+import Pagination from "@/components/Pagination";
+import DocumentCards from "@/modules/Documents/DocumentCards";
 
 const DocumentsDashboard = () => {
   const { documents } = useSelector((state) => state.documents);
@@ -13,7 +13,7 @@ const DocumentsDashboard = () => {
     useDocsFilter();
 
   const documentItems = allDocumentsData.map((obj) => {
-    return <Blocks key={obj._id} data={obj} />;
+    return <DocumentCards key={obj._id} data={obj} />;
   });
 
   return (

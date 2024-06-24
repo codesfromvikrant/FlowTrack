@@ -1,12 +1,10 @@
 import { BiSolidAddToQueue } from "react-icons/bi";
 import { HiDocument } from "react-icons/hi";
-import { FaTrash } from "react-icons/fa";
-import { ImPriceTags } from "react-icons/im";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import FilterTags from "./DocumentTags/FilterTags";
-import Button from "src/components/Button";
 import SearchBar from "src/components/SearchBar";
-import Tags from "../../components/Tags";
+import Tags from "@/components/Tags";
+import TagsDropdown from "@/components/Tags/TagsDropdown";
+import { Button } from "@/components/ui/button";
 
 const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
   const navigate = useNavigate();
@@ -14,43 +12,39 @@ const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
   const Pinned = searchParams.get("pinned") === "true" ? true : false;
 
   return (
-    <div className="flex justify-start items-center md:flex-nowrap flex-wrap gap-3 text-slate-700">
+    <div className="flex justify-start items-center md:flex-nowrap flex-wrap gap-3">
       <Button
         onClick={() => navigate("./editor?documentId=")}
-        label="New"
-        icon={<BiSolidAddToQueue className="text-xl" />}
-        active={false}
-        className="w-max"
-      />
+        variant="outline"
+      >
+        <span className="space-x-2 flex">
+          <BiSolidAddToQueue className="text-xl" />
+          <span>Documents</span>
+        </span>
+      </Button>
 
-      <Button
-        onClick={() => setSearchParams("")}
-        label="All"
-        icon={<HiDocument className="text-xl" />}
-        active={false}
-        className="w-max"
-      />
+      <Button onClick={() => setSearchParams("")} variant="outline">
+        <span className="space-x-2 flex">
+          <HiDocument className="text-xl" />
+          <span>All</span>
+        </span>
+      </Button>
 
       <Button
         onClick={() => setSearchParams({ pinned: !Pinned })}
-        label="Pinned"
-        icon={<FaTrash className="text-base" />}
-        active={false}
-        className="w-max"
-      />
-      {/* 
-      <div className="relative">
-        <Button
-          onClick={handleTags}
-          label="Filter By Tags"
-          icon={<ImPriceTags className="text-xl" />}
-          active={false}
-          className="w-max"
-        />
-        <FilterTags selectedTags={selectedTags} handleTags={handleTags} />
-      </div> */}
+        variant="outline"
+      >
+        <span className="space-x-2 flex">
+          <HiDocument className="text-xl" />
+          <span>Pinned</span>
+        </span>
+      </Button>
 
-      <Tags selectedTags={selectedTags} handleSelectedTags={handleTags} />
+      <TagsDropdown
+        selectedTags={selectedTags}
+        handleSelectedTags={handleTags}
+        triggerComponent={<Button variant="outline">Tags</Button>}
+      />
 
       <SearchBar
         searchTerm={searchTerm}

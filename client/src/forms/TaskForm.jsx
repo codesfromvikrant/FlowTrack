@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/form";
 import TagsDropdown from "@/components/Tags/TagsDropdown";
 import { createTask } from "@/features/tasksSlice";
-// import PlateEditor from "@/components/PlateEditor";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
