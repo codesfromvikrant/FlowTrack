@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { NavLink, useParams } from "react-router-dom";
+import Modal from "@/components/Modal";
+import InviteMembers from "./InviteMembers";
 
 const WorkspaceHeader = () => {
   const { workspaceId } = useParams();
@@ -45,9 +47,14 @@ const WorkspaceHeader = () => {
           Wokspace Name
         </span>
 
-        <Button className="bg-primary text-foreground dark:text-gray-200">
-          Open Details
-        </Button>
+        {/* <Button variant="outline">Invite Members</Button> */}
+        <Modal
+          buttonLabel="Invite Members"
+          headerTitle="Invite Board Members"
+          headerDescription="Only addmin members can invite members in the workspace while other member invitation request first have to be approved by admins."
+        >
+          <InviteMembers />
+        </Modal>
       </div>
 
       <nav className="flex justify-start items-start gap-6">{NavLinkItems}</nav>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import WorkspaceHeader from "../../modules/Workspace/WorkspaceHeader";
+import WorkspaceHeader from "@/modules/Workspace/Header";
 import { Outlet } from "react-router-dom";
 
 const Workspace = () => {
