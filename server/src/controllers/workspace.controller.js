@@ -1,4 +1,4 @@
-const Workspace = require("../models/workspaceModel");
+const Workspace = require("../models/workspace.model");
 const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
 

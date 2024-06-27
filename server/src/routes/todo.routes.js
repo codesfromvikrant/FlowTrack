@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const todoController = require('../controllers/todoController');
-const { authorizeToken } = require('../controllers/userController');
+const todoController = require('../controllers/todo.controller');
+const { authorizeToken } = require('../controllers/user.controller');
 
 router.use(authorizeToken);
 router.route('/')

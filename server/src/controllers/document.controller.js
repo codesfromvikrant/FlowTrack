@@ -1,4 +1,4 @@
-const Document = require('../models/documentModel');
+const Document = require('../models/document.model');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 

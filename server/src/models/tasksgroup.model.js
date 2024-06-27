@@ -9,7 +9,7 @@ const tasksgroupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
   }
-});
+}, { timestamps: true });
 
 const Tasksgroup = mongoose.model('Tasksgroup', tasksgroupSchema);
 module.exports = Tasksgroup;

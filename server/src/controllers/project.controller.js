@@ -1,4 +1,4 @@
-const Project = require('../models/projectModel');
+const Project = require('../models/project.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 

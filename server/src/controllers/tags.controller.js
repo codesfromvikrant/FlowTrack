@@ -1,4 +1,4 @@
-const Tag = require('../models/tagsModel');
+const Tag = require('../models/tags.model');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 

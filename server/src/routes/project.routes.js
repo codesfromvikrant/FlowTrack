@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const projectController = require('../controllers/projectController');
-const { authorizeToken } = require('../controllers/userController');
+const projectController = require('../controllers/project.controller');
+const { authorizeToken } = require('../controllers/user.controller');
 
 router.use(authorizeToken);
 router.route('/')

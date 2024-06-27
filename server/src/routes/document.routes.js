@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const documentController = require('../controllers/documentController');
-const { authorizeToken } = require('../controllers/userController');
+const documentController = require('../controllers/document.controller');
+const { authorizeToken } = require('../controllers/user.controller');
 
 router.use(authorizeToken);
 router.route('/')
