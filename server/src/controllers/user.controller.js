@@ -1,4 +1,5 @@
-const User = require('../models/userModels');
+const User = require('../models/user.models');
+const Invitation = require('../models/invitation.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const jwt = require('jsonwebtoken');
@@ -130,3 +131,32 @@ exports.getUserByUsername = catchAsync(async (req, res, next) => {
   });
 })
 
+exports.sendInvitation = catchAsync(async (req, res, next) => {
+  const { email, workspaceId } = req.query;
+  const invitation = await Invitation.create({ email, workspaceId, createdBy: req.user._id });
+
+  const invitationId = invitation._id;
+  const invitationLink =
+    `${req.protocol}://${req.get('host')}/api/v1/users/accept_invitations?invitationId=${invitationId}`;
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      invitation
+    }
+  });
+})
+
+exports.acceptInvitation = catchAsync(async (req, res, next) => {
+  const { invitationId } = req.query;
+  const invitation = await Invitation.findById(invitationId);
+  if (!invitation) return next(new AppError('No invitation found with that ID', 404));
+  invitation.accepted = true;
+  await invitation.save();
+  res.status(200).json({
+    status: 'success',
+    data: {
+      invitation
+    }
+  });
+})

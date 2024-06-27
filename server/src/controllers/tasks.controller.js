@@ -1,5 +1,5 @@
-const Task = require('../models/taskModel');
-const Tasksgroup = require('../models/tasksgroupModel');
+const Task = require('../models/task.model');
+const Tasksgroup = require('../models/tasksgroup.model');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 

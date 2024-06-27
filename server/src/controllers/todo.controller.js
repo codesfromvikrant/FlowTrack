@@ -1,4 +1,4 @@
-const Todo = require('../models/todoModel');
+const Todo = require('../models/todo.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 

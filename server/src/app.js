@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const userRouter = require('./routes/userRoutes');
-const tagsRouter = require('./routes/tagsRoutes');
-const documentsRouter = require('./routes/documentRoutes');
-const workspaceRouter = require('./routes/workspaceRoutes');
-const projectRouter = require('./routes/projectRoutes');
-const tasksRouter = require('./routes/tasksRoutes');
-const todoRouter = require('./routes/todoRoutes');
-const globalErrorHandler = require('./controllers/errorController');
+const userRouter = require('./routes/user.routes');
+const tagsRouter = require('./routes/tags.routes');
+const documentsRouter = require('./routes/document.routes');
+const workspaceRouter = require('./routes/workspace.routes');
+const projectRouter = require('./routes/project.routes');
+const tasksRouter = require('./routes/tasks.routes');
+const todoRouter = require('./routes/todo.routes');
+const globalErrorHandler = require('./controllers/error.controller');
 
 app.use(express.json());
 

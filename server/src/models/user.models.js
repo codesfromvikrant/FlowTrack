@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please confirm your password']
   }
-});
+}, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
   // Hash the password with cost of 12

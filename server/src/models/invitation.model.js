@@ -5,9 +5,6 @@ const invitationSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide an email']
   },
-  token: {
-    type: String
-  },
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Workspace'
@@ -20,7 +17,7 @@ const invitationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+}, { timestamps: true })
 
-module.exports = mongoose.model('Invitation', invitationSchema);
+const Invitation = mongoose.model('Invitation', invitationSchema);
 module.exports = Invitation;
