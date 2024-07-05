@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import UserPortal from "./pages/UserPortal";
-import Protected from "./Protected";
-import Layout from "./pages/Layout";
+import Home from "@/pages/Home";
+import UserPortal from "@/pages/UserPortal";
+import Protected from "@/Protected";
+import Layout from "@/pages/Layout";
 
-import Explore from "./pages/Explore";
-import NoPage from "./pages/NoPage";
+import Explore from "@/pages/Explore";
+import NoPage from "@/pages/NoPage";
 
-import DocumentsLayout from "./pages/documents/Layout";
-import DocumentsEditor from "./pages/documents/Editor";
-import DocumentsDashboard from "./pages/documents/Dashboard";
+import DocumentsLayout from "@/pages/documents/Layout";
+import DocumentsEditor from "@/pages/documents/Editor";
+import DocumentsDashboard from "@/pages/documents/Dashboard";
 
 import Workspace from "@/pages/workspace";
 import WorkspaceBoard from "@/pages/workspace/Board";
@@ -17,13 +17,22 @@ import WorkspaceLayout from "@/pages/workspace/Layout";
 import WorkspaceOverview from "@/pages/workspace/Overview";
 import WorkspaceDiscussion from "@/pages/workspace/Discussion";
 
-import TasksLayout from "./pages/tasks/Layout";
+import TasksLayout from "@/pages/tasks/Layout";
+import Invitation from "@/pages/Invitation";
 
 const RoutePaths = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route
+          path="invitation"
+          element={
+            <Protected>
+              <Invitation />
+            </Protected>
+          }
+        />
         <Route
           path="/user"
           element={

@@ -6,8 +6,6 @@ router.post('/signup', userController.signup);
 router.post('/signin', userController.signin);
 router.get('/signout', userController.signout);
 router.get('/unique_username/:searchterm', userController.uniqueUsername);
-
-router.use(userController.authorizeToken);
-router.get('/send_invitation', userController.sendInvitation);
+router.post('/is_authenticated', userController.isAuthenticated);
 
 module.exports = router;

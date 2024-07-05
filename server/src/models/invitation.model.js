@@ -9,9 +9,15 @@ const invitationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Workspace'
   },
-  accepted: {
-    type: Boolean,
-    default: false
+  role: {
+    type: String,
+    enum: ['admin', 'member'],
+    default: 'member'
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'accepted'],
+    default: 'pending'
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

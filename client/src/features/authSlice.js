@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import apiURL from "../config";
+import Cookies from "js-cookie";
 
 const initialState = {
   logged_in: false,
@@ -54,8 +54,10 @@ const headersObj = {
   },
 };
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const uniqueUsername = (username) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.get(`${apiURL}users/unique_username/${username}`, headersObj);
+  const response = await axios.get(`${apiBaseUrl}users/unique_username/${username}`, headersObj);
   const result = await response.data;
   result.status === "success"
     ? dispatch(setUsername({ message: result.message, available: true }))
@@ -63,7 +65,7 @@ export const uniqueUsername = (username) => catchAsync(async (dispatch, getState
 });
 
 export const userSignup = (formdata) => catchAsync(async (dispatch, getState) => {
-  const response = await axios.post(`${apiURL}users/signup`, formdata, {
+  const response = await axios.post(`${apiBaseUrl}users/signup`, formdata, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -75,7 +77,7 @@ export const userSignup = (formdata) => catchAsync(async (dispatch, getState) =>
 export const userSignin = (data) =>
   catchAsync(async (dispatch, getState) => {
     const response = await axios.post(
-      `${apiURL}users/signin`,
+      `${apiBaseUrl}users/signin`,
       data,
       headersObj
     );
@@ -83,6 +85,7 @@ export const userSignin = (data) =>
     if (result?.token) {
       dispatch(setLoggedIn(true));
       localStorage.setItem("token", result.token);
+      Cookies.set("token", result.token);
     }
   });
 

@@ -1,5 +1,17 @@
 const mongoose = require('mongoose');
 
+const membersSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'member'],
+    default: 'member'
+  }
+}, { timestamps: true });
+
 const workspaceSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -11,14 +23,7 @@ const workspaceSchema = new mongoose.Schema({
   },
   bgCover: String,
   bgColor: String,
-  admins: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  members: [membersSchema],
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
