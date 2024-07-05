@@ -1,5 +1,4 @@
 const User = require('../models/user.models');
-const Invitation = require('../models/invitation.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const jwt = require('jsonwebtoken');
@@ -14,10 +13,11 @@ const createToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true
+    sameSite: 'None',
+    httpOnly: true,
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-  res.cookie('jwt', token, cookieOptions);
+
+  res.cookie('jwt_token', token, cookieOptions);
 
   // Remove password from output
   user.password = undefined;
@@ -111,9 +111,6 @@ exports.authorizeToken = catchAsync(async (req, res, next) => {
   if (!currentUser) {
     return next(new AppError('The user belonging to this token does no longer exist', 401));
   }
-  // if (currentUser.changedPasswordAfter(decoded.iat)) {
-  //   return next(new AppError('User recently changed password! Please log in again', 401));
-  // }
   req.user = currentUser;
   next();
 })
@@ -131,32 +128,19 @@ exports.getUserByUsername = catchAsync(async (req, res, next) => {
   });
 })
 
-exports.sendInvitation = catchAsync(async (req, res, next) => {
-  const { email, workspaceId } = req.query;
-  const invitation = await Invitation.create({ email, workspaceId, createdBy: req.user._id });
-
-  const invitationId = invitation._id;
-  const invitationLink =
-    `${req.protocol}://${req.get('host')}/api/v1/users/accept_invitations?invitationId=${invitationId}`;
-
+exports.isAuthenticated = catchAsync(async (req, res, next) => {
+  const { token } = req.body;
+  if (!token) {
+    return next(new AppError('You are not logged in! Please log in to get access', 401));
+  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const currentUser = await User.findById(decoded.id);
+  if (!currentUser) {
+    return next(new AppError('The user belonging to this token does no longer exist', 401));
+  }
   res.status(200).json({
     status: 'success',
-    data: {
-      invitation
-    }
+    message: 'You are authenticated',
   });
 })
 
-exports.acceptInvitation = catchAsync(async (req, res, next) => {
-  const { invitationId } = req.query;
-  const invitation = await Invitation.findById(invitationId);
-  if (!invitation) return next(new AppError('No invitation found with that ID', 404));
-  invitation.accepted = true;
-  await invitation.save();
-  res.status(200).json({
-    status: 'success',
-    data: {
-      invitation
-    }
-  });
-})
