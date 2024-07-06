@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSignup } from "src/features/authSlice";
 import { userSignup, uniqueUsername } from "src/features/authSlice";
 import { setUsername } from "src/features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.auth.username);
 
@@ -111,7 +113,7 @@ const Signup = () => {
             Already have an account?
           </p>
           <p
-            onClick={() => dispatch(toggleSignup(false))}
+            onClick={() => navigate("../login")}
             className="text-blue-600 font-medium cursor-pointer"
           >
             Sign In

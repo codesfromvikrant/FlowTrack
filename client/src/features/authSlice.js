@@ -83,10 +83,10 @@ export const userSignin = (data) =>
     );
     const result = await response.data;
     if (result?.token) {
-      dispatch(setLoggedIn(true));
-      localStorage.setItem("token", result.token);
       Cookies.set("token", result.token);
     }
+    const visitedUrl = sessionStorage.getItem("visitedUrl");
+
   });
 
 export default authSlice.reducer;

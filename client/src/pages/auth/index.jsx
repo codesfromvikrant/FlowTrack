@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import Logo from "@/assets/icons/workflow.png";
-import Signin from "@/modules/Auth/Signin";
 import { useSelector } from "react-redux";
-import Signup from "@/modules/Auth/Signup";
-import { useNavigate } from "react-router";
+import { useNavigate, Outlet } from "react-router";
 
 export default function Auth() {
   const signupVisible = useSelector((state) => state.auth.signupVisible);
@@ -43,7 +41,7 @@ export default function Auth() {
         </div>
 
         <div className="lg:w-1/3 md:w-1/2 sm:w-2/3 w-full flex justify-center items-center gap-2  flex-col">
-          {signupVisible ? <Signup /> : <Signin />}
+          <Outlet />
         </div>
       </section>
     </main>
