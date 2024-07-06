@@ -20,11 +20,21 @@ import WorkspaceDiscussion from "@/pages/workspace/Discussion";
 import TasksLayout from "@/pages/tasks/Layout";
 import Invitation from "@/pages/Invitation";
 
+import Auth from "@/pages/auth/index";
+import Signin from "@/pages/auth/Signin";
+import Signup from "@/pages/auth/Signup";
+
 const RoutePaths = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="auth" element={<Auth />}>
+          <Route index element={<Signin />} />
+          <Route path="login" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
+
         <Route
           path="invitation"
           element={

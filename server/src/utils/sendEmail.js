@@ -9,17 +9,14 @@ module.exports = class Email {
   }
 
   transporter() {
-    if (process.env.NODE_ENV === 'production') { return nodemailer.createTransport({}) }
-    else {
-      return nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD
-        }
-      })
-    }
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    })
   }
 
   async send(template, subject) {
@@ -33,28 +30,3 @@ module.exports = class Email {
     await this.transporter().sendMail(mailOptions);
   }
 }
-
-// const transporter = () => {
-//   return nodemailer.createTransport({
-//     host: process.env.EMAIL_HOST,
-//     port: process.env.EMAIL_PORT,
-//     auth: {
-//       user: process.env.EMAIL_USERNAME,
-//       pass: process.env.EMAIL_PASSWORD
-//     }
-//   })
-// }
-
-// const sendEmail = async (email, subject, text) => {
-//   const mailOptions = {
-//     from: `Flowtrack Team <${process.env.EMAIL_FROM}>`,
-//     to: email,
-//     subject,
-//     text,
-//   };
-
-//   console.log(mailOptions)
-
-//   await transporter().sendMail(mailOptions);
-// }
-

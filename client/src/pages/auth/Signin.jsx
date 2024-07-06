@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSignup, userSignin } from "src/features/authSlice";
+import { userSignin } from "src/features/globalSlice";
 import { useNavigate } from "react-router";
 
 const Signin = () => {
@@ -63,7 +63,7 @@ const Signin = () => {
             Don't have account?
           </p>
           <p
-            onClick={() => dispatch(toggleSignup(true))}
+            onClick={() => navigate("../signup")}
             className="text-blue-600 font-medium cursor-pointer"
           >
             Signup

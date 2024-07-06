@@ -1,5 +1,10 @@
-import Auth from "@/modules/Auth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  return <Auth />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/auth/login");
+  }, []);
 }
