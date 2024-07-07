@@ -60,3 +60,22 @@ exports.acceptInvitation = catchAsync(async (req, res, next) => {
     }
   });
 })
+
+exports.rejectInvitation = catchAsync(async (req, res, next) => {
+  const { token } = req.query;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const { invitationId, redirectUrl } = decoded;
+
+  const invitation = await Invitation.findById(invitationId);
+  if (!invitation) return next(new AppError('No invitation found with that ID', 404));
+  invitation.status = "rejected";
+  await invitation.save();
+
+  res.status(200).json({
+    status: 'success',
+    message: 'invitation rejected successfully!',
+    data: {
+      redirectUrl
+    }
+  });
+})

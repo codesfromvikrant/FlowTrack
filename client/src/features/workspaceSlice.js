@@ -8,6 +8,7 @@ const initialState = {
     currentData: {},
   },
   activeWorkspaceForm: false,
+  user_role: "",
   tags: {
     data: [],
     error: "",

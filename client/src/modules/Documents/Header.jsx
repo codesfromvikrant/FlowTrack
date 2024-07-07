@@ -16,6 +16,7 @@ const Header = ({ selectedTags, handleTags, searchTerm, handleSearch }) => {
       <Button
         onClick={() => navigate("./editor?documentId=")}
         variant="outline"
+        className="bg-secondary text-muted-foreground shadow"
       >
         <span className="space-x-2 flex">
           <BiSolidAddToQueue className="text-xl" />

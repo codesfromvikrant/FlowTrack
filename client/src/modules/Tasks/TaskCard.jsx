@@ -62,7 +62,7 @@ const TaskCard = ({ data, groupId }) => {
   ];
 
   return (
-    <div className="bg-white shadow-md p-3 rounded-lg text-sm text-slate-700">
+    <div className="bg-secondary shadow-md p-3 rounded-lg text-sm text-secondary-foreground">
       <div className="flex justify-between items-start gap-2">
         <span
           onClick={handleToggleTaskForm}
@@ -79,7 +79,7 @@ const TaskCard = ({ data, groupId }) => {
         />
       </div>
 
-      <div className="text-xs mt-1 mb-3 font-medium">
+      <div className="text-xs text-muted-foreground mt-1 mb-3 font-medium">
         {parse(data?.description)}
       </div>
 

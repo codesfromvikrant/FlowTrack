@@ -20,14 +20,17 @@ const WorkspaceBoard = () => {
 
   return (
     <>
-      <div className="bg-white">
-        <div className="max-w-6xl mx-auto flex justify-between items-center gap-10 py-4">
-          <h3 className="text-xl font-semibold text-slate-700">
+      <div className="">
+        <div className="max-w-6xl mx-auto flex justify-between items-center gap-10 py-3">
+          <h3 className="text-2xl font-bold text-foreground">
             Workspaces Board
           </h3>
 
           <div className="flex justify-start items-center gap-2">
-            <Button className="bg-primary text-foreground dark:text-gray-200">
+            <Button
+              variant="outline"
+              className="bg-secondary text-secondary-foreground"
+            >
               Filter
             </Button>
             <Modal

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userSignin } from "src/features/globalSlice";
+import { userSignin } from "@/features/globalSlice";
 import { useNavigate } from "react-router";
 
 const Signin = () => {
@@ -10,7 +10,7 @@ const Signin = () => {
     email: "",
     password: "",
   });
-  const loggedIn = useSelector((state) => state.auth.logged_in);
+  const loggedIn = useSelector((state) => state.global.logged_in);
 
   useEffect(() => {
     if (!loggedIn) return;

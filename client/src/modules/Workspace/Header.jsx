@@ -35,17 +35,17 @@ const WorkspaceHeader = () => {
         })}
         className="cursor-pointer hover:text-blue-500 w-max py-1"
       >
-        <span className="text-gray-600 text-sm font-medium">{nav.name}</span>
+        <span className="text-secondary-foreground text-sm font-medium">
+          {nav.name}
+        </span>
       </NavLink>
     ));
   }, [navs]);
 
   return (
-    <header className="px-8 pt-2 bg-white border-b-[1px] border-slate-200">
+    <header className="px-8 pt-2 bg-slate-100 dark:bg-gray-900 shadow-md text-secondary-foreground">
       <div className="flex justify-between items-center w-full gap-4">
-        <span className="text-xl text-gray-700 font-semibold">
-          Wokspace Name
-        </span>
+        <span className="text-xl font-semibold">Wokspace Name</span>
 
         {/* <Button variant="outline">Invite Members</Button> */}
         <Modal

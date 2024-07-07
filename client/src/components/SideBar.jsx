@@ -8,14 +8,13 @@ const SideBar = () => {
   const sidebar = useSelector((state) => state.auth.show_sidebar);
 
   const activeStyle = (isActive) => ({
-    backgroundColor: isActive ? "#e2e8f0" : "",
-    color: isActive ? "#475569" : "",
+    // backgroundColor: isActive ? "#e2e8f0" : "",
+    color: isActive ? "#3b82f6" : "",
     padding: isActive ? "0.5rem" : "",
-    margin: isActive ? "0.3rem 0" : "",
   });
 
   const menuItems = [
-    { to: "/user/explore", icon: RiDashboardFill, text: "Dashboard" },
+    { to: "/user/dashboard", icon: RiDashboardFill, text: "Dashboard" },
     { to: "/user/workspaces", icon: MdWorkspaces, text: "Workspaces" },
     { to: "/user/tasks", icon: MdTask, text: "Tasks" },
     { to: "/user/documents", icon: IoDocuments, text: "Documents" },
@@ -27,9 +26,9 @@ const SideBar = () => {
       key={to}
       to={to}
       style={({ isActive }) => activeStyle(isActive)}
-      className="flex items-center gap-2 text-secondary hover:text-gray-700 transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-secondary cursor-pointer"
+      className="flex items-center gap-2 text-foreground hover:text-foreground transition-all duration-500 py-1 hover:py-2 w-full rounded-lg hover:px-2 hover:bg-accent cursor-pointer"
     >
-      <Icon className="text-xl text-slate-600" />
+      <Icon className="text-xl text-primary" />
       <p className="font-semibold tracking-wide text-sm">{text}</p>
     </NavLink>
   ));
@@ -38,7 +37,7 @@ const SideBar = () => {
     <div
       className={`${
         sidebar ? "lg:flex hidden" : ""
-      } lg:flex flex-col justify-between min-w-52 min-h-screen overflow-y-auto bg-background border-r-2 border-muted px-4 pt-8 lg:static fixed top-0 left-0 shadow-md`}
+      } lg:flex flex-col justify-between min-w-52 min-h-screen overflow-y-auto bg-background border-r-2 border-border px-4 pt-8 lg:static fixed top-0 left-0 shadow-md`}
     >
       <div className="flex flex-col items-start gap-6 w-full">
         <nav className="w-full">

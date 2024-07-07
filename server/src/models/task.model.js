@@ -1,4 +1,16 @@
 const mongoose = require('mongoose');
+
+const assigneeSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  lead: {
+    type: Boolean,
+    default: false
+  }
+}, { timestamps: true });
+
 const taskSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -12,6 +24,7 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
   }],
+  assignees: [assigneeSchema],
   startDate: {
     type: Date
   },
