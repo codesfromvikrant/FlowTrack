@@ -16,4 +16,6 @@ router.route('/tasksgroup')
   .get(tasksController.getAllTasksGroup)
   .post(tasksController.createTasksGroup);
 
+router.get('/assigneed', tasksController.getAllAssigneedTasks);
+
 module.exports = router;

@@ -83,7 +83,10 @@ const TaskForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-3 w-full bg-background p-4 rounded-lg shadow-lg"
+      >
         <div className="flex justify-center items-start gap-6 w-full">
           <div className="space-y-2">
             <FormField
@@ -116,7 +119,10 @@ const TaskForm = () => {
               selectedTags={formStates.taskTags}
               handleSelectedTags={handleTaskTags}
               triggerComponent={
-                <Button variant="outline" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full bg-secondary text-secondary-foreground"
+                >
                   Tags
                 </Button>
               }
@@ -169,14 +175,14 @@ const TaskForm = () => {
             <Button
               type="submit"
               variant="outline"
-              className="w-full bg-white text-foreground dark:text-gray-200"
+              className="w-full bg-secondary text-secondary-foreground"
             >
               Create Task
             </Button>
 
             <Button
               variant="outline"
-              className="w-full bg-white text-foreground dark:text-gray-200"
+              className="w-full bg-secondary text-secondary-foreground"
             >
               Cancel
             </Button>

@@ -1,18 +1,12 @@
 const Tag = require('../models/tags.model');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
+const ApiResponse = require('../utils/ApiResponse');
 
 exports.getAllTags = catchAsync(async (req, res, next) => {
   const { _id } = req.user;
   const tags = await Tag.find({ userID: _id })
-
-  res.status(200).json({
-    status: 'success',
-    results: tags.length,
-    data: {
-      tags
-    }
-  });
+  new ApiResponse(200, tags, 'successfully tags fetched').send(res);
 });
 
 exports.createTag = catchAsync(async (req, res, next) => {
@@ -28,20 +22,12 @@ exports.createTag = catchAsync(async (req, res, next) => {
   tag = await Tag.create({
     name, userID: _id
   });
-  res.status(201).json({
-    status: 'success',
-    data: {
-      tag
-    }
-  });
+  new ApiResponse(201, tag, 'successfully tag created').send(res);
 });
 
 exports.deleteTag = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const tag = await Tag.findByIdAndDelete(id);
   if (!tag) return next(new AppError('No tag found with that ID', 404));
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
+  new ApiResponse(204, null, 'successfully tag deleted').send(res);
 });

@@ -19,7 +19,12 @@ export default function Modal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{buttonLabel}</Button>
+        <Button
+          variant="outline"
+          className="bg-secondary text-secondary-foreground"
+        >
+          {buttonLabel}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>

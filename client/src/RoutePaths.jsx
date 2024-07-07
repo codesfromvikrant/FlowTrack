@@ -52,6 +52,7 @@ const RoutePaths = () => {
           }
         >
           <Route index element={<Explore />} />
+          <Route path="dashboard" element={<Explore />} />
           <Route path="*" element={<NoPage />} />
 
           {/* Workspaces */}

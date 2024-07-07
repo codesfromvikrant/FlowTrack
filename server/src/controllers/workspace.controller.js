@@ -3,7 +3,8 @@ const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getAllWorkspaces = catchAsync(async (req, res, next) => {
-  const workspaces = await Workspace.find();
+  const workspaces = await Workspace.find({ $or: [{ members: { $elemMatch: { userId: req.user._id } } }, { createdBy: req.user._id }] });
+
   res.status(200).json({
     status: "success",
     results: workspaces.length,

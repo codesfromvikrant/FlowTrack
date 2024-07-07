@@ -1,6 +1,7 @@
 const Document = require('../models/document.model');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
+const ApiResponse = require('../utils/ApiResponse');
 
 exports.getAllDocuments = catchAsync(async (req, res, next) => {
   const { tags, page, limit, search, projectId } = req.query;
@@ -29,13 +30,7 @@ exports.getAllDocuments = catchAsync(async (req, res, next) => {
   }
 
   if (!documents) return next(new AppError('No documents found', 404));
-  res.status(200).json({
-    status: 'success',
-    results: documents.length,
-    data: {
-      documents
-    }
-  });
+  new ApiResponse(200, documents, 'success').send(res);
 });
 
 exports.getDocument = catchAsync(async (req, res, next) => {
@@ -43,33 +38,20 @@ exports.getDocument = catchAsync(async (req, res, next) => {
   if (!id) return next(new AppError('Please provide an id', 400));
 
   const document = await Document.findById(id);
-  res.status(200).json({
-    status: 'success',
-    data: {
-      document
-    }
-  });
+  new ApiResponse(200, document, 'success').send(res);
 });
 
 exports.createDocument = catchAsync(async (req, res, next) => {
   req.body.createdBy = req.user._id;
   const document = await Document.create(req.body);
-  res.status(201).json({
-    status: 'success',
-    data: {
-      document
-    }
-  });
+  new ApiResponse(201, document, 'success').send(res);
 });
 
 exports.deleteDocument = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const document = await Document.findByIdAndDelete(id);
   if (!document) return next(new AppError('No note found with that ID', 404));
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
+  new ApiResponse(204, null, 'success').send(res);
 });
 
 exports.updateDocument = catchAsync(async (req, res, next) => {
@@ -79,12 +61,7 @@ exports.updateDocument = catchAsync(async (req, res, next) => {
     runValidators: true
   });
   if (!document) return next(new AppError('No note found with that ID', 404));
-  res.status(200).json({
-    status: 'success',
-    data: {
-      document
-    }
-  });
+  new ApiResponse(200, document, 'success').send(res);
 });
 
 exports.updateDocumentTags = catchAsync(async (req, res, next) => {
@@ -104,12 +81,5 @@ exports.updateDocumentTags = catchAsync(async (req, res, next) => {
   }
   document.tags = tags;
   await document.save();
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      document
-    }
-  });
-
+  new ApiResponse(200, document, 'success').send(res);
 });

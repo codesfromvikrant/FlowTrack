@@ -19,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between items-center px-4 bg-slate-900 dark:bg-black border-b-[1px] border-muted text-slate-300">
+    <header className="flex justify-between items-center px-4 bg-primary dark:bg-primary-foreground border-b-[1px] border-muted text-slate-200">
       <div className="flex items-center">
         <img src={Logo} className="w-10" alt="mediaharbor-logo" />
         <p className="text-lg font-black">Flowtrack</p>
@@ -30,7 +30,7 @@ const Header = () => {
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
           }}
-          className=" hover:text-blue-600 transition-all duration-300 text-xl cursor-pointer"
+          className=" hover:text-white transition-all duration-300 text-xl cursor-pointer"
         >
           {theme === "dark" ? (
             <MdLightMode className="text-2xl" />

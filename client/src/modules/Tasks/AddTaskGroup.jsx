@@ -43,7 +43,7 @@ const AddTaskGroup = () => {
   };
 
   return (
-    <div className="w-[350px] bg-white p-4 rounded-md shadow">
+    <div className="w-[350px] bg-secondary p-4 rounded-md shadow">
       {taskGroupForm ? (
         <div className="">
           <Form {...form}>
@@ -56,6 +56,7 @@ const AddTaskGroup = () => {
                     <FormLabel>Group Name</FormLabel>
                     <FormControl>
                       <Input
+                        className="border-secondary-foreground border-2"
                         placeholder="Enter Group Name Here..."
                         {...field}
                       />
@@ -66,13 +67,13 @@ const AddTaskGroup = () => {
               <div className="flex justify-start items-center gap-2 mt-2">
                 <Button
                   type="submit"
-                  className="w-full text-foreground dark:text-gray-200"
+                  className="w-full bg-primary text-foreground dark:text-gray-200"
                 >
                   Create
                 </Button>
                 <Button
                   onClick={toggleTaskGroupForm}
-                  className="w-full text-foreground dark:text-gray-200"
+                  className="w-full bg-background text-foreground dark:text-gray-200"
                 >
                   Cancel
                 </Button>
@@ -83,7 +84,8 @@ const AddTaskGroup = () => {
       ) : (
         <Button
           onClick={toggleTaskGroupForm}
-          className="w-full bg-white shadow-none border-[1px] border-gray-300 text-foreground dark:text-gray-200"
+          variant="outline"
+          className="w-full bg-secondary shadow-none text-secondary-foreground border-secondary-foreground"
         >
           Create Task Group
         </Button>

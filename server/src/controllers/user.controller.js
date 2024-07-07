@@ -4,6 +4,7 @@ const AppError = require('../utils/AppError');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
+const ApiResponse = require('../utils/ApiResponse');
 
 const createToken = (user, statusCode, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -16,20 +17,11 @@ const createToken = (user, statusCode, res) => {
     sameSite: 'None',
     httpOnly: true,
   };
-
   res.cookie('jwt_token', token, cookieOptions);
-
   // Remove password from output
   user.password = undefined;
   user.passwordConfirm = undefined;
-
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
+  new ApiResponse(statusCode, user, 'success').send(res);
 }
 
 function containsSpecialCharOrSpace(text) {
@@ -39,7 +31,6 @@ function containsSpecialCharOrSpace(text) {
 
 exports.uniqueUsername = catchAsync(async (req, res, next) => {
   const { searchterm } = req.params;
-
   // Validation: Check for special characters or spaces in the username
   if (containsSpecialCharOrSpace(searchterm)) {
     res.status(200).json({
@@ -49,15 +40,9 @@ exports.uniqueUsername = catchAsync(async (req, res, next) => {
   }
   const uniqueUsername = await User.findOne({ username: searchterm });
   if (uniqueUsername) {
-    res.status(200).json({
-      status: 'fail',
-      message: 'Username already exists!'
-    })
+    new ApiResponse(200, uniqueUsername, 'Username already exists!').send(res);
   }
-  res.status(200).json({
-    status: 'success',
-    message: 'Username is unique!'
-  })
+  new ApiResponse(200, uniqueUsername, 'Username is unique!').send(res);
 })
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -90,9 +75,7 @@ exports.signin = catchAsync(async (req, res, next) => {
 
 exports.signout = (req, res) => {
   res.clearCookie('jwt');
-  res.status(200).json({
-    status: 'success'
-  });
+  new ApiResponse(200, null, 'success').send(res);
 }
 
 // Middleware to protect routes
@@ -119,13 +102,7 @@ exports.getUserByUsername = catchAsync(async (req, res, next) => {
   const { searchterm } = req.params;
   const user = await User.find({ username: new RegExp(searchterm, 'i') }).limit(10);
   if (!user) return next(new AppError('No user found with that username', 404));
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user
-    }
-  });
+  new ApiResponse(200, user, 'success').send(res);
 })
 
 exports.isAuthenticated = catchAsync(async (req, res, next) => {
@@ -138,9 +115,6 @@ exports.isAuthenticated = catchAsync(async (req, res, next) => {
   if (!currentUser) {
     return next(new AppError('The user belonging to this token does no longer exist', 401));
   }
-  res.status(200).json({
-    status: 'success',
-    message: 'You are authenticated',
-  });
+  new ApiResponse(200, currentUser, 'You are authenticated!').send(res);
 })
 
