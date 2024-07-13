@@ -1,34 +1,50 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSignup } from "src/features/authSlice";
-import { userSignup, uniqueUsername } from "src/features/authSlice";
-import { setUsername } from "src/features/authSlice";
+import { uniqueUsername } from "@/features/globalSlice";
+import { userSignup } from "@/features/globalSlice";
+import { setUsername } from "@/features/globalSlice";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.auth.username);
+  const username = useSelector((state) => state.global.username);
+  const [values, setValues] = useState("");
 
-  const [values, setValues] = useState({
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
+  const formSchema = z.object({
+    username: z
+      .string()
+      .min(2, { message: "Username must be at least 5 characters." }),
+    email: z.string().email(),
+    password: z.string(),
+    passwordConfirm: z.string(),
   });
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    },
+  });
 
-  const handleSignup = (e) => {
-    e.preventDefault();
+  const onSubmit = (values) => {
     dispatch(userSignup(values));
   };
 
   let debounceTimer;
   const handleUsername = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    console.log(e.target.value);
+    setValues(e.target.value);
     if (debounceTimer) clearTimeout(debounceTimer);
 
     if (e.target.value === "") {
@@ -41,86 +57,110 @@ const Signup = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSignup}
-      className="w-full p-4 rounded-md bg-white shadow"
-    >
+    <Card className="w-full p-4 rounded-md bg-background shadow">
       <div className="">
-        <p className="text-3xl font-extrabold text-center text-gray-700">
+        <p className="text-3xl font-extrabold text-center text-foreground">
           Welcome!
         </p>
-        <p className="text-center font-medium text-sm text-gray-600">
+        <p className="text-center font-medium text-sm text-muted-foreground">
           Signup To Get Started!
         </p>
       </div>
 
-      <div className="w-full mt-4 flex justify-start items-start flex-col">
-        <div className="mb-3 w-full">
-          <input
-            value={values.username}
-            name="username"
-            onChange={handleUsername}
-            type="text"
-            className="w-full p-4 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
-            placeholder="Enter Username!"
-            required
-          />
-          <p
-            className={`${
-              username.available ? "text-green-500" : "text-red-400"
-            } text-sm`}
-          >
-            {username.message}
-          </p>
-        </div>
+      <div className="w-full mt-4">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+            <div className="w-full">
+              <Input
+                type="text"
+                value={values}
+                onChange={handleUsername}
+                placeholder="Enter Username"
+                className="w-full px-3 py-6 text-sm rounded-lg text-foreground outline-none"
+                required
+              />
+              <p
+                className={`${
+                  username.available ? "text-green-500" : "text-red-400"
+                } text-sm font-medium`}
+              >
+                {username.message}
+              </p>
+            </div>
 
-        <input
-          value={values.email}
-          name="email"
-          onChange={handleChange}
-          type="text"
-          className="w-full p-4 text-sm mb-3 bg-slate-100 rounded-md outline-none text-gray-700"
-          placeholder="Enter Email ID!"
-          required
-        />
-        <input
-          value={values.password}
-          name="password"
-          onChange={handleChange}
-          type="password"
-          className="w-full p-4 mb-3 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
-          placeholder="Enter Password!"
-          required
-        />
-        <input
-          value={values.passwordConfirm}
-          name="passwordConfirm"
-          onChange={handleChange}
-          type="password"
-          className="w-full p-4 mb-1 text-sm bg-slate-100 rounded-md outline-none text-gray-700"
-          placeholder="Enter Password to Confirm!"
-          required
-        />
-        <button
-          type="submit"
-          className="p-4 mt-6 mb-1 font-medium text-gray-200 bg-blue-600 rounded-md w-full"
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      {...field}
+                      placeholder="Enter Email Id"
+                      className="w-full px-3 py-6 text-sm rounded-lg text-foreground outline-none"
+                      required
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      {...field}
+                      placeholder="Enter Password"
+                      className="w-full px-3 py-6 text-sm rounded-lg text-foreground outline-none"
+                      required
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="passwordConfirm"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      {...field}
+                      placeholder="Enter Password Confirmation"
+                      className="w-full px-3 py-6 text-sm rounded-lg text-foreground outline-none"
+                      required
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full py-6 rounded-lg bg-primary text-primary-foreground"
+            >
+              Sign Up
+            </Button>
+          </form>
+        </Form>
+
+        <p className="text-muted-foreground text-sm mt-4 font-medium text-center">
+          Already have an account?
+        </p>
+        <p
+          onClick={() => navigate("/auth/login")}
+          className="text-primary text-sm text-center font-medium cursor-pointer"
         >
-          Sign Up
-        </button>
-
-        <div className="flex justify-center items-center mt-2 mx-auto text-sm flex-col">
-          <p className="text-gray-700 font-medium text-center">
-            Already have an account?
-          </p>
-          <p
-            onClick={() => navigate("../login")}
-            className="text-blue-600 font-medium cursor-pointer"
-          >
-            Sign In
-          </p>
-        </div>
+          Sign In
+        </p>
       </div>
-    </form>
+    </Card>
   );
 };
 
