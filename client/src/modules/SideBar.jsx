@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdWorkspaces, MdTask } from "react-icons/md";
 import { IoDocuments, IoSettings } from "react-icons/io5";
 
 const SideBar = () => {
-  const sidebar = useSelector((state) => state.auth.show_sidebar);
-
   const activeStyle = (isActive) => ({
     // backgroundColor: isActive ? "#e2e8f0" : "",
     color: isActive ? "#3b82f6" : "",
@@ -34,11 +32,7 @@ const SideBar = () => {
   ));
 
   return (
-    <div
-      className={`${
-        sidebar ? "lg:flex hidden" : ""
-      } lg:flex flex-col justify-between min-w-52 min-h-screen overflow-y-auto bg-background border-r-2 border-border px-4 pt-8 lg:static fixed top-0 left-0 shadow-md`}
-    >
+    <div className="lg:flex flex-col justify-between min-w-52 min-h-screen overflow-y-auto bg-background border-r-2 border-border px-4 pt-8 lg:static fixed top-0 left-0 shadow-md">
       <div className="flex flex-col items-start gap-6 w-full">
         <nav className="w-full">
           <ul className="w-full">{renderMenuItems}</ul>

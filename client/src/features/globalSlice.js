@@ -4,6 +4,10 @@ import Cookies from "js-cookie";
 
 const initialState = {
   logged_in: false,
+  username: {
+    message: "",
+    available: false,
+  },
   tags: {
     data: [],
     currentId: "",
@@ -21,11 +25,13 @@ export const globalSlice = createSlice({
       const { key, value } = action.payload;
       state[key].data = value;
     },
-
+    setUsername: (state, action) => {
+      state.username = action.payload;
+    },
   },
 });
 
-export const { setAllData, setLoggedIn } = globalSlice.actions;
+export const { setAllData, setLoggedIn, setUsername } = globalSlice.actions;
 
 const catchAsync = (fn) => {
   return (dispatch, getState) => {
@@ -71,23 +77,45 @@ export const acceptInvitation = token => catchAsync(async (dispatch, getState) =
   window.location.href = redirectUrl
 })
 
-export const userSignin = (data) => catchAsync(async (dispatch, getState) => {
+export const userSignin = (values) => catchAsync(async (dispatch, getState) => {
   const response = await axios.post(
     `${apiBaseUrl}users/signin`,
-    data,
+    values,
     {
       headers: {
         "Content-Type": "application/json",
       }
     },
   );
-  const result = await response.data;
-  if (result?.token) {
-    Cookies.set("token", result.token);
+  const { data } = await response.data;
+  if (data?.token) {
+    Cookies.set("token", data.token);
     dispatch(setLoggedIn(true));
   }
   const visitedUrl = sessionStorage.getItem("visitedUrl");
   if (visitedUrl) window.location.href = visitedUrl;
+});
+
+export const userSignup = (values) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.post(`${apiBaseUrl}users/signup`, values, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const { data, status } = await response.data;
+  if (data?.token && status) dispatch(setLoggedIn(true));
+});
+
+export const uniqueUsername = (username) => catchAsync(async (dispatch, getState) => {
+  const response = await axios.get(`${apiBaseUrl}users/unique_username/${username}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await response.data;
+  result.status === "success"
+    ? dispatch(setUsername({ message: result.message, available: true }))
+    : dispatch(setUsername({ message: result.message, available: false }));
 });
 
 export default globalSlice.reducer;
